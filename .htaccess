@@ -1,0 +1,11 @@
+# Si le module est activé
+<IfModule mod_rewrite.c>
+
+    # Mod rewrite activé
+    RewriteEngine On
+    #
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    #
+    RewriteRule . /cinems/index.php [L]
+</IfModule>
