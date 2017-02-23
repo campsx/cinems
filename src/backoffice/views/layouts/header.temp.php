@@ -15,7 +15,7 @@
 
                   <div class="pull-left">
                       <button class="button-menu-mobile open-left">
-                          <i class="material-icons">&#xE5D2;</i>
+                          <i class="material-icons">&#xE1DB;</i>
                       </button>
                       <span class="clearfix"></span>
                   </div>
@@ -40,98 +40,3 @@
       </div>
 
 </header>
-
-<div class="left side-menu" style="overflow: inherit;">
-    <div class="sidebar-inner slimscrollleft" style="overflow: inherit;">
-
-        <div id="sidebar-menu">
-            <ul>
-
-                <li>
-                    <a href="index.html">
-                      <i class="material-icons">&#xE30B;</i>
-                      <span> Dashboard </span>
-                    </a>
-                </li>
-
-                <li class="menu-title">Content</li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE43A;</i>
-                    <span> Films </span>
-                  </a>
-              </li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE03F;</i>
-                    <span> Actors </span>
-                  </a>
-              </li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE87C;</i>
-                    <span> Directors </span>
-                  </a>
-              </li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE14D;</i>
-                    <span> Pages </span>
-                  </a>
-              </li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE3B6;</i>
-                    <span> Images </span>
-                  </a>
-              </li>
-
-              <li class="menu-title">Administation</li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE851;</i>
-                    <span> Users </span>
-                  </a>
-              </li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE24C;</i>
-                    <span> Comments </span>
-                  </a>
-              </li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE0BE;</i>
-                    <span> Emails </span>
-                  </a>
-              </li>
-
-              <li>
-                  <a href="index.html">
-                    <i class="material-icons">&#xE929;</i>
-                    <span> Restore </span>
-                  </a>
-              </li>
-
-
-
-
-
-
-
-            </ul>
-            <div class="clearfix"></div>
-        </div>
-
-        <div class="clearfix"></div>
-    </div>
-
-</div>

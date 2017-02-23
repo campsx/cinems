@@ -12,6 +12,7 @@
   <body>
     <div class="page close">
       <?php include "src/backoffice/views/layouts/header.temp.php" ?>
+      <?php include "src/backoffice/views/layouts/sidebar.temp.php" ?>
       <section class="content">
         <?php include $this->view; ?>
       </section>

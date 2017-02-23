@@ -1,5 +1,5 @@
 <?php
-class userController{
+class UserController{
 
 
 	public function indexAction()
