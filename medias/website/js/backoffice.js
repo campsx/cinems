@@ -5,9 +5,10 @@ $(document).ready(function() {
         hamburguer.toggleClass('close');
     });
 
-    var settings = $('.dropdown');
-    settings.click(function(){
-        settings.toggleClass('open');
+    var settings = $('.dropdown-toggle');
+    settings.click(function(e){
+        e.preventDefault();
+        $('.dropdown').toggleClass('open');
     });
 
 });

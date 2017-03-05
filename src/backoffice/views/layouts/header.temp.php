@@ -26,10 +26,8 @@
                            role="button" aria-haspopup="true" aria-expanded="false">Settings <span
                                 class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="index.html#">Web design</a></li>
-                            <li><a href="index.html#">Projects two</a></li>
-                            <li><a href="index.html#">Graphic design</a></li>
-                            <li><a href="index.html#">Projects four</a></li>
+                            <li><a href="<?php echo URL_WEBSITE_ADMIN ?>index/index">Profil</a></li>
+                            <li><a href="index.html#">Disconnection</a></li>
                         </ul>
                     </li>
                   </ul>
