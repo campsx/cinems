@@ -60,7 +60,8 @@ abstract class BaseSql {
     $req->execute($this->columns);
   }
 
-  public function save() {
+  public function save()
+  {
     $this->updateColumns();
 
     if ($this->id == -1) {
