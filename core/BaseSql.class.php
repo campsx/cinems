@@ -8,14 +8,14 @@ abstract class BaseSql {
 
   protected $columns;
 
-  public function __construct() {
-    try {
-      $this->db = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_NAME.";", DB_USER, DB_PWD);
-      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (Exception $e) {
-      die("Erreur SQL:" . $e->getMessage());
-    }
+  public function __construct($condition = []) {
+    $this->db = new MyPDO();
     $this->updateColumns();
+    if (count($condition) !== 0) {
+      $this->poplulate($condition);
+    } else {
+      $this->id = -1;
+    }
   }
 
   protected function updateColumns() {
@@ -30,26 +30,32 @@ abstract class BaseSql {
     unset($this->columns['id']);
     $sqlCol = null;
     $sqlKey = null;
+    $data = [];
     foreach ($this->columns as $columns => $value) {
-      $sqlCol .= ",".$columns;
-      $sqlKey .= ",:".$columns;
+      if ($columns !== 'updated' AND $columns !== 'created') {
+        $sqlCol .= ",".$columns;
+        $sqlKey .= ",:".$columns;
+        $data[$columns] = $value;
+      }
     }
     $sqlCol = ltrim($sqlCol, ',');
     $sqlKey = ltrim($sqlKey, ',');
 
-    $sql = "INSERT INTO `".strtolower($this->table)."` (".$sqlCol.")
-          VALUES (:".$sqlKey.");";
+    $sql = "INSERT INTO `".strtolower($this->table)."` (created ,updated,".$sqlCol.")
+          VALUES (sysdate(),sysdate(),".$sqlKey.");";
     $req = $this->db->prepare($sql);
-    $req->execute($this->columns);
+    $req->execute($data);
   }
 
   protected function update() {
     $sqlUpdate = null;
     foreach ($this->columns as $columns => $value) {
-      $sqlUpdate[] = $columns . "=:" . $columns;
+      if ($columns !== 'updated') {
+        $sqlUpdate[] = $columns . "=:" . $columns;
+      }
     }
 
-    $sql = "UPDATE ".strtolower($this->table)." SET date_updated = sysdate(),".implode(",", $sqlUpdate)." WHERE id = :id;";
+    $sql = "UPDATE ".strtolower($this->table)." SET updated = sysdate(),".implode(",", $sqlUpdate)." WHERE id = :id;";
     $req = $this->db->prepare($sql);
     $req->execute($this->columns);
   }
@@ -68,11 +74,26 @@ abstract class BaseSql {
   // la fonction a pour but d'alimenter l'objet suite
   // a une requete sql (Attention la requete ne doit retourner
   // qu'une seule valeur
-  public function poplulate( $condition = ["id" => 3])
+  public function poplulate($condition = ["id" => 1])
   {
-    // requete SQL
-    // vérification
-    // Alimentation de l'objet
+    $sqlSelect = null;
+    foreach ($condition as $columns => $value) {
+      $sqlSelect[] = $columns . "=:" . $columns;
+    }
+    $sql = "SELECT * FROM ".strtolower($this->table)." WHERE ".implode(",", $sqlSelect).";";
+    $req = $this->db->prepare($sql);
+    $req->execute($condition);
+    $result = $req->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($result) === 0) {
+      return false;
+    }
+
+    $query = $result[0];
+
+    foreach ($this->columns as $columns => $value) {
+      $this->$columns = $query[$columns];
+    }
   }
 
 }

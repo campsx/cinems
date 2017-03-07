@@ -4,33 +4,39 @@ class User extends BaseSql{
 
   protected $id;
   protected $email;
-  protected $lastname;
+  protected $pseudo;
+  protected $password;
   protected $firstname;
-  protected $pwd;
+  protected $lastname;
+  protected $age;
   protected $status;
-  protected $permission;
+  protected $roles;
+  protected $active;
+  protected $created;
+  protected $updated;
 
-  public function __construct($id = -1, $email = null, $lastname = null,
-        $firstname = null, $pwd = null, $status = 0, $permission = 0) {
+  public function __construct($condition = []) {
+          parent::__construct($condition);
+  }
 
-
-
-          $this->setId($id);
-          $this->setEmail($email);
-          $this->setLastname($lastname);
-          $this->setFirstname($firstname);
-          $this->setPwd($pwd);
-          $this->setStatus($status);
-          $this->setPermission($permission);
-
-          parent::__construct();
-        }
   public function setId($id) {
     $this->id = $id;
   }
 
+  public function getId() {
+    return $this->id;
+  }
+
   public function setEmail($email) {
     $this->email = trim($email);
+  }
+
+  public function setPseudo($pseudo) {
+    $this->pseudo = trim($pseudo);
+  }
+
+  public function setPassword($password) {
+    $this->password = password_hash($password, PASSWORD_DEFAULT);
   }
 
   public function setLastname($lastname) {
@@ -41,16 +47,28 @@ class User extends BaseSql{
     $this->firstname = trim($firstname);
   }
 
-  public function setPwd($pwd) {
-    $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
+  public function setAge($age) {
+    $this->age = $age;
   }
 
   public function setStatus($status) {
     $this->status = $status;
   }
 
-  public function setPermission($permission) {
-    $this->permission = $permission;
+  public function setRoles($roles) {
+    $this->roles = $roles;
+  }
+
+  public function setActive($active) {
+    $this->active = $active;
+  }
+
+  public function setCreated($created) {
+    $this->created = $created;
+  }
+
+  public function setUpdated($updated) {
+    $this->updated = $updated;
   }
 
 }
