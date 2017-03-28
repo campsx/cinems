@@ -10,9 +10,16 @@ define("PATH_MEDIAS_IMAGES", PATH_MEDIAS_WEBSITE."images/");
 define("PATH_MEDIAS_CSS", PATH_MEDIAS_WEBSITE."css/");
 define("PATH_MEDIAS_JS", PATH_MEDIAS_WEBSITE."js/");
 
-define("DB_USER", "root");
-define("DB_PWD", "root"); // wamp empty
-define("DB_NAME", "cinems");
-define("DB_HOST", "localhost");
-define("DB_PORT", "8889"); // wamp 3306
-define("DB_TYPE", "mysql");
+$config = null;
+if (file_exists(__DIR__.DS."config.ini")) {
+    $config = parse_ini_file(__DIR__.DS."config.ini");
+}
+define("DB_USER", $config['DB_USER']?:"root");
+define("DB_PWD", $config['DB_PWD']?:"root"); // wamp empty
+define("DB_NAME", $config['DB_NAME']?:"cinems");
+define("DB_HOST", $config['DB_HOST']?:"localhost");
+define("DB_PORT", $config['DB_PORT']?:"8889"); // wamp 3306
+define("DB_TYPE", $config['DB_TYPE']?:"mysql");
+
+define("ENV_TYPE", $config['ENV_TYPE']?:"prod"); // prod | dev
+define("ENV_IS_DEV", ENV_TYPE === "dev");

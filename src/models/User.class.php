@@ -237,4 +237,29 @@ class User extends BaseSql{
     return $this->updated;
   }
 
+  public function getForm() {
+    return [
+        "struct" => [
+            "method" => "POST",
+            "action" => "user/add",
+            "class"  => "form-group",
+            "submit" => "S'inscrire",
+        ],
+        "data" => [
+                "email" => [
+                    "type"        => "email",
+                    "placeholder" => "test@gmail.com",
+                    "label"       => "Votre email",
+                    "required"    => true
+                ],
+                "firstname" => [
+                    "type"        => "text",
+                    "placeholder" => "Jean",
+                    "label"       => "Votre nom",
+                    "required"    => false
+                ]
+        ]
+    ];
+  }
+
 }

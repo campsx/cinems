@@ -14,7 +14,7 @@ abstract class BaseSql {
     if (count($condition) !== 0) {
       $this->poplulate($condition);
     } else {
-      $this->id = -1;
+      $this->id = $this->id ?: -1;
     }
   }
 
@@ -72,29 +72,29 @@ abstract class BaseSql {
 
   }
 
-  // la fonction a pour but d'alimenter l'objet suite
-  // a une requete sql (Attention la requete ne doit retourner
-  // qu'une seule valeur
   public function poplulate($condition = ["id" => 1])
   {
-    $sqlSelect = null;
-    foreach ($condition as $columns => $value) {
-      $sqlSelect[] = $columns . "=:" . $columns;
-    }
-    $sql = "SELECT * FROM ".strtolower($this->table)." WHERE ".implode(",", $sqlSelect).";";
-    $req = $this->db->prepare($sql);
-    $req->execute($condition);
-    $result = $req->fetchAll(PDO::FETCH_ASSOC);
+    $query = $this->getOneBy($condition, true);
+    $query->setFetchMode(PDO::FETCH_CLASS, $this->table);
+    $result = $query->fetch();
+    return $result;
+  }
 
-    if (count($result) === 0) {
-      return false;
-    }
+  public function getOneBy($search = [], $returnQuery = false)
+  {
+      foreach ($search as $columns => $value) {
+          $sqlSelect[] = $columns . "=:" . $columns;
+      }
+      $sql = "SELECT * FROM ".strtolower($this->table)." WHERE ".implode(",", $sqlSelect).";";
+      $query = $this->db->prepare($sql);
 
-    $query = $result[0];
+      $query->execute($search);
 
-    foreach ($this->columns as $columns => $value) {
-      $this->$columns = $query[$columns];
-    }
+      if ($returnQuery) {
+          return $query;
+      }
+      return $query->fetch(PDO::FETCH_ASSOC);
+
   }
 
 }

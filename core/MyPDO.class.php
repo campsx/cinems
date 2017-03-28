@@ -11,10 +11,11 @@ class MyPDO extends PDO
 
       try {
           parent::__construct($dns, DB_USER, DB_PWD);
-          // debug not prod
-          $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          if (ENV_IS_DEV) {
+              $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+          }
       } catch (Exception $e) {
-          die("Erreur SQL:" . $e->getMessage());
+          Errors::error500($e->getMessage());
       }
     }
 }
