@@ -1,6 +1,6 @@
-#Le CMS **CineMS**
+# Le CMS **CineMS**
 
-##Installation
+## Installation
 
 Pour commencer, il faut installer le CMS, il faut remplire le fichier config.ini dans le dossier core/config.ini
 
