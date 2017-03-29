@@ -1,6 +1,6 @@
 <?php
 // display error for the current environment
-
+// todo: un system de log d'erreur
 class Errors{
 
     static function error500($message){
