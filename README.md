@@ -12,11 +12,8 @@ DB_NAME = cinems
 DB_HOST = localhost
 DB_PORT = 8889
 DB_TYPE = mysql
- 
+
 [mod]
 ENV_TYPE = dev
 ```
-
-
-
-
+test
