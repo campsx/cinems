@@ -1,6 +1,6 @@
 <?php
 
-class Actor extends BaseSql{
+class Film extends BaseSql{
 
   /**
    * @var Int
@@ -10,17 +10,7 @@ class Actor extends BaseSql{
   /**
    * @var String
    */
-  protected $firstname;
-
-  /**
-   * @var String
-   */
-  protected $lastname;
-
-  /**
-   * @var String
-   */
-  protected $age;
+  protected $title;
 
   /**
    * @var String
@@ -33,24 +23,44 @@ class Actor extends BaseSql{
   protected $short_description;
 
   /**
+   * @var String
+   */
+  protected $content;
+
+  /**
+   * @var integer
+   */
+  protected $winter_note;
+
+  /**
    * @var DateTime
    */
-  protected $description;
+  protected $release_date;
 
   /**
-   * @var Boolean
+   * @var Director
    */
-  protected $photo_id;
+  protected $director_id;
 
   /**
-   * @var Json
+   * @var User
+   */
+  protected $winter_id;
+
+  /**
+   * @var Image
+   */
+  protected $thumbnail_id;
+
+  /**
+   * @var integer
    */
   protected $active;
 
   /*
-   * @var array Films
+   * @var array Actors
    */
-  protected $films;
+  protected $actors;
 
   /**
    * @var Boolean
@@ -69,8 +79,8 @@ class Actor extends BaseSql{
    */
   public function __construct($condition = []) {
       $this->joinProperties['ManyToMany'] = [
-          'films' => [
-              'table' => 'film',
+          'actors' => [
+              'table' => 'actor',
               'joinTable' => 'actor_has_film'
           ]
       ];
@@ -171,16 +181,25 @@ class Actor extends BaseSql{
     return $this->description;
   }
 
-
-  public function setPhoto_id($photo_id) {
-    $this->photo_id = $photo_id;
+  /**
+   * @param $actor Actor | int
+   */
+  public function addActor($actor) {
+      $this->setJoin("actors",$actor);
   }
 
   /**
-   * @return $age DateTime
+   * @param $actor Actor | int
    */
-  public function getPhoto_id() {
-    return $this->photo_id;
+  public function removeActor($actor) {
+      $this->removeJoin("actors", $actor);
+  }
+
+  /**
+   * @return array
+   */
+  public function getActors() {
+      return $this->getJoin("actors");
   }
 
 

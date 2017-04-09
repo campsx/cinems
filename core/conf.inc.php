@@ -3,7 +3,7 @@
 define("DS", DIRECTORY_SEPARATOR);
 define("BASE_PATH", "/cinems/");
 define("BASE_PATH_PATTERN", "\/cinems\/");
-define("URL_WEBSITE", "http://localhost:8888/cinems/");
+define("URL_WEBSITE", "http://localhost:8080/cinems/");
 define("URL_WEBSITE_ADMIN", URL_WEBSITE."admin/");
 define("PATH_MEDIAS_WEBSITE", URL_WEBSITE."public/website/");
 define("PATH_MEDIAS_IMAGES", PATH_MEDIAS_WEBSITE."images/");
@@ -15,7 +15,7 @@ if (file_exists(__DIR__.DS."config.ini")) {
     $config = parse_ini_file(__DIR__.DS."config.ini");
 }
 define("DB_USER", $config['DB_USER']?:"root");
-define("DB_PWD", $config['DB_PWD']?:"root"); // wamp empty
+define("DB_PWD", $config['DB_PWD']?:""); // wamp empty
 define("DB_NAME", $config['DB_NAME']?:"cinems");
 define("DB_HOST", $config['DB_HOST']?:"localhost");
 define("DB_PORT", $config['DB_PORT']?:"8889"); // wamp 3306

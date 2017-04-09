@@ -43,6 +43,11 @@ class User extends BaseSql{
   protected $status;
 
   /**
+   * @var Image
+   */
+  protected $image;
+
+  /**
    * @var Json
    */
   protected $roles;
@@ -51,6 +56,11 @@ class User extends BaseSql{
    * @var Boolean
    */
   protected $active;
+
+  /**
+   * @var array Comment
+   */
+  protected $comments;
 
   /**
    * @var DateTime
@@ -63,10 +73,21 @@ class User extends BaseSql{
   protected $updated;
 
   /**
-   * @param $condition Array
+   * @param $condition array
    */
   public function __construct($condition = []) {
-          parent::__construct($condition);
+      $this->joinProperties['OneToMany'] = [
+          'comments' => [
+              'table' => 'comment'
+          ]
+      ];
+      $this->joinProperties['ManyToOne'] = [
+          'image' => [
+              'table' => 'image'
+          ]
+      ];
+
+      parent::__construct($condition);
   }
 
   /**
@@ -166,6 +187,18 @@ class User extends BaseSql{
   public function getAge() {
     return $this->age;
   }
+  /**
+   * @param $image Image
+   */
+  public function setImage($image) {
+      $this->setJoin('image',$image);
+  }
+  /**
+   * @return $image Image
+   */
+  public function getImage() {
+      return $this->getJoin('image');
+  }
 
   /**
    * @param $status Boolean
@@ -235,6 +268,27 @@ class User extends BaseSql{
    */
   public function getUpdated() {
     return $this->updated;
+  }
+
+  /**
+   * @param $comment Comment | int
+   */
+  public function addComment($comment) {
+      $this->setJoin("comments",$comment);
+  }
+
+  /**
+   * @param $comment Comment | int
+   */
+  public function removeComment($comment) {
+      $this->removeJoin("comments", $comment);
+  }
+
+  /**
+   * @return array
+   */
+  public function getComments() {
+      return $this->getJoin("comments");
   }
 
   public function getForm() {
