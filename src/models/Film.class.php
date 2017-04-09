@@ -45,12 +45,12 @@ class Film extends BaseSql{
   /**
    * @var User
    */
-  protected $winter_id;
+  protected $user_id;
 
   /**
    * @var Image
    */
-  protected $thumbnail_id;
+  protected $image_id;
 
   /**
    * @var integer
@@ -82,6 +82,26 @@ class Film extends BaseSql{
           'actors' => [
               'table' => 'actor',
               'joinTable' => 'actor_has_film'
+          ],
+          'categories' => [
+              'table' => 'category',
+              'joinTable' => 'film_has_category'
+          ],
+      ];
+      $this->joinProperties['OneToMany'] = [
+          'comments' => [
+              'table' => 'comment'
+          ]
+      ];
+      $this->joinProperties['ManyToOne'] = [
+          'image_id' => [
+              'table' => 'image'
+          ],
+          'user_id' => [
+              'table' => 'user'
+          ],
+          'director_id' => [
+              'table' => 'director'
           ]
       ];
       parent::__construct($condition);

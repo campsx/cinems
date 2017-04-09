@@ -67,7 +67,12 @@ abstract class BaseSql {
             $data[$columns] = $value;
           } elseif (is_string($join)) {
               $function = "save".$join;
-              $this->$function($columns);
+              if ($join == 'ManyToOne') {
+                  $sqlUpdate[] = $columns . "=:" . $columns;
+                  $data[$columns] = $this->$function($columns);
+              } else {
+                  $this->$function($columns);
+              }
           }
     }
 
@@ -92,7 +97,12 @@ abstract class BaseSql {
           $data[$columns] = $value;
       } elseif (is_string($join)) {
           $function = "save".$join;
-          $this->$function($columns);
+          if ($join == 'ManyToOne') {
+              $sqlUpdate[] = $columns . "=:" . $columns;
+              $data[$columns] = $this->$function($columns);
+          } else {
+              $this->$function($columns);
+          }
       }
     }
 
@@ -150,9 +160,15 @@ abstract class BaseSql {
       }
   }
 
-  protected function saveManyToOne($columns)
+  protected function saveManyToOne($column)
   {
-
+      if ($this->$column === null) {
+          return null;
+      } elseif (is_int($this->$column)) {
+          return $this->$column;
+      } else {
+          return $this->$column->getId();
+      }
   }
 
   protected function saveManyToMany($columns)
@@ -249,7 +265,7 @@ abstract class BaseSql {
 
 
     /**
-     *
+     * function remove
      */
     protected function removeJoin($joinPropertyName, $model)
     {
@@ -287,11 +303,8 @@ abstract class BaseSql {
 
 
 
-
-
-
-        /**
-     *
+    /**
+     * function set
      */
     protected function setJoin($joinPropertyName, $model)
     {
@@ -329,44 +342,30 @@ abstract class BaseSql {
 
 
 
-
-
     /**
-     * @return mixed
+     * function get
+     * @return array
      */
     protected function getJoin($joinPropertyName)
     {
-        if (array_key_exists($joinPropertyName, $this->joinProperties['OneToMany'])) {
-
-            if (count($this->$joinPropertyName) !== 0){
-                return $this->$joinPropertyName;
-            }
-            return $this->joinOneToMany($joinPropertyName, $this->joinProperties['OneToMany'][$joinPropertyName]['table']);
-
-        } elseif (array_key_exists($joinPropertyName, $this->joinProperties['ManyToOne'])) {
-
-            $className = ucfirst($this->joinProperties['ManyToOne'][$joinPropertyName]['table']);
-            if( $this->$joinPropertyName instanceof $className ) {
-                return $this->$joinPropertyName;
-            }
-            return $this->joinManyToOne($joinPropertyName, $className);
-
-        } elseif (array_key_exists($joinPropertyName, $this->joinProperties['ManyToMany'])) {
-
-            if (count($this->$joinPropertyName) !== 0){
-                return $this->$joinPropertyName;
-            }
-            return $this->joinManyToMany($joinPropertyName, $this->joinProperties['ManyToMany'][$joinPropertyName]);
-
+        $join = $this->checkJoinType($joinPropertyName);
+        if (is_string($join)) {
+            $function = "get".$join;
+           return $this->$function($joinPropertyName, $this->joinProperties[$join][$joinPropertyName]);
         }
-        return [];
+        return null;
     }
 
     /**
      * @return mixed
      */
-    private function joinOneToMany($joinPropertyName, $joinClassName)
+    private function getOneToMany($joinPropertyName, $options)
     {
+        if (count($this->$joinPropertyName) !== 0){
+            return $this->$joinPropertyName;
+        }
+
+        $joinClassName = $options['table'];
         $className = ucfirst($joinClassName);
         $sql = "SELECT a.id FROM ".$joinClassName." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
         $query = $this->db->prepare($sql);
@@ -383,24 +382,33 @@ abstract class BaseSql {
     /**
      * @return mixed
      */
-    protected function joinManyToOne($joinPropertyName, $joinClassName)
+    protected function getManyToOne($joinPropertyName, $options)
     {
-        return $this->$joinPropertyName = new $joinClassName([ "id" => $this->$joinPropertyName]);
+        $className = ucfirst($options['table']);
+        if( $this->$joinPropertyName instanceof $className ) {
+            return $this->$joinPropertyName;
+        }
+
+        return $this->$joinPropertyName = new $className([ "id" => $this->$joinPropertyName]);
     }
 
     /**
      * @return mixed
      */
-    protected function joinManyToMany($joinPropertyName, $option)
+    protected function getManyToMany($joinPropertyName, $options)
     {
-        $className = ucfirst($option['table']);
-        $sql = "SELECT a.".$option['table']."_id FROM ".$option['joinTable']." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
+        if (count($this->$joinPropertyName) !== 0){
+            return $this->$joinPropertyName;
+        }
+
+        $className = ucfirst($options['table']);
+        $sql = "SELECT a.".$options['table']."_id FROM ".$options['joinTable']." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
         $query = $this->db->prepare($sql);
         $query->execute();
         $allId = $query->fetchAll(PDO::FETCH_ASSOC);
         if ($allId){
             foreach ($allId as $id) {
-                $this->{$joinPropertyName}[] = new $className([ "id" => $id[$option['table'].'_id']]);
+                $this->{$joinPropertyName}[] = new $className([ "id" => $id[$options['table'].'_id']]);
             }
         }
         return $this->$joinPropertyName;

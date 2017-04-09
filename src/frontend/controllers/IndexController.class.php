@@ -4,7 +4,7 @@ class IndexController{
 
 	public function indexAction($params)
 	{
-	    //$usertest = new User(["id" => "camille"]);
+	    $usertest = new User(["id" => 6]);
 	    /*$comment = new Comment();
 	    $comment->setActive(0);
         $comment->setContent("content");
@@ -13,14 +13,12 @@ class IndexController{
         $comment->setTitle("test");
         $comment->setValid(1);
         $comment->setUser(1);*/
-	   /* $comment = new Comment(['id' => 4]);
 
-        $usertest->removeComment($comment);
-        $usertest->save();*/
+        var_dump($usertest->getFilms());
 
-	    $film = new Film(["id" => 1]);
+	    /*$film = new Film(["id" => 1]);
         $film->addActor(1);
-        $film->save();
+        $film->save();*/
 	    exit;
 		$view = new View('index', 'index');
 		$view->assign("form", $user->getForm());

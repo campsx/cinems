@@ -45,7 +45,7 @@ class User extends BaseSql{
   /**
    * @var Image
    */
-  protected $image;
+  protected $image_id;
 
   /**
    * @var Json
@@ -61,6 +61,15 @@ class User extends BaseSql{
    * @var array Comment
    */
   protected $comments;
+
+  /**
+   * @var array Comment
+   */
+  protected $emails;
+  /**
+   * @var array Comment
+   */
+  protected $films;
 
   /**
    * @var DateTime
@@ -79,10 +88,16 @@ class User extends BaseSql{
       $this->joinProperties['OneToMany'] = [
           'comments' => [
               'table' => 'comment'
+          ],
+          'emails' => [
+              'table' => 'email'
+          ],
+          'films' => [
+              'table' => 'film'
           ]
       ];
       $this->joinProperties['ManyToOne'] = [
-          'image' => [
+          'image_id' => [
               'table' => 'image'
           ]
       ];
@@ -188,16 +203,16 @@ class User extends BaseSql{
     return $this->age;
   }
   /**
-   * @param $image Image
+   * @param $image_id Image
    */
-  public function setImage($image) {
-      $this->setJoin('image',$image);
+  public function setImage($image_id) {
+      $this->setJoin('image_id',$image_id);
   }
   /**
-   * @return $image Image
+   * @return $image_id Image
    */
   public function getImage() {
-      return $this->getJoin('image');
+      return $this->getJoin('image_id');
   }
 
   /**
@@ -289,6 +304,48 @@ class User extends BaseSql{
    */
   public function getComments() {
       return $this->getJoin("comments");
+  }
+
+  /**
+   * @param $email Email | int
+   */
+  public function addEmail($email) {
+      $this->setJoin("emails",$email);
+  }
+
+  /**
+   * @param $email Email | int
+   */
+  public function removeEmail($email) {
+      $this->removeJoin("emails", $email);
+  }
+
+  /**
+   * @return array
+   */
+  public function getEmails() {
+      return $this->getJoin("emails");
+  }
+
+  /**
+   * @param $film Film | int
+   */
+  public function addFilm($film) {
+      $this->setJoin("films",$film);
+  }
+
+  /**
+   * @param $film Film | int
+   */
+  public function removeFilm($film) {
+      $this->removeJoin("films", $film);
+  }
+
+  /**
+   * @return array
+   */
+  public function getFilms() {
+      return $this->getJoin("films");
   }
 
   public function getForm() {
