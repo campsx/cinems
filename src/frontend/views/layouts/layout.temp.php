@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Titre de mon site</title>
+      <link rel="stylesheet" href="<?php echo PATH_MEDIAS_CSS ?>frontend.css">
     <meta name="description" content="description de mon site">
   </head>
   <body>

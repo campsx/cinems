@@ -66,6 +66,7 @@ class User extends BaseSql{
    * @var array Comment
    */
   protected $emails;
+
   /**
    * @var array Comment
    */
@@ -289,7 +290,7 @@ class User extends BaseSql{
    * @param $comment Comment | int
    */
   public function addComment($comment) {
-      $this->setJoin("comments",$comment);
+      $this->setJoin("comments", $comment);
   }
 
   /**
@@ -310,7 +311,7 @@ class User extends BaseSql{
    * @param $email Email | int
    */
   public function addEmail($email) {
-      $this->setJoin("emails",$email);
+      $this->setJoin("emails", $email);
   }
 
   /**

@@ -4,24 +4,15 @@ class IndexController{
 
 	public function indexAction($params)
 	{
-	    $usertest = new User(["id" => 6]);
-	    /*$comment = new Comment();
-	    $comment->setActive(0);
-        $comment->setContent("content");
-        $comment->setFilm(1);
-        $comment->setNote(5);
-        $comment->setTitle("test");
-        $comment->setValid(1);
-        $comment->setUser(1);*/
+	    $user = new User(["id" => 6]);
 
-        var_dump($usertest->getFilms());
+	    //dump($user);
+        dump($user);
+        dump($user->getComments());
+        dump_exit($user);
 
-	    /*$film = new Film(["id" => 1]);
-        $film->addActor(1);
-        $film->save();*/
-	    exit;
 		$view = new View('index', 'index');
-		$view->assign("form", $user->getForm());
+		//$view->assign("form", $user->getForm());
 	}
 
 	public function page404Action($params)
