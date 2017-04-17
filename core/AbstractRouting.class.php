@@ -55,11 +55,11 @@ abstract class AbstractRouting {
 	}
 
 
-	public function runRoute()
+	public function runRoute($request)
 	{
 		if ($this->checkRoute()) {
 			$controller = new $this->controllerName();
-			$controller->{$this->actionName}($this->params);
+			$controller->{$this->actionName}($this->params, $request);
 		} else {
 			$this->page404();
 		}

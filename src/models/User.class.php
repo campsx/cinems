@@ -1,377 +1,485 @@
 <?php
 
-class User extends BaseSql{
+class User extends BaseSql
+{
 
-  /**
-   * @var Int
-   */
-  protected $id;
+    /**
+     * @var Int
+     */
+    protected $id;
 
-  /**
-   * @var String
-   */
-  protected $email;
+    /**
+     * @var String
+     */
+    protected $email;
 
-  /**
-   * @var String
-   */
-  protected $pseudo;
+    /**
+     * @var String
+     */
+    protected $pseudo;
 
-  /**
-   * @var String
-   */
-  protected $password;
+    /**
+     * @var String
+     */
+    protected $password;
 
-  /**
-   * @var String
-   */
-  protected $firstname;
+    /**
+     * @var String
+     */
+    protected $firstname;
 
-  /**
-   * @var String
-   */
-  protected $lastname;
+    /**
+     * @var String
+     */
+    protected $lastname;
 
-  /**
-   * @var DateTime
-   */
-  protected $age;
+    /**
+     * @var DateTime
+     */
+    protected $age;
 
-  /**
-   * @var Boolean
-   */
-  protected $status;
+    /**
+     * @var Boolean
+     */
+    protected $status;
 
-  /**
-   * @var Image
-   */
-  protected $image_id;
+    /**
+     * @var Image
+     */
+    protected $image_id;
 
-  /**
-   * @var Json
-   */
-  protected $roles;
+    /**
+     * @var Json
+     */
+    protected $roles;
 
-  /**
-   * @var Boolean
-   */
-  protected $active;
+    /**
+     * @var Boolean
+     */
+    protected $active;
 
-  /**
-   * @var array Comment
-   */
-  protected $comments;
+    /**
+     * @var array Comment
+     */
+    protected $comments;
 
-  /**
-   * @var array Comment
-   */
-  protected $emails;
+    /**
+     * @var array Comment
+     */
+    protected $emails;
 
-  /**
-   * @var array Comment
-   */
-  protected $films;
+    /**
+     * @var array Comment
+     */
+    protected $films;
 
-  /**
-   * @var DateTime
-   */
-  protected $created;
+    /**
+     * @var DateTime
+     */
+    protected $created;
 
-  /**
-   * @var DateTime
-   */
-  protected $updated;
+    /**
+     * @var DateTime
+     */
+    protected $updated;
 
-  /**
-   * @param $condition array
-   */
-  public function __construct($condition = []) {
-      $this->joinProperties['OneToMany'] = [
-          'comments' => [
-              'table' => 'comment'
-          ],
-          'emails' => [
-              'table' => 'email'
-          ],
-          'films' => [
-              'table' => 'film'
-          ]
-      ];
-      $this->joinProperties['ManyToOne'] = [
-          'image_id' => [
-              'table' => 'image'
-          ]
-      ];
+    /**
+     * @param $condition array
+     */
+    public function __construct($condition = [])
+    {
+        $this->joinProperties['OneToMany'] = [
+            'comments' => [
+                'table' => 'comment'
+            ],
+            'emails' => [
+                'table' => 'email'
+            ],
+            'films' => [
+                'table' => 'film'
+            ]
+        ];
+        $this->joinProperties['ManyToOne'] = [
+            'image_id' => [
+                'table' => 'image'
+            ]
+        ];
 
-      parent::__construct($condition);
-  }
+        parent::__construct($condition);
+    }
 
-  /**
-   * @param $id Int
-   */
-  public function setId($id) {
-    $this->id = $id;
-  }
+    /**
+     * @param $id Int
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
-  /**
-   * @return $id Int
-   */
-  public function getId() {
-    return $this->id;
-  }
+    /**
+     * @return $id Int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-  /**
-   * @param $email String
-   */
-  public function setEmail($email) {
-    $this->email = trim($email);
-  }
+    /**
+     * @param $email String
+     */
+    public function setEmail($email)
+    {
+        $this->email = trim($email);
+    }
 
-  /**
-   * @return $email String
-   */
-  public function getEmail() {
-    return $this->email;
-  }
+    /**
+     * @return $email String
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
 
-  /**
-   * @param $pseudo String
-   */
-  public function setPseudo($pseudo) {
-    $this->pseudo = trim($pseudo);
-  }
+    /**
+     * @param $pseudo String
+     */
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = trim($pseudo);
+    }
 
-  /**
-   * @return $pseudo String
-   */
-  public function getPseudo() {
-    return $this->pseudo;
-  }
+    /**
+     * @return $pseudo String
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
 
-  /**
-   * @param $password String
-   */
-  public function setPassword($password) {
-    $this->password = password_hash($password, PASSWORD_DEFAULT);
-  }
+    /**
+     * @param $password String
+     */
+    public function setPassword($password)
+    {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
+    }
 
-  /**
-   * @return $password String
-   */
-  public function getPassword() {
-    return $this->password;
-  }
+    /**
+     * @return $password String
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
 
-  /**
-   * @param $lastname String
-   */
-  public function setLastname($lastname) {
-    $this->lastname = trim($lastname);
-  }
+    /**
+     * @param $lastname String
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = trim($lastname);
+    }
 
-  /**
-   * @return $lastname String
-   */
-  public function getLastname() {
-    return $this->lastname;
-  }
+    /**
+     * @return $lastname String
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
 
-  /**
-   * @param $firstname String
-   */
-  public function setFirstname($firstname) {
-    $this->firstname = trim($firstname);
-  }
+    /**
+     * @param $firstname String
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = trim($firstname);
+    }
 
-  /**
-   * @return $firstname String
-   */
-  public function getFirstname() {
-    return $this->firstname;
-  }
+    /**
+     * @return $firstname String
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
 
-  /**
-   * @param $age DateTime
-   */
-  public function setAge($age) {
-    $this->age = $age;
-  }
+    /**
+     * @param $age DateTime
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+    }
 
-  /**
-   * @return $age DateTime
-   */
-  public function getAge() {
-    return $this->age;
-  }
-  /**
-   * @param $image_id Image
-   */
-  public function setImage($image_id) {
-      $this->setJoin('image_id',$image_id);
-  }
-  /**
-   * @return $image_id Image
-   */
-  public function getImage() {
-      return $this->getJoin('image_id');
-  }
+    /**
+     * @return $age DateTime
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
 
-  /**
-   * @param $status Boolean
-   */
-  public function setStatus($status) {
-    $this->status = $status;
-  }
+    /**
+     * @param $image_id Image
+     */
+    public function setImage($image_id)
+    {
+        $this->setJoin('image_id', $image_id);
+    }
 
-  /**
-   * @return $status Boolean
-   */
-  public function getStatus() {
-    return $this->status;
-  }
+    /**
+     * @return $image_id Image
+     */
+    public function getImage()
+    {
+        return $this->getJoin('image_id');
+    }
 
-  /**
-   * @param $roles Json
-   */
-  public function setRoles($roles) {
-    $this->roles = $roles;
-  }
+    /**
+     * @param $status Boolean
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
-  /**
-   * @return $roles Json
-   */
-  public function getRoles() {
-    return $this->roles;
-  }
+    /**
+     * @return $status Boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
-  /**
-   * @param $active Boolean
-   */
-  public function setActive($active) {
-    $this->active = $active;
-  }
+    /**
+     * @param $roles Json
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = json_encode($roles);
+    }
 
-  /**
-   * @return $active Boolean
-   */
-  public function getActive() {
-    return $this->active;
-  }
+    /**
+     * @return $roles Json
+     */
+    public function getRoles()
+    {
+        return json_decode($this->roles);
+    }
 
-  /**
-   * @param $created DateTime
-   */
-  public function setCreated($created) {
-    $this->created = $created;
-  }
+    /**
+     * @param $active Boolean
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
 
-  /**
-   * @return $created DateTime
-   */
-  public function getCreated() {
-    return $this->created;
-  }
+    /**
+     * @return $active Boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
 
-  /**
-   * @param $updated DateTime
-   */
-  public function setUpdated($updated) {
-    $this->updated = $updated;
-  }
+    /**
+     * @param $created DateTime
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
 
-  /**
-   * @return $updated DateTime
-   */
-  public function getUpdated() {
-    return $this->updated;
-  }
+    /**
+     * @return $created DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
-  /**
-   * @param $comment Comment | int
-   */
-  public function addComment($comment) {
-      $this->setJoin("comments", $comment);
-  }
+    /**
+     * @param $updated DateTime
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
 
-  /**
-   * @param $comment Comment | int
-   */
-  public function removeComment($comment) {
-      $this->removeJoin("comments", $comment);
-  }
+    /**
+     * @return $updated DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 
-  /**
-   * @return array
-   */
-  public function getComments() {
-      return $this->getJoin("comments");
-  }
+    /**
+     * @param $comment Comment | int
+     */
+    public function addComment($comment)
+    {
+        $this->setJoin("comments", $comment);
+    }
 
-  /**
-   * @param $email Email | int
-   */
-  public function addEmail($email) {
-      $this->setJoin("emails", $email);
-  }
+    /**
+     * @param $comment Comment | int
+     */
+    public function removeComment($comment)
+    {
+        $this->removeJoin("comments", $comment);
+    }
 
-  /**
-   * @param $email Email | int
-   */
-  public function removeEmail($email) {
-      $this->removeJoin("emails", $email);
-  }
+    /**
+     * @return array
+     */
+    public function getComments()
+    {
+        return $this->getJoin("comments");
+    }
 
-  /**
-   * @return array
-   */
-  public function getEmails() {
-      return $this->getJoin("emails");
-  }
+    /**
+     * @param $email Email | int
+     */
+    public function addEmail($email)
+    {
+        $this->setJoin("emails", $email);
+    }
 
-  /**
-   * @param $film Film | int
-   */
-  public function addFilm($film) {
-      $this->setJoin("films",$film);
-  }
+    /**
+     * @param $email Email | int
+     */
+    public function removeEmail($email)
+    {
+        $this->removeJoin("emails", $email);
+    }
 
-  /**
-   * @param $film Film | int
-   */
-  public function removeFilm($film) {
-      $this->removeJoin("films", $film);
-  }
+    /**
+     * @return array
+     */
+    public function getEmails()
+    {
+        return $this->getJoin("emails");
+    }
 
-  /**
-   * @return array
-   */
-  public function getFilms() {
-      return $this->getJoin("films");
-  }
+    /**
+     * @param $film Film | int
+     */
+    public function addFilm($film)
+    {
+        $this->setJoin("films", $film);
+    }
 
-  public function getForm() {
-    return [
-        "struct" => [
-            "method" => "POST",
-            "action" => "user/add",
-            "class"  => "form-group",
-            "submit" => "S'inscrire",
-        ],
-        "data" => [
+    /**
+     * @param $film Film | int
+     */
+    public function removeFilm($film)
+    {
+        $this->removeJoin("films", $film);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilms()
+    {
+        return $this->getJoin("films");
+    }
+
+    public function inscriptionForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE."user/inscription",
+                "class" => "form-group",
+                "submit" => "S'inscrire",
+                "captcha" => true
+            ],
+            "data" => [
                 "email" => [
-                    "type"        => "email",
+                    "type" => "email",
                     "placeholder" => "test@gmail.com",
-                    "label"       => "Votre email",
-                    "required"    => true
+                    "label" => "Votre email",
+                    "required" => true,
+                    "validation" => [
+                        "type" => "email",
+                        "length" => [
+                            "min" => 10,
+                            "max" => 255
+                        ],
+                        "unique" => true
+                    ]
+                ],
+                "pseudo" => [
+                    "type" => "text",
+                    "placeholder" => "jojodu77",
+                    "label" => "Votre Pseudo",
+                    "required" => true,
+                    "validation"  => [
+                        "type" => "text",
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "unique" => true
+                    ]
+                ],
+                "password" => [
+                    "type"        => "password",
+                    "placeholder" => "********",
+                    "label"       => "Votre Password",
+                    "required"    => true,
+                    "validation"  => [
+                        "type" => "password",
+                        "length" => [
+                            "min" => 8,
+                            "max" => 255
+                        ],
+                    ]
                 ],
                 "firstname" => [
-                    "type"        => "text",
+                    "type" => "text",
                     "placeholder" => "Jean",
-                    "label"       => "Votre nom",
-                    "required"    => false
+                    "label" => "Votre nom",
+                    "required" => false,
+                    "validation"  => [
+                        "type" => "text",
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Votre Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "type" => "text",
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Votre age",
+                    "required" => false,
+                    "validation"  => [
+                        "type" => "datetime"
+
+                    ]
                 ]
-        ]
-    ];
-  }
+            ]
+        ];
+    }
 
 }

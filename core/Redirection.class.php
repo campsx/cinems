@@ -11,10 +11,10 @@ class Redirection {
 	public function runDirection(){
 		if ($this->uriExploded[0] === 'admin') {
 			require 'src/backoffice/RoutingBackoffice.class.php';
-			$routing = new RoutingBackoffice($this->uriExploded);
+			$routing = new RoutingBackoffice($this->uriExploded, new Request());
 		} else {
 			require 'src/frontend/RoutingFrontend.class.php';
-			$routing = new RoutingFrontend($this->uriExploded);
+			$routing = new RoutingFrontend($this->uriExploded, new Request());
 		}
 	}
 

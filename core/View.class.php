@@ -15,10 +15,13 @@ class View {
   * param : $view
   * param : $template
   */
-  public function __construct($dir = 'index', $view = 'index', $template = "frontend") {
+  public function __construct($dir = 'index', $view = 'index', $template = "frontend", $layout = true) {
       $this->template = $template;
       $this->setTemplate($template);
       $this->setView($view, $dir, $template);
+      if (!$layout) {
+          $this->pathTemplate = $this->view;
+      }
   }
 
 

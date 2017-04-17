@@ -27,7 +27,7 @@
                                 class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo URL_WEBSITE_ADMIN ?>index/index">Profil</a></li>
-                            <li><a href="index.html#">Disconnection</a></li>
+                            <li><a href="<?php echo URL_WEBSITE_ADMIN ?>index/disconnect">Disconnection</a></li>
                         </ul>
                     </li>
                   </ul>

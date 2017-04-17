@@ -4,7 +4,7 @@ include "Helpers.function.php";
 define("DS", DIRECTORY_SEPARATOR);
 define("BASE_PATH", "/cinems/");
 define("BASE_PATH_PATTERN", "\/cinems\/");
-define("URL_WEBSITE", "http://localhost:8888/cinems/");
+define("URL_WEBSITE", "http://".$_SERVER['HTTP_HOST']."/cinems/");
 define("URL_WEBSITE_ADMIN", URL_WEBSITE."admin/");
 define("PATH_MEDIAS_WEBSITE", URL_WEBSITE."public/website/");
 define("PATH_MEDIAS_IMAGES", PATH_MEDIAS_WEBSITE."images/");

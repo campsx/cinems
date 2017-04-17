@@ -1,229 +1,310 @@
 <?php
 
-class Actor extends BaseSql{
+class Actor extends BaseSql
+{
 
-  /**
-   * @var Int
-   */
-  protected $id;
+    /**
+     * @var Int
+     */
+    protected $id;
 
-  /**
-   * @var String
-   */
-  protected $firstname;
+    /**
+     * @var String
+     */
+    protected $firstname;
 
-  /**
-   * @var String
-   */
-  protected $lastname;
+    /**
+     * @var String
+     */
+    protected $lastname;
 
-  /**
-   * @var String
-   */
-  protected $age;
+    /**
+     * @var String
+     */
+    protected $age;
 
-  /**
-   * @var String
-   */
-  protected $slug;
+    /**
+     * @var String
+     */
+    protected $slug;
 
-  /**
-   * @var String
-   */
-  protected $short_description;
+    /**
+     * @var String
+     */
+    protected $short_description;
 
-  /**
-   * @var DateTime
-   */
-  protected $description;
+    /**
+     * @var DateTime
+     */
+    protected $description;
 
-  /**
-   * @var Boolean
-   */
-  protected $photo_id;
+    /**
+     * @var Image
+     */
+    protected $photo_id;
 
-  /**
-   * @var Json
-   */
-  protected $active;
+    /**
+     * @var Json
+     */
+    protected $active;
 
-  /*
-   * @var array Films
-   */
-  protected $films;
+    /*
+     * @var array Films
+     */
+    protected $films;
 
-  /**
-   * @var Boolean
-   */
-  protected $created;
+    /**
+     * @var Boolean
+     */
+    protected $created;
 
-  /**
-   * @var DateTime
-   */
-  protected $updated;
-
-
-
-  /**
-   * @param $condition Array
-   */
-  public function __construct($condition = []) {
-      $this->joinProperties['ManyToMany'] = [
-          'films' => [
-              'table' => 'film',
-              'joinTable' => 'actor_has_film'
-          ]
-      ];
-      parent::__construct($condition);
-  }
+    /**
+     * @var DateTime
+     */
+    protected $updated;
 
 
-  /**
-   * @param $id Int
-   */
-  public function setId($id) {
-    $this->id = $id;
-  }
-
-  /**
-   * @return $id Int
-   */
-  public function getId() {
-    return $this->id;
-  }
-
-
-  /**
-   * @param $firstname String
-   */
-  public function setFirstname($firstname) {
-    $this->firstname = trim($firstname);
-  }
-
-  /**
-   * @return $firstname String
-   */
-  public function getFirstname() {
-    return $this->firstname;
-  }
-
-  /**
-   * @param $lastname String
-   */
-  public function setLastname($lastname) {
-    $this->lastname = trim($lastname);
-  }
-
-  /**
-   * @return $lastname String
-   */
-  public function getLastname() {
-    return $this->lastname;
-  }
-
-  /**
-   * @param $age DateTime
-   */
-  public function setAge($age) {
-    $this->age = $age;
-  }
-
-  /**
-   * @return $age DateTime
-   */
-  public function getAge() {
-    return $this->age;
-  }
+    /**
+     * @param $condition Array
+     */
+    public function __construct($condition = [])
+    {
+        $this->joinProperties['ManyToMany'] = [
+            'films' => [
+                'table' => 'film',
+                'joinTable' => 'actor_has_film'
+            ]
+        ];
+        $this->joinProperties['ManyToOne'] = [
+            'photo_id' => [
+                'table' => 'image'
+            ]
+        ];
+        parent::__construct($condition);
+    }
 
 
-  public function setSlug($slug) {
-    $this->slug = $slug;
-  }
+    /**
+     * @param $id Int
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
-  /**
-   * @return $slug varchar
-   */
-  public function getSlug() {
-    return $this->slug;
-  }
-
-
-  public function setShortDescription($short_description) {
-    $this->short_description = $short_description;
-  }
-
-  /**
-   * @return $age DateTime
-   */
-  public function getShortDescription() {
-    return $this->short_description;
-  }
+    /**
+     * @return $id Int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 
-  public function setDescription($short_description) {
-    $this->description = $short_description;
-  }
+    /**
+     * @param $firstname String
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = trim($firstname);
+    }
 
-  /**
-   * @return $age DateTime
-   */
-  public function getDescription() {
-    return $this->description;
-  }
+    /**
+     * @return $firstname String
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
 
+    /**
+     * @param $lastname String
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = trim($lastname);
+    }
 
-  public function setPhoto_id($photo_id) {
-    $this->photo_id = $photo_id;
-  }
+    /**
+     * @return $lastname String
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
 
-  /**
-   * @return $age DateTime
-   */
-  public function getPhoto_id() {
-    return $this->photo_id;
-  }
+    /**
+     * @param $age DateTime
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+    }
 
-
-  public function setActive($active) {
-    $this->active = $active;
-  }
-
-  /**
-   * @return $age DateTime
-   */
-  public function getActive() {
-    return $this->active;
-  }
-
-  /**
-   * @param $created DateTime
-   */
-  public function setCreated($created) {
-    $this->created = $created;
-  }
-
-  /**
-   * @return $created DateTime
-   */
-  public function getCreated() {
-    return $this->created;
-  }
-
-  /**
-   * @param $updated DateTime
-   */
-  public function setUpdated($updated) {
-    $this->updated = $updated;
-  }
-
-  /**
-   * @return $updated DateTime
-   */
-  public function getUpdated() {
-    return $this->updated;
-  }
+    /**
+     * @return $age DateTime
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
 
 
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return $slug varchar
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+
+    public function setShortDescription($short_description)
+    {
+        $this->short_description = $short_description;
+    }
+
+    /**
+     * @return $age DateTime
+     */
+    public function getShortDescription()
+    {
+        return $this->short_description;
+    }
+
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return $age DateTime
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param $photo_id Image
+     */
+    public function setImage($photo_id)
+    {
+        $this->setJoin('photo_id', $photo_id);
+    }
+
+    /**
+     * @return $photo_id Image
+     */
+    public function getImage()
+    {
+        return $this->getJoin('photo_id');
+    }
+
+
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+    /**
+     * @return $age DateTime
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param $created DateTime
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    }
+
+    /**
+     * @return $created DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param $updated DateTime
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+    }
+
+    /**
+     * @return $updated DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+
+    public function getFormAdd()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => "user/add",
+                "class" => "form-group",
+                "submit" => "S'inscrire",
+            ],
+            "data" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "test@gmail.com",
+                    "label" => "Votre email",
+                    "required" => true
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Votre nom",
+                    "required" => false
+                ]
+            ]
+        ];
+    }
+
+    public function getFormEdit()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => "user/add",
+                "class" => "form-group",
+                "submit" => "S'inscrire",
+            ],
+            "data" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "test@gmail.com",
+                    "label" => "Votre email",
+                    "required" => true
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Votre nom",
+                    "required" => false
+                ]
+            ]
+        ];
+    }
 
 
 }
