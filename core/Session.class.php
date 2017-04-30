@@ -7,9 +7,7 @@ class Session{
 
     protected $currentUser = null;
 
-    protected $oldToken;
-
-    protected $newToken;
+    protected $allTokens = [];
 
     function __construct()
     {
@@ -17,8 +15,11 @@ class Session{
             $this->currentUser = new User(['id' => $_SESSION['user_id']]);
         }
 
-        if (!empty($_SESSION['token'])){
-            $this->oldToken = $_SESSION['token'];
+
+        foreach ($_SESSION as $key => $value) {
+            if(preg_match('/^token_/', $key) == 1){
+                $this->allTokens[$key] = $value;
+            }
         }
 
     }
@@ -71,16 +72,16 @@ class Session{
         return false;
     }
 
-    public function getOldToken(){
-        return $this->oldToken;
+    public function getAllToken(){
+        return $this->allTokens;
     }
 
-    public function getToken(){
-        return $this->newToken;
+    public function getToken($name){
+        return $this->allTokens['token_'.$name];
     }
 
-    public function generateToken(){
-        $_SESSION['token'] = $this->newToken = sha1(uniqid());
+    public function generateToken($name){
+        $_SESSION['token_'.$name] = $this->allTokens['token_'.$name] = sha1(uniqid());
     }
 
     public function destroySession(){

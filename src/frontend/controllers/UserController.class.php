@@ -1,5 +1,6 @@
 <?php
-class UserController{
+
+class UserController extends AbstractController{
 
 
 	public function indexAction()
@@ -13,11 +14,11 @@ class UserController{
 		$view = new View('users', 'profil');
 	}
 
-	public function inscriptionAction($params, $request)
+	public function inscriptionAction($params)
 	{
 	    $user = new User();
 
-	    $form = new formValidation($user, 'inscription', $request);
+	    $form = new formValidation($user, 'inscription');
 
 	    if ($form->valid()){
             $user->save();
@@ -26,9 +27,7 @@ class UserController{
         }
 
         $view = new View('users', 'inscription');
-	    $view->assign("errors", $form->getErrors());
-	    $view->assign("request", $request);
-        $view->assign("form", $user->inscriptionForm());
+        $view->assign("form", $form);
 	}
 
     public function disconnectionAction($params)

@@ -50,7 +50,7 @@ class View {
     $this->data[$key] = $value;
   }
 
-  public function includeModal($modal, $config) {
+  public function includeModal($modal, $form) {
       if (file_exists("src/".$this->template."/views/modals/".$modal.".mod.php")) {
           include "src/".$this->template."/views/modals/".$modal.".mod.php";
       } else {

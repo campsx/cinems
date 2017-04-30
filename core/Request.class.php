@@ -22,6 +22,22 @@ class Request{
      */
     protected $session;
 
+    /**
+     * @var Request
+     */
+    private static $instance;
+
+
+    public static function getInstance()
+    {
+        if(!isset(self::$instance))
+        {
+            self::$instance = new Request();
+        }
+
+        return self::$instance;
+    }
+
     function __construct()
     {
         $this->session = new Session();
@@ -29,9 +45,7 @@ class Request{
 
         $this->getQuery = $_GET;
         $this->postQuery = $_POST;
-
         // todo: check $_SERVER['HTTP_REFERER'] avec la session
-        $this->session()->generateToken();
     }
 
     /**
@@ -75,8 +89,8 @@ class Request{
     /**
      * @return Boolean
      */
-    public function goodToken($token){
-        return $this->session()->getOldToken() == $token;
+    public function goodToken($token, $name){
+        return $this->session()->getToken($name) == $token;
     }
 
 

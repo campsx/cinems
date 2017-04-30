@@ -396,7 +396,7 @@ class User extends BaseSql
                 "action" => URL_WEBSITE."user/inscription",
                 "class" => "form-group",
                 "submit" => "S'inscrire",
-                "captcha" => true
+                "capcha" => true
             ],
             "data" => [
                 "email" => [
@@ -405,7 +405,6 @@ class User extends BaseSql
                     "label" => "Votre email",
                     "required" => true,
                     "validation" => [
-                        "type" => "email",
                         "length" => [
                             "min" => 10,
                             "max" => 255
@@ -419,7 +418,6 @@ class User extends BaseSql
                     "label" => "Votre Pseudo",
                     "required" => true,
                     "validation"  => [
-                        "type" => "text",
                         "length" => [
                             "min" => 2,
                             "max" => 100
@@ -433,7 +431,6 @@ class User extends BaseSql
                     "label"       => "Votre Password",
                     "required"    => true,
                     "validation"  => [
-                        "type" => "password",
                         "length" => [
                             "min" => 8,
                             "max" => 255
@@ -446,7 +443,6 @@ class User extends BaseSql
                     "label" => "Votre nom",
                     "required" => false,
                     "validation"  => [
-                        "type" => "text",
                         "length" => [
                             "min" => 2,
                             "max" => 100
@@ -460,12 +456,10 @@ class User extends BaseSql
                     "label" => "Votre Prenom",
                     "required" => false,
                     "validation"  => [
-                        "type" => "text",
                         "length" => [
                             "min" => 2,
                             "max" => 100
                         ],
-
                     ]
                 ],
                 "age" => [
@@ -474,8 +468,10 @@ class User extends BaseSql
                     "label" => "Votre age",
                     "required" => false,
                     "validation"  => [
-                        "type" => "datetime"
-
+                        "interval" => [
+                            "min" => 10,
+                            "max" => 100
+                        ],
                     ]
                 ]
             ]

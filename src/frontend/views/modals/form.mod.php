@@ -1,7 +1,8 @@
+<?php $config = $form->getFrom(); ?>
 <form method="<?php echo $config["struct"]["method"];?>"
       action="<?php echo $config["struct"]["action"];?>">
 
-    <?php foreach ( $this->data['errors'] as $error):?>
+    <?php foreach ( $form->getErrors() as $error ):?>
         <p style="color: red;"><?php echo $error;?></p>
     <?php endforeach; ?>
 
@@ -19,7 +20,12 @@
         <?php endif;?>
 
     <?php endforeach; ?>
-    <input type="hidden" name="token" value="<?php echo $this->data['request']->session()->getToken(); ?>">
+
+    <img src="http://localhost:8080/cinems/api/images/capcha" alt="capcha">
+
+    <input type="text" value="" name="capcha">
+
+    <input type="hidden" name="token_<?php echo $form->getFormName() ?>" value="<?php echo $form->getRequest()->session()->getToken($form->getFormName()); ?>">
     <input type="submit" value="<?php echo $config["struct"]["submit"];?>" >
 
 </form>

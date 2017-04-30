@@ -9,9 +9,12 @@ abstract class AbstractRouting {
 	protected $params;
 	protected $basePathController = 'src/frontend/controllers/';
 
+	protected $request;
+
 	public function __construct($uriExploded)
 	{
 		$this->uriExploded = $uriExploded;
+        $this->request = Request::getInstance();
 	}
 
 	public function setController($index = 0)
@@ -55,11 +58,11 @@ abstract class AbstractRouting {
 	}
 
 
-	public function runRoute($request)
+	public function runRoute()
 	{
 		if ($this->checkRoute()) {
 			$controller = new $this->controllerName();
-			$controller->{$this->actionName}($this->params, $request);
+			$controller->{$this->actionName}($this->params);
 		} else {
 			$this->page404();
 		}
