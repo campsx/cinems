@@ -17,11 +17,11 @@ class UserController extends AbstractController{
 	public function inscriptionAction($params)
 	{
 	    $user = new User();
-
 	    $form = new formValidation($user, 'inscription');
 
 	    if ($form->valid()){
             $user->save();
+            // todo envoyer mail confirmation
             $response = new Response();
             $response->redirectionFrontend('user/valid', 200);
         }

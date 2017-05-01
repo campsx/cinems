@@ -68,7 +68,8 @@ abstract class BaseSql {
           } elseif (is_string($join)) {
               $function = "save".$join;
               if ($join == 'ManyToOne') {
-                  $sqlUpdate[] = $columns . "=:" . $columns;
+                  $sqlCol .= ",".$columns;
+                  $sqlKey .= ",:".$columns;
                   $data[$columns] = $this->$function($columns);
               } else {
                   $this->$function($columns);
@@ -82,6 +83,8 @@ abstract class BaseSql {
     $sql = "INSERT INTO `".strtolower($this->table)."` (created ,updated,".$sqlCol.")
           VALUES (sysdate(),sysdate(),".$sqlKey.");";
     $req = $this->db->prepare($sql);
+    dump($sql);
+    dump($data);
     $req->execute($data);
     $this->id = $this->db->lastInsertId();
   }
@@ -126,7 +129,9 @@ abstract class BaseSql {
 
   protected function saveOneToMany($columns)
   {
-      $this->getJoin($columns);
+      if (count($this->getJoin($columns)) === 0){
+          return null;
+      }
       $tableName = $this->joinProperties['OneToMany'][$columns]['table'];
       $sql = "SELECT a.id FROM ".$tableName." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
       $query = $this->db->prepare($sql);
@@ -412,6 +417,18 @@ abstract class BaseSql {
             }
         }
         return $this->$joinPropertyName;
+    }
+
+    public function unique($nameField, $field)
+    {
+        $sql = "SELECT a.id FROM ".strtolower($this->table)." as a WHERE a.".$nameField." = :field ;";
+        $query = $this->db->prepare($sql);
+
+        $query->execute([
+                'field' => $field
+            ]);
+
+        return $query->fetch(PDO::FETCH_ASSOC) === false;
     }
 
 }

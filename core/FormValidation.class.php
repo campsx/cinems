@@ -52,6 +52,11 @@ class FormValidation{
         }
     }
 
+    private function addErrors($string, $data = [])
+    {
+        $this->errors[] = vsprintf($string, $data);
+    }
+
     /**
      * @return array
      */
@@ -92,7 +97,7 @@ class FormValidation{
        }
 
         $this->hydratation();
-       return true;
+        return true;
     }
 
     public function validation(){
@@ -104,15 +109,15 @@ class FormValidation{
 
         // check if a good token
         if ( !isset($this->query['token_'.$this->formName]) || !$this->request->goodToken($this->query['token_'.$this->formName], $this->formName)){
-            $this->errors[] = "Bad token";
+            $this->addErrors(Errors::BAD_TOKEN);
             return false;
         }
 
         // check if a good captcha if capcha
-        if (isset($this->form['struct']['capcha']) && $this->form['struct']['capcha'] && !$this->validCaptcha()){
-            $this->errors[] = "Bad capcha";
+        /*if (isset($this->form['struct']['capcha']) && $this->form['struct']['capcha'] && !$this->validCaptcha()){
+            $this->addErrors(Errors::BAD_CAPCHA);
             return false;
-        }
+        }*/
 
 
         if (!$this->checkInput()) {
@@ -134,6 +139,11 @@ class FormValidation{
      * hydrate object with new data
      */
     public function hydratation(){
+        if (isset($this->getFrom()["initData"])){
+            foreach ($this->getFrom()["initData"] as $name => $data){
+                $this->data[$name] = $data;
+            }
+        }
         foreach ($this->data as $name => $data) {
             $this->object->{'set'.ucfirst($name)}($data);
         }
@@ -149,7 +159,14 @@ class FormValidation{
         foreach ($this->form['data'] as $nameField => $data) {
 
             if (!isset($this->query[$nameField])) {
-                $this->errors[] = $nameField. " est vide";
+                $this->addErrors(Errors::FIELD_NO_ISSET, [$nameField]);
+                continue;
+            }
+
+            if (empty($this->query[$nameField])){
+                if($data['required'] === true){
+                    $this->addErrors(Errors::FIELD_EMPTY, [$nameField]);
+                }
                 continue;
             }
 
@@ -181,9 +198,6 @@ class FormValidation{
 
         }
 
-        dump($this->errors);
-        dump_exit($this->data);
-
         if (count($this->errors) !== 0){
             return false;
         }
@@ -200,6 +214,9 @@ class FormValidation{
     public function checkEmail($nameField)
     {
         $email = $this->query[$nameField];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $this->addErrors(Errors::EMAIL_NO_VALID, [$email]);
+        }
     }
 
     /**
@@ -227,10 +244,10 @@ class FormValidation{
 
         //2016-12-13 or 13/12/2016
         $pattern = (strpos($date, "-"))?"Y-m-d":"d/m/Y";
-        $date = DateTime::createFromFormat($pattern, $date);
+        $dateTest = DateTime::createFromFormat($pattern, $date);
         $dateErrors = DateTime::getLastErrors();
         if(!($dateErrors["warning_count"]+$dateErrors["error_count"]==0)){
-            $this->errors[] = $nameField. " est invalide";
+            $this->addErrors(Errors::DATE_NOT_VALID, [$date]);
         }
     }
 
@@ -241,8 +258,10 @@ class FormValidation{
      */
     public function checkUnique($nameField)
     {
-        $email = $this->query[$nameField];
-
+        $field = $this->query[$nameField];
+        if(!$this->object->unique($nameField, $field)){
+            $this->addErrors(Errors::UNIQUE, [$nameField, $field]);
+        }
     }
 
     /**
@@ -250,7 +269,13 @@ class FormValidation{
      */
     public function checkLength($nameField, $maxMin)
     {
-        $email = $this->query[$nameField];
+        $string = $this->query[$nameField];
+
+        if (strlen($string) < $maxMin['min']){
+            $this->addErrors(Errors::LENGTH_MIN, [$nameField, $maxMin['min'], $maxMin['max']]);
+        } elseif (strlen($string) > $maxMin['max']){
+            $this->addErrors(Errors::LENGTH_MAX, [$nameField, $maxMin['min'], $maxMin['max']]);
+        }
     }
 
     /**
@@ -263,15 +288,15 @@ class FormValidation{
         //2016-12-13
         //13/12/2016
         $pattern = (strpos($date, "-"))?"Y-m-d":"d/m/Y";
-        $date = DateTime::createFromFormat($pattern, $date);
+        $dateTest = DateTime::createFromFormat($pattern, $date);
         $dateErrors = DateTime::getLastErrors();
         if($dateErrors["warning_count"]+$dateErrors["error_count"]==0){
             $dateToday = new dateTime();
-            $age = $date->diff($dateToday)->format("%y");
+            $age = $dateTest->diff($dateToday)->format("%y");
             if($age<$maxMin['min']){
-                $this->errors[] = $nameField. " est invalide";
+                $this->addErrors(Errors::INTERVAL_MIN, [$nameField, $date, $maxMin['min'], $maxMin['max']]);
             } elseif ($age>$maxMin['max']) {
-
+                $this->addErrors(Errors::INTERVAL_MAX, [$nameField, $date, $maxMin['min'], $maxMin['max']]);
             }
         }
     }

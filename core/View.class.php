@@ -47,7 +47,16 @@ class View {
 
   public function assign($key, $value)
   {
-    $this->data[$key] = $value;
+      $this->data[$key] = $value;
+  }
+
+  private function echoRaw($value)
+  {
+      echo $value;
+  }
+  private function echoHtml($value)
+  {
+      echo htmlentities($value);
   }
 
   public function includeModal($modal, $form) {

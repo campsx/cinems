@@ -474,6 +474,11 @@ class User extends BaseSql
                         ],
                     ]
                 ]
+            ],
+            "initData" => [
+                "status" => 0,
+                "roles" => ["user"],
+                "active" => 1
             ]
         ];
     }
