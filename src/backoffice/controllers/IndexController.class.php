@@ -14,7 +14,7 @@ class IndexController extends AbstractController {
 
 	public function loginAction($params)
     {
-        $manager = new Manager($this->getRequest());
+        $manager = new Manager();
         $query = $this->getRequest()->getPOSTQuery();
         if ($this->getRequest()->isPOSTRequest() && $manager->checkConnection($query['email'], $query['password'])){
             $response = new Response();

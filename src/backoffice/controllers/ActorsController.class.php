@@ -10,8 +10,10 @@ class ActorsController{
 
 	public function listAction($params)
 	{
-
+        $manager = new Manager();
+        $list = $manager->listOfPagination('actor', 1);
 		$view = new View('actors', 'list', 'backoffice');
+		$view->assign('list', $list);
 	}
 
 	public function createAction($params)

@@ -6,10 +6,10 @@ class Manager{
 
     protected $request;
 
-    function __construct($request)
+    function __construct()
     {
         $this->db = new MyPDO();
-        $this->request = $request;
+        $this->request = Request::getInstance();
     }
 
     /**
@@ -30,6 +30,28 @@ class Manager{
         $this->request->session()->addSession('user_id', $user['id']);
 
         return true;
+    }
+
+    public function listOfPagination($tableName, $page, $criteria = [])
+    {
+        $className = ucfirst($tableName);
+
+        $sql = "SELECT a.id FROM ".$tableName." as a LIMIT 10 OFFSET ".($page * 10 - 10);
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new $className([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
+    public function countAll($tableName, $criteria = [])
+    {
+        $sql = "SELECT COUNT(*) FROM ".$tableName;
     }
 
 }

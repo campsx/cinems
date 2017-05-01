@@ -1,1 +1,39 @@
 <h1> Liste de tous les actors </h1>
+
+<div class="w3-responsive">
+    <table class="w3-table-all notranslate">
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Updated</th>
+            <th>Created</th>
+            <th>Action</th>
+        </tr>
+            <?php foreach ( $list as $actor ):?>
+                <tr>
+                    <td>
+                        <?php $this->echoHtml($actor->getId());?>
+                    </td>
+                    <td>
+                        <?php $this->echoHtml($actor->getFirstname());?>
+                    </td>
+                    <td>
+                        <?php $this->echoHtml($actor->getLastname());?>
+                    </td>
+                    <td>
+                        <?php $this->echoHtml($actor->getCreated());?>
+                    </td>
+                    <td>
+                        <?php $this->echoHtml($actor->getUpdated());?>
+                    </td>
+                    <td>
+                        <input type="button" value="Voir">
+                        <input type="button" value="Supprimer">
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
