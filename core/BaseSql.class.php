@@ -83,8 +83,6 @@ abstract class BaseSql {
     $sql = "INSERT INTO `".strtolower($this->table)."` (created ,updated,".$sqlCol.")
           VALUES (sysdate(),sysdate(),".$sqlKey.");";
     $req = $this->db->prepare($sql);
-    dump($sql);
-    dump($data);
     $req->execute($data);
     $this->id = $this->db->lastInsertId();
   }

@@ -5,7 +5,7 @@ class RoutingBackoffice extends AbstractRouting {
 	public function __construct($uriExploded){
         parent::__construct($uriExploded);
 
-	    if(!$this->request->session()->isRole(Session::ROLE_ADMIN) && !($uriExploded[1] === 'index' && $uriExploded[2] === 'login')){
+	    if(!$this->request->session()->isRole(Session::ROLE_ADMIN) && !(isset($uriExploded[1]) && $uriExploded[1] === 'index' && $uriExploded[2] === 'login')){
             $response = new Response();
             $response->redirectionbackoffice('index/login', 401);
         }

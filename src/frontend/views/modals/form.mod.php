@@ -21,12 +21,14 @@
 
     <?php endforeach; ?>
 
-    <img src="http://localhost:8080/cinems/api/images/capcha" alt="capcha">
+    <?php if(in_array($attributs["type"], ["email", "text", "password", "date"])) :?>
+        <img src="<?php echo URL_WEBSITE_API ?>images/capcha" alt="capcha">
+        <input type="text" value="" name="capcha">
+    <?php endif;?>
 
-    <input type="text" value="" name="capcha">
+
 
     <input type="hidden" name="token_<?php $this->echoHtml($form->getFormName()) ?>" value="<?php $this->echoHtml($form->getRequest()->session()->getToken($form->getFormName())); ?>">
     <input type="submit" value="<?php $this->echoHtml($config["struct"]["submit"]);?>" >
 
 </form>
-

@@ -1,2 +1,13 @@
-<h1>inscription connection</h1>
-<?php $this->includeModal("form", $form); ?>
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Inscription</h1>
+            </div>
+        </div>
+        <div class="main-login main-center">
+            <?php $this->includeModal("form", $form); ?>
+        </div>
+    </div>
+</div>
+
