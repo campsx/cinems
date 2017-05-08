@@ -1,26 +1,18 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.5.1
+-- https://www.phpmyadmin.net/
 --
--- Client :  127.0.0.1
--- Généré le :  Dim 09 Avril 2017 à 21:47
--- Version du serveur :  5.7.11
--- Version de PHP :  5.6.19
+-- Client :  localhost:8889
+-- Généré le :  Lun 08 Mai 2017 à 22:43
+-- Version du serveur :  5.6.34
+-- Version de PHP :  7.1.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Base de données :  `cinems`
 --
-CREATE DATABASE IF NOT EXISTS `cinems` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `cinems`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +20,7 @@ USE `cinems`;
 -- Structure de la table `actor`
 --
 
+DROP TABLE IF EXISTS `actor`;
 CREATE TABLE `actor` (
   `id` int(11) NOT NULL,
   `firstname` varchar(50) CHARACTER SET utf8 NOT NULL,
@@ -56,6 +49,7 @@ INSERT INTO `actor` (`id`, `firstname`, `lastname`, `age`, `slug`, `short_descri
 -- Structure de la table `actor_has_film`
 --
 
+DROP TABLE IF EXISTS `actor_has_film`;
 CREATE TABLE `actor_has_film` (
   `actor_id` int(11) NOT NULL,
   `film_id` int(11) NOT NULL
@@ -75,6 +69,7 @@ INSERT INTO `actor_has_film` (`actor_id`, `film_id`) VALUES
 -- Structure de la table `category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `title` varchar(50) CHARACTER SET utf8 NOT NULL,
@@ -88,6 +83,7 @@ CREATE TABLE `category` (
 -- Structure de la table `comment`
 --
 
+DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
   `title` varchar(100) CHARACTER SET utf8 NOT NULL,
@@ -115,6 +111,7 @@ INSERT INTO `comment` (`id`, `title`, `content`, `note`, `valid`, `active`, `use
 -- Structure de la table `director`
 --
 
+DROP TABLE IF EXISTS `director`;
 CREATE TABLE `director` (
   `id` int(11) NOT NULL,
   `lastname` varchar(50) NOT NULL,
@@ -135,6 +132,7 @@ CREATE TABLE `director` (
 -- Structure de la table `email`
 --
 
+DROP TABLE IF EXISTS `email`;
 CREATE TABLE `email` (
   `id` int(11) NOT NULL,
   `send` tinyint(1) NOT NULL,
@@ -157,6 +155,7 @@ INSERT INTO `email` (`id`, `send`, `content`, `user_id`, `created`, `updated`) V
 -- Structure de la table `film`
 --
 
+DROP TABLE IF EXISTS `film`;
 CREATE TABLE `film` (
   `id` int(11) NOT NULL,
   `title` varchar(100) CHARACTER SET utf8 NOT NULL,
@@ -186,6 +185,7 @@ INSERT INTO `film` (`id`, `title`, `slug`, `short_description`, `content`, `wint
 -- Structure de la table `film_has_category`
 --
 
+DROP TABLE IF EXISTS `film_has_category`;
 CREATE TABLE `film_has_category` (
   `film_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL
@@ -197,6 +197,7 @@ CREATE TABLE `film_has_category` (
 -- Structure de la table `image`
 --
 
+DROP TABLE IF EXISTS `image`;
 CREATE TABLE `image` (
   `id` int(11) NOT NULL,
   `title` varchar(50) CHARACTER SET utf8 NOT NULL,
@@ -220,6 +221,7 @@ INSERT INTO `image` (`id`, `title`, `name`, `url`, `created`, `updated`) VALUES
 -- Structure de la table `page`
 --
 
+DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
@@ -239,6 +241,7 @@ CREATE TABLE `page` (
 -- Structure de la table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
@@ -252,15 +255,20 @@ CREATE TABLE `user` (
   `active` tinyint(1) NOT NULL,
   `image_id` int(11) DEFAULT NULL,
   `created` datetime NOT NULL,
-  `updated` datetime NOT NULL
+  `updated` datetime NOT NULL,
+  `token_email` varchar(150) NOT NULL,
+  `token_password` varchar(150) DEFAULT NULL,
+  `token_expiration` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `pseudo`, `password`, `firstname`, `lastname`, `age`, `status`, `roles`, `active`, `image_id`, `created`, `updated`) VALUES
-(6, 'camille@dsf.fr', 'camille', '$2y$10$0x2.xn1un6RbUHqvwv1EKujNyg72JNvNOl33SBkorhzicbCl.QekW', 'camille', 'camille', '1990-12-12', 0, 'bite', 0, 1, '2017-04-01 20:12:41', '2017-04-08 17:33:17');
+INSERT INTO `user` (`id`, `email`, `pseudo`, `password`, `firstname`, `lastname`, `age`, `status`, `roles`, `active`, `image_id`, `created`, `updated`, `token_email`, `token_password`, `token_expiration`) VALUES
+(6, 'camille@dsf.fr', 'camille', '$2y$10$0x2.xn1un6RbUHqvwv1EKujNyg72JNvNOl33SBkorhzicbCl.QekW', 'camille', 'camille', '1990-12-12', 0, '[\"user\"]', 0, 1, '2017-04-01 20:12:41', '2017-04-08 17:33:17', '0', NULL, NULL),
+(7, 'camilletest@mdpcommemail.com', 'campsx', '$2y$10$LMDExot4zDvfzAE3XyOHh.5J/BAdnGkIxVfAs2r2SWbq/5YiYlvEu', 'camille', 'laurent', '1990-12-14', 0, '[\"user\", \"admin\"]', 1, NULL, '2017-05-02 18:56:40', '2017-05-05 12:40:54', '0', 'f145a226383b50b83bf551895712cca6', '2017-05-05 12:55:52'),
+(8, 'camille1990@hotildsf.fr', 'camps', '$2y$10$P0jtGBncJN3BQ5oIscRmyOt4vl1DJGHWb1yi.iZXQHvgeKmTOLKRC', 'camille', 'laurent', '1990-12-14', 1, '[\"user\"]', 0, NULL, '2017-05-03 12:41:23', '2017-05-03 14:28:30', '9c695e30b6c8e5b03edc570affab5df7', NULL, NULL);
 
 --
 -- Index pour les tables exportées
@@ -375,7 +383,4 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
