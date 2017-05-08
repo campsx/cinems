@@ -9,56 +9,22 @@
  <body>
   <div class="page close">
     <section class="content">
-        <?php $config = [
-                "struct" => [
-                    "method" => "POST",
-                    "action" => URL_WEBSITE_ADMIN."index/login",
-                    "class"  => "form-group",
-                    "submit" => "S'inscrire",
-                ],
-                "data" => [
-                    "email" => [
-                        "type"        => "email",
-                        "placeholder" => "test@gmail.com",
-                        "label"       => "Votre email",
-                        "required"    => true
-                    ],
-                    "password" => [
-                        "type"        => "password",
-                        "placeholder" => "",
-                        "label"       => "Password",
-                        "required"    => true
-                    ]
-                ]
-            ];
-        ?>
         <h1>login page</h1>
-        <form method="<?php echo $config["struct"]["method"];?>"
-              action="<?php echo $config["struct"]["action"];?>">
 
-            <?php foreach ($config["data"] as $name => $attributs):?>
+        <?php foreach ( $errors as $error ):?>
+            <p style="color: red;"><?php $this->echoHtml($error);?></p>
+        <?php endforeach; ?>
 
-                <?php if(in_array($attributs["type"], ["email","text", "password"])) :?>
+        <form method="POST" action="<?php echo URL_WEBSITE_ADMIN ?>index/login">
 
-                    <input type="<?php echo $attributs["type"];?>"
-                           name="<?php echo $name;?>"
-                           placeholder="<?php echo $attributs["placeholder"];?>"
-                        <?php echo $attributs["required"]?"required='required'":"";?>
-                    ><br>
+            <input name="email" placeholder="test@gmail.com" required="required" type="email"><br>
 
-                <?php endif;?>
+            <input name="password" placeholder="" required="required" type="password"><br>
 
-            <?php endforeach; ?>
-            <input type="submit" value="<?php echo $config["struct"]["submit"];?>" >
+            <input value="S'inscrire" type="submit">
 
         </form>
     </section>
   </div>
-
- <!-- jquery-2.2.4 -->
- <script
-        src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
  </body>
 </html>

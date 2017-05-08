@@ -68,7 +68,7 @@ class FormValidation{
     /**
      * @return array
      */
-    public function getFrom()
+    public function getForm()
     {
         return $this->form;
     }
@@ -89,15 +89,30 @@ class FormValidation{
         return $this->request;
     }
 
-    public function valid(){
+    public function generateNewToken(){
+        return $this->request->session()->generateToken($this->formName);
+    }
+
+    /**
+     * @param $token DateTime
+     * @return bool
+     */
+    public function tokenNotExpirate($tokenDate)
+    {
+        return $tokenDate > new DateTime();
+    }
+
+    public function valid($hydrate = true){
 
        if(!$this->validation()) {
-           $this->request->session()->generateToken($this->formName);
            return false;
        }
 
-        $this->hydratation();
-        return true;
+       if ($hydrate === true){
+           $this->hydratation();
+       }
+
+       return true;
     }
 
     public function validation(){
@@ -139,8 +154,8 @@ class FormValidation{
      * hydrate object with new data
      */
     public function hydratation(){
-        if (isset($this->getFrom()["initData"])){
-            foreach ($this->getFrom()["initData"] as $name => $data){
+        if (isset($this->getForm()["initData"])){
+            foreach ($this->getForm()["initData"] as $name => $data){
                 $this->data[$name] = $data;
             }
         }

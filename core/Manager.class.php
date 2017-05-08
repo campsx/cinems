@@ -6,11 +6,24 @@ class Manager{
 
     protected $request;
 
+    protected $errors = [];
+
     function __construct()
     {
         $this->db = new MyPDO();
         $this->request = Request::getInstance();
     }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    private function addErrors($string, $data = [])
+    {
+        $this->errors[] = vsprintf($string, $data);
+    }
+
 
     /**
      * @return boolean
@@ -25,6 +38,7 @@ class Manager{
 
         $user = $req->fetch(PDO::FETCH_ASSOC);
         if ($user === false || password_verify($password, $user['password']) === false){
+            $this->addErrors(Errors::LOGIN_ERROR);
             return false;
         }
         $this->request->session()->addSession('user_id', $user['id']);
@@ -53,5 +67,6 @@ class Manager{
     {
         $sql = "SELECT COUNT(*) FROM ".$tableName;
     }
+
 
 }

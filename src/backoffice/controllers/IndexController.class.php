@@ -12,16 +12,17 @@ class IndexController extends AbstractController {
 		$view = new View('errors', 'page404', 'backoffice');
 	}
 
-	public function loginAction($params)
+	public function loginAction()
     {
         $manager = new Manager();
         $query = $this->getRequest()->getPOSTQuery();
-        if ($this->getRequest()->isPOSTRequest() && $manager->checkConnection($query['email'], $query['password'])){
+        if ($this->getRequest()->session()->getCurrentUser() !== null || $this->getRequest()->isPOSTRequest() && $manager->checkConnection($query['email'], $query['password'])){
             $response = new Response();
             $response->redirectionBackoffice('index/index', 200);
         }
 
         $view = new View('index', 'login', 'backoffice', false);
+        $view->assign('errors', $manager->getErrors());
     }
 
     public function disconnectAction($params)

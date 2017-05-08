@@ -74,6 +74,21 @@ class User extends BaseSql
     protected $films;
 
     /**
+     * @var String
+     */
+    protected $token_email;
+
+    /**
+     * @var String
+     */
+    protected $token_password;
+
+    /**
+     * @var DateTime
+     */
+    protected $token_expiration;
+
+    /**
      * @var DateTime
      */
     protected $created;
@@ -217,7 +232,7 @@ class User extends BaseSql
      */
     public function getAge()
     {
-        return $this->age;
+        return new DateTime($this->age);
     }
 
     /**
@@ -282,6 +297,54 @@ class User extends BaseSql
     public function getActive()
     {
         return $this->active;
+    }
+
+    /**
+     * @param String
+     */
+    public function setTokenEmail($token)
+    {
+        $this->token_email = $token;
+    }
+
+    /**
+     * @return String
+     */
+    public function getTokenEmail()
+    {
+        return $this->token_email;
+    }
+
+    /**
+     * @param String
+     */
+    public function setTokenPassword($token)
+    {
+        $this->token_password = $token;
+    }
+
+    /**
+     * @return String
+     */
+    public function getTokenPassword()
+    {
+        return $this->token_password;
+    }
+
+    /**
+     * @param Datetime
+     */
+    public function setTokenExpiration($date)
+    {
+        $this->token_expiration = $date;
+    }
+
+    /**
+     * @return Datetime
+     */
+    public function getTokenExpiration()
+    {
+        return new DateTime($this->token_expiration);
     }
 
     /**
@@ -434,7 +497,7 @@ class User extends BaseSql
                         "length" => [
                             "min" => 8,
                             "max" => 255
-                        ],
+                        ]
                     ]
                 ],
                 "firstname" => [
@@ -479,6 +542,32 @@ class User extends BaseSql
                 "status" => 0,
                 "roles" => ["user"],
                 "active" => 1
+            ]
+        ];
+    }
+
+    public function changePasswordForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE."user/changepass/".$this->getTokenPassword(),
+                "class" => "form-group",
+                "submit" => "Changer"
+            ],
+            "data" => [
+                "password" => [
+                    "type"        => "password",
+                    "placeholder" => "********",
+                    "label"       => "Votre nouveau Password",
+                    "required"    => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 8,
+                            "max" => 255
+                        ]
+                    ]
+                ]
             ]
         ];
     }

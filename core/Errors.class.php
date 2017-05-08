@@ -15,6 +15,8 @@ class Errors{
     const INTERVAL_MIN = "Le date %s et trop petite (%s), elle doit etre de plus %s ans et moin %s ans";
     const INTERVAL_MAX = "Le date %s et trop grande (%s), elle doit etre de plus %s ans et moin %s ans";
 
+    const LOGIN_ERROR = "Les identifiants sont inexacts";
+
     static function error500($message){
         header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', false, 500);
         if (ENV_IS_DEV) {

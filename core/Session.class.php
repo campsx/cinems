@@ -81,7 +81,7 @@ class Session{
     }
 
     public function generateToken($name){
-        $_SESSION['token_'.$name] = $this->allTokens['token_'.$name] = sha1(uniqid());
+        return $_SESSION['token_'.$name] = $this->allTokens['token_'.$name] = sha1(uniqid());
     }
 
     public function destroySession(){
