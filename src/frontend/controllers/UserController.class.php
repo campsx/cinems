@@ -21,6 +21,7 @@ class UserController extends AbstractController{
 	}
 
     /**
+     * register user
      * @param $params
      */
 	public function inscriptionAction($params)
@@ -32,7 +33,24 @@ class UserController extends AbstractController{
 	        $user->setTokenEmail(md5(uniqid(rand(), true)));
             $user->save();
 
-            // todo envoyer mail confirmation
+            // Create mail and send it
+            $email = new Email();
+            $email->setSubject(EmailService::CHECK_EMAIL_SUBJECT);
+            $email->setContent(EmailService::CHECK_EMAIL_BODY, [
+                $user->getFirstname(),
+                URL_WEBSITE."user/checkmail/".$user->getTokenEmail()
+            ]);
+            $email->setSend(0);
+            $email->setUser($user);
+            $email->save();
+
+            $emailService = new EmailService($email);
+
+            if($emailService->sendMail()){
+                $email->setSend(1);
+                $email->save();
+            }
+
             $response = new Response();
             $response->redirectionFrontend('user/valid', 200);
         }
@@ -75,6 +93,7 @@ class UserController extends AbstractController{
     }
 
     /**
+     * Send email if user forget him password
      * @param $params
      */
     public function forgetAction()
@@ -120,6 +139,7 @@ class UserController extends AbstractController{
     }
 
     /**
+     * Active user
      * @param $params
      */
     public function checkmailAction($params)
@@ -138,6 +158,7 @@ class UserController extends AbstractController{
     }
 
     /**
+     * Change password if user forget it
      * @param $params
      */
     public function changepassAction($params)

@@ -14,6 +14,16 @@ class EmailService{
 
     const CHANGE_PASSWORD_SUBJECT = "Mail oublie de mots de pass";
 
+    const CHECK_EMAIL_BODY = "
+        <h1>Bonjour %s,</h1>
+        <p>Vous venez de vous inscrire sur le site CineMS</p>
+        <p>Nous vous envoyons un lien valable pour confirmer votre compte</p>
+        <p>Si le lien n'ai plus contacter l'admin du site.</p>
+        <a href='%s'>Lien pour comfirmer votre compte</a>
+        ";
+
+    const CHECK_EMAIL_SUBJECT = "Confirme email";
+
     protected $phpMailer;
 
     /**
