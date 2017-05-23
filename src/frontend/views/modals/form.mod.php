@@ -1,4 +1,4 @@
-<?php $config = $form->getFrom(); ?>
+<?php $config = $form->getForm(); ?>
 <form method="<?php $this->echoHtml($config["struct"]["method"]);?>"
       action="<?php $this->echoHtml($config["struct"]["action"]);?>">
 
@@ -21,14 +21,14 @@
 
     <?php endforeach; ?>
 
-    <?php if(in_array($attributs["type"], ["email", "text", "password", "date"])) :?>
+    <?php if(isset($config["struct"]["capcha"]) && $config["struct"]["capcha"] === true) :?>
         <img src="<?php echo URL_WEBSITE_API ?>images/capcha" alt="capcha">
         <input type="text" value="" name="capcha">
     <?php endif;?>
 
 
 
-    <input type="hidden" name="token_<?php $this->echoHtml($form->getFormName()) ?>" value="<?php $this->echoHtml($form->getRequest()->session()->getToken($form->getFormName())); ?>">
+    <input type="hidden" name="token_<?php $this->echoHtml($form->getFormName()) ?>" value="<?php $this->echoHtml($form->generateNewToken()); ?>">
     <input type="submit" value="<?php $this->echoHtml($config["struct"]["submit"]);?>" >
 
 </form>
