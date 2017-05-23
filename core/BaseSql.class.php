@@ -167,7 +167,7 @@ abstract class BaseSql {
   {
       if ($this->$column === null) {
           return null;
-      } elseif (is_int($this->$column)) {
+      } elseif (is_int($this->$column) || is_string($this->$column)) {
           return $this->$column;
       } else {
           return $this->$column->getId();
@@ -217,13 +217,13 @@ abstract class BaseSql {
       }
   }
 
-  protected function poplulate($condition = ["id" => 1])
-  {
-    $query = $this->getOneBy($condition, true);
-    $query->setFetchMode(PDO::FETCH_CLASS, $this->table);
-    $result = $query->fetch();
-    return $result;
-  }
+  //protected function poplulate($condition = ["id" => 1])
+  //{
+  //  $query = $this->getOneBy($condition, true);
+  //  $query->setFetchMode(PDO::FETCH_CLASS, $this->table);
+  //  $result = $query->fetch();
+  //  return $result;
+  //}
 
   protected function initPoplulate($condition = ["id" => 1])
   {
@@ -307,11 +307,13 @@ abstract class BaseSql {
 
 
     /**
+     *  all set are here
      * function set
      */
     protected function setJoin($joinPropertyName, $model)
     {
         $this->getJoin($joinPropertyName);
+
         if (array_key_exists($joinPropertyName, $this->joinProperties['OneToMany'])) {
 
             $className = ucfirst($this->joinProperties['OneToMany'][$joinPropertyName]['table']);
@@ -328,8 +330,9 @@ abstract class BaseSql {
                 $this->$joinPropertyName = $model;
             } elseif ($model === null) {
                 $this->$joinPropertyName = null;
+            } else {
+                $this->$joinPropertyName = new $className([ "id" => $model]);
             }
-            $this->$joinPropertyName = new $className([ "id" => $model]);
 
         } elseif (array_key_exists($joinPropertyName, $this->joinProperties['ManyToMany'])) {
             $className = ucfirst($this->joinProperties['ManyToMany'][$joinPropertyName]['table']);
@@ -387,6 +390,10 @@ abstract class BaseSql {
      */
     protected function getManyToOne($joinPropertyName, $options)
     {
+        if ($this->$joinPropertyName == null) {
+            return null;
+        }
+
         $className = ucfirst($options['table']);
         if( $this->$joinPropertyName instanceof $className ) {
             return $this->$joinPropertyName;

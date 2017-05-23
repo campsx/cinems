@@ -12,14 +12,27 @@ class EmailService{
         <a href='%s'>Lien pour changer de mots de pass</a>
         ";
 
+    const CHANGE_PASSWORD_SUBJECT = "Mail oublie de mots de pass";
+
     protected $phpMailer;
 
+    /**
+     * @var Email
+     */
     protected $email;
+
+    /**
+     * @var User
+     */
+    protected $user;
 
     protected $body;
 
     function __construct($email)
     {
+        $this->email = $email;
+        $this->user = $this->email->getUser();
+
         $this->phpMailer = new PHPMailer;
         $this->phpMailer->CharSet = 'UTF-8';
 
@@ -45,12 +58,11 @@ class EmailService{
         $this->phpMailer->Password = EMAIL_PASSWORD;
         $this->phpMailer->setFrom(EMAIL_USERNAME, 'Admin cinems');
 
-        $this->setBody($body);
-        $this->setData($data);
-        $this->setSubject($subject);
-        $this->setAltBody($subject);
-        $this->phpMailer->Subject = 'Here is the subject';
-        $this->phpMailer->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $this->phpMailer->addAddress($this->user->getEmail(), $this->user->getPseudo());
+        $this->phpMailer->Body = $this->email->getContent();
+
+        $this->phpMailer->Subject = $this->email->getSubject();
+        $this->phpMailer->AltBody = 'Votre clients email ne lis pas le format HTML.';
         $this->phpMailer->isHTML(true);
     }
 
@@ -60,28 +72,6 @@ class EmailService{
     public function sendMail()
     {
         return $this->phpMailer->send();
-    }
-
-    /**
-     * @return String $body
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * @param String $body
-     */
-    public function setBody($body, $data)
-    {
-        $this->phpMailer->Body = vsprintf($this->getBody(), $this->getData());
-    }
-
-
-    public function addAddressTo($email, $name = "")
-    {
-        $this->phpMailer->addAddress($email, $name);
     }
 
 

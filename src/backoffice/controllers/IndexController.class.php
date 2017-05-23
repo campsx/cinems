@@ -16,13 +16,18 @@ class IndexController extends AbstractController {
     {
         $manager = new Manager();
         $query = $this->getRequest()->getPOSTQuery();
-        if ($this->getRequest()->session()->getCurrentUser() !== null || $this->getRequest()->isPOSTRequest() && $manager->checkConnection($query['email'], $query['password'])){
+
+
+        if ($this->getRequest()->isPOSTRequest() &&
+            $manager->checkConnection($query['email'], $query['password']) &&
+            $this->getRequest()->session()->isRole(Session::ROLE_ADMIN)){
+
             $response = new Response();
             $response->redirectionBackoffice('index/index', 200);
         }
 
         $view = new View('index', 'login', 'backoffice', false);
-        $view->assign('errors', $manager->getErrors());
+        $view->assign('errors', array_merge($manager->getErrors(), $this->getRequest()->session()->getErrors()));
     }
 
     public function disconnectAction($params)

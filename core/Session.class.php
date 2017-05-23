@@ -9,6 +9,8 @@ class Session{
 
     protected $allTokens = [];
 
+    protected $errors = [];
+
     function __construct()
     {
         if (!empty($_SESSION['user_id'])){
@@ -22,6 +24,16 @@ class Session{
             }
         }
 
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    private function addErrors($string, $data = [])
+    {
+        $this->errors[] = vsprintf($string, $data);
     }
 
     /**
@@ -69,6 +81,7 @@ class Session{
             }
         }
 
+        $this->addErrors(Errors::ROLE_ERROR);
         return false;
     }
 

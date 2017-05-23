@@ -61,17 +61,17 @@ class User extends BaseSql
     /**
      * @var array Comment
      */
-    protected $comments;
+    protected $comments = [];
 
     /**
      * @var array Comment
      */
-    protected $emails;
+    protected $emails = [];
 
     /**
      * @var array Comment
      */
-    protected $films;
+    protected $films = [];
 
     /**
      * @var String

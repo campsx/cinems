@@ -42,7 +42,6 @@ class Manager{
             return false;
         }
         $this->request->session()->addSession('user_id', $user['id']);
-
         return true;
     }
 

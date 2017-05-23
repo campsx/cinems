@@ -7,10 +7,16 @@ class Email extends BaseSql{
   protected $id;
 
 
-
   protected $send;
 
+    /**
+     * @var string
+     */
+  protected $subject;
 
+    /**
+     * @var string
+     */
   protected $content;
 
 
@@ -33,7 +39,15 @@ class Email extends BaseSql{
    * @param $condition Array
    */
   public function __construct($condition = []) {
-          parent::__construct($condition);
+
+      $this->joinProperties['ManyToOne'] = [
+          'user_id' => [
+              'table' => 'user'
+          ]
+      ];
+
+      parent::__construct($condition);
+
   }
 
 
@@ -56,7 +70,7 @@ class Email extends BaseSql{
 
 
    public function getSend() {
-     return $send->send;
+     return $this->send;
    }
 
 
@@ -64,25 +78,40 @@ class Email extends BaseSql{
      $this->send = $send;
    }
 
+    /**
+     * @return string
+     */
+   public function getSubject() {
+       return $this->subject;
+   }
+
+   public function setSubject($subject) {
+       $this->subject = $subject;
+   }
 
 
    public function getContent() {
-     return $this->content;
+       return $this->content;
    }
 
 
-   public function setContent($content) {
-     $this->content = $content;
+   public function setContent($content, $data) {
+       $this->content = vsprintf($content, $data);
    }
 
 
-   public function getUserID() {
-     return $this->user_id;
+    /**
+     * @return mixed
+     */
+   public function getUser() {
+       return $this->getJoin('user_id');
    }
 
-
-   public function setUserID($user_id) {
-     $this->user_id = $user_id;
+    /**
+     * @param $user_id
+     */
+   public function setUser($user) {
+       $this->setJoin('user_id', $user);
    }
 
 
@@ -90,7 +119,7 @@ class Email extends BaseSql{
     * @param $updated DateTime
     */
    public function setUpdated($updated) {
-     $this->updated = $updated;
+        $this->updated = $updated;
    }
 
    /**
@@ -117,5 +146,3 @@ class Email extends BaseSql{
 
 
 }
-
-?>

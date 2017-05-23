@@ -88,20 +88,24 @@ class UserController extends AbstractController{
                 $user->setTokenPassword(md5(uniqid(rand(), true)));
                 $date = new DateTime("+15 minutes");
                 $user->setTokenExpiration($date->format(DateTime::W3C));
+                $user->save();
 
-                // l'idée est de trouver un systeme pour fusioner le email service avec le model email
+                // Create mail and send it
                 $email = new Email();
-                $email->getContent(EmailService::CHANGE_PASSWORD_BODY, )
-
-                $emailService = new EmailService($email ,$user);
-                $emailService->setBody(EmailService::CHANGE_PASSWORD_BODY);
-                $emailService->setData([
-                    $user->getFirstname(), URL_WEBSITE."user/changepass/".$user->getTokenPassword()
+                $email->setSubject(EmailService::CHANGE_PASSWORD_SUBJECT);
+                $email->setContent(EmailService::CHANGE_PASSWORD_BODY, [
+                    $user->getFirstname(),
+                    URL_WEBSITE."user/changepass/".$user->getTokenPassword()
                 ]);
-                $emailService->addAddressTo("cam.laurent@outlook.com");
+                $email->setSend(0);
+                $email->setUser($user);
+                $email->save();
+
+                $emailService = new EmailService($email);
 
                 if($emailService->sendMail()){
-                    $user->save();
+                    $email->setSend(1);
+                    $email->save();
                     $send = true;
                 } else {
                     $error = true;
