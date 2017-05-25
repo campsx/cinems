@@ -14,16 +14,20 @@
       <?php include "src/backoffice/views/layouts/header.temp.php" ?>
       <?php include "src/backoffice/views/layouts/sidebar.temp.php" ?>
       <section class="content">
-        <?php include $this->view; ?>
+          <div class="view">
+              <?php include $this->view; ?>
+          </div>
       </section>
       <?php include "src/backoffice/views/layouts/footer.temp.php" ?>
    </div>
 
    <!-- jquery-2.2.4 -->
-   <script
+    <script
      src="https://code.jquery.com/jquery-2.2.4.min.js"
      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
      crossorigin="anonymous"></script>
-   <script src="<?php echo PATH_MEDIAS_JS ?>backoffice.js"></script>
+    <script type="text/javascript" src="<?php echo PATH_MEDIAS_JS ?>ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="<?php echo PATH_MEDIAS_JS ?>ckeditor/adapters/jquery.js"></script>
+    <script src="<?php echo PATH_MEDIAS_JS ?>backoffice.js"></script>
   </body>
 </html>

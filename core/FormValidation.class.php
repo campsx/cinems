@@ -199,7 +199,7 @@ class FormValidation{
 
             $validation = $data['validation'];
 
-            if (!empty($validation['unique']) && $validation['unique'] === true) {
+            if (in_array('unique', $validation)) {
                 $this->checkUnique($nameField);
             }
 
@@ -209,6 +209,10 @@ class FormValidation{
 
             if (!empty($validation['interval'])) {
                 $this->checkDateInterval($nameField, $validation['interval']);
+            }
+
+            if (in_array('slug', $validation)) {
+                $this->checkSlug($nameField);
             }
 
         }
@@ -246,6 +250,14 @@ class FormValidation{
      * @return void
      */
     public function checkPassword($nameField)
+    {
+
+    }
+
+    /**
+     * @return void
+     */
+    public function checkTextarea($nameField)
     {
 
     }
@@ -313,6 +325,12 @@ class FormValidation{
             } elseif ($age>$maxMin['max']) {
                 $this->addErrors(Errors::INTERVAL_MAX, [$nameField, $date, $maxMin['min'], $maxMin['max']]);
             }
+        }
+    }
+
+    public function checkSlug($slug){
+        if(!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)){
+            $this->addErrors(Errors::SLUG_NOT_VALID);
         }
     }
 

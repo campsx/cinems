@@ -1,7 +1,8 @@
 <h1> Liste de tous les actors </h1>
 
-<div class="w3-responsive">
-    <table class="w3-table-all notranslate">
+<div>
+    <div><a href="<?php echo URL_WEBSITE_ADMIN;?>actors/create">Ajouter nouvelle acteur</a></div>
+    <table>
         <tbody>
         <tr>
             <th>ID</th>

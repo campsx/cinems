@@ -1,6 +1,6 @@
 <?php
 
-class ActorsController{
+class ActorsController extends AbstractController {
 
 	public function indexAction($params)
 	{
@@ -18,8 +18,19 @@ class ActorsController{
 
 	public function createAction($params)
 	{
+        $actor = new Actor();
+        $form = new formValidation($actor, 'add');
+
+        if ($form->valid()){
+
+            $actor->save();
+
+            $response = new Response();
+            $response->redirectionBackoffice('actors/list', 200);
+        }
 
 		$view = new View('actors', 'create', 'backoffice');
+        $view->assign("form", $form);
 	}
 
 	public function editAction($params)
