@@ -1,7 +1,7 @@
 <?php $config = $form->getForm(); ?>
 <form method="<?php $this->echoHtml($config["struct"]["method"]);?>"
       action="<?php $this->echoHtml($config["struct"]["action"]);?>"
-    <?php if(in_array("enctype", $config["struct"])) :?>
+    <?php if(isset($config["struct"]["enctype"])) :?>
         enctype="<?php $this->echoHtml($config["struct"]["enctype"]);?>"
     <?php endif;?>
       >

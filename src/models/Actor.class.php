@@ -51,7 +51,7 @@ class Actor extends BaseSql
     /*
      * @var array Films
      */
-    protected $films;
+    protected $films = [];
 
     /**
      * @var Boolean

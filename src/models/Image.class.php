@@ -53,7 +53,7 @@ class Image extends BaseSql{
    * @param $title String
    */
   public function setTitle($title) {
-    $this->firstname = trim($title);
+    $this->title = trim($title);
   }
 
   /**

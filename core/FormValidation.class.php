@@ -28,6 +28,11 @@ class FormValidation{
     protected $data;
 
     /**
+     * @var string
+     */
+    protected $fileName = null;
+
+    /**
      * @var array
      */
     protected $errors = [];
@@ -44,6 +49,7 @@ class FormValidation{
         $this->object = $object;
         $this->formName = $formName;
         $this->form = $object->{$formName."Form"}();
+        $this->filesQuery = $this->request->getFILESQuery();
 
         if ($query === null){
             $this->query = $this->request->{'get'.$this->form['struct']['method'].'Query'}();
@@ -154,14 +160,46 @@ class FormValidation{
      * hydrate object with new data
      */
     public function hydratation(){
+
+        if ($this->fileName != null){
+            $this->hydratFile($this->fileName);
+        }
+
         if (isset($this->getForm()["initData"])){
             foreach ($this->getForm()["initData"] as $name => $data){
                 $this->data[$name] = $data;
             }
         }
+
         foreach ($this->data as $name => $data) {
             $this->object->{'set'.ucfirst($name)}($data);
         }
+    }
+
+    /**
+     * hydrate file
+     */
+    public function hydratFile($nameField)
+    {
+
+        $info = new SplFileInfo($this->filesQuery[$nameField]['name']);
+        $name = md5(session_id().microtime()) . '.' . $info->getExtension();
+
+        $dir = DIR_UPLOAD;
+        if(!file_exists($dir)){
+            mkdir($dir, 0700);
+        }
+
+        if (move_uploaded_file($this->filesQuery[$nameField]['tmp_name'], $dir . $name)){
+            $image = new Image();
+            $image->setName($this->filesQuery[$nameField]['name']);
+            $image->setTitle("title");
+            $image->setUrl($name);
+
+            $image->save();
+            $this->object->{'set'.ucfirst($nameField)}($image);
+        }
+
     }
 
 
@@ -172,6 +210,12 @@ class FormValidation{
     public function checkInput(){
 
         foreach ($this->form['data'] as $nameField => $data) {
+
+            if ($data['type'] == "file") {
+                $this->checkFile($nameField);
+                $this->fileName = $nameField;
+                continue;
+            }
 
             if (!isset($this->query[$nameField])) {
                 $this->addErrors(Errors::FIELD_NO_ISSET, [$nameField]);
@@ -260,6 +304,14 @@ class FormValidation{
     public function checkTextarea($nameField)
     {
 
+    }
+
+    /**
+     * @return void
+     */
+    public function checkFile($nameField)
+    {
+        $this->filesQuery[$nameField];
     }
 
     /**

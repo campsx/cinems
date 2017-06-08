@@ -54,7 +54,7 @@ class EmailService{
             // 1 = client messages
             // 2 = client and server messages
         if (ENV_IS_DEV){
-            //$this->mail->SMTPDebug = 2;
+            $this->phpMailer->SMTPDebug = 2;
             $this->phpMailer->Debugoutput = 'html';
         } else {
             $this->phpMailer->SMTPDebug = 0;
