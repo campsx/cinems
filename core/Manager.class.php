@@ -49,7 +49,7 @@ class Manager{
     {
         $className = ucfirst($tableName);
 
-        $sql = "SELECT a.id FROM ".$tableName." as a LIMIT 10 OFFSET ".($page * 10 - 10);
+        $sql = "SELECT a.id FROM ".$tableName." as a WHERE active = 1 LIMIT 10 OFFSET ".($page * 10 - 10);
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);

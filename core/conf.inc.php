@@ -14,6 +14,7 @@ define("URL_WEBSITE_ADMIN", URL_WEBSITE."admin/");
 define("URL_WEBSITE_API", URL_WEBSITE."api/");
 define("PATH_MEDIAS_WEBSITE", URL_WEBSITE."public/website/");
 define("PATH_MEDIAS_IMAGES", PATH_MEDIAS_WEBSITE."images/");
+define("PATH_MEDIAS_UPLOAD", PATH_MEDIAS_WEBSITE."upload/");
 define("PATH_MEDIAS_CSS", PATH_MEDIAS_WEBSITE."css/");
 define("PATH_MEDIAS_JS", PATH_MEDIAS_WEBSITE."js/");
 

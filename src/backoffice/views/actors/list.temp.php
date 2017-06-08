@@ -30,8 +30,8 @@
                         <?php $this->echoHtml($actor->getUpdated());?>
                     </td>
                     <td>
-                        <input type="button" value="Voir">
-                        <input type="button" value="Supprimer">
+                        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/edit/<?php $this->echoHtml($actor->getId())?>">Modifier</a>
+                        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/remove/<?php $this->echoHtml($actor->getId())?>">Supprimer</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

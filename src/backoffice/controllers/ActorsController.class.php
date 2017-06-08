@@ -35,10 +35,37 @@ class ActorsController extends AbstractController {
 
 	public function editAction($params)
 	{
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('actors/list', 200);
+        }
 
-		$view = new View('actors', 'edit', 'backoffice');
+
+        $actor = new Actor(['id' => $params[0]]);
+        $form = new formValidation($actor, 'edit');
+
+        if ($form->valid()){
+            $actor->save();
+        }
+
+        $view = new View('actors', 'edit', 'backoffice');
+        $view->assign("form", $form);
 	}
 
-	// @Todo: remove par requete sur list ou sa propre url avec redirection ??
+
+    public function removeAction($params)
+    {
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('actors/list', 200);
+        }
+
+        $actor = new Actor(['id' => $params[0]]);
+        $actor->delete();
+
+        $response = new Response();
+        $response->redirectionBackoffice('actors/list', 200);
+
+    }
 
 }

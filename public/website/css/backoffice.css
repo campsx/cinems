@@ -542,3 +542,11 @@ form .has-wysiwyg .input {
     width: 100%;
     text-align: center;
 }
+
+form .upload-img {
+    width: 117%;
+}
+
+form .upload-img img {
+    max-width: 200px;
+}

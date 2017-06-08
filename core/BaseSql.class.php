@@ -124,6 +124,24 @@ abstract class BaseSql {
 
   }
 
+  public function delete($hard = false)
+  {
+    if ($hard) {
+        $sql = "DELETE FROM ".strtolower($this->table)." WHERE id = :id;";
+        $req = $this->db->prepare($sql);
+        $req->execute([
+            'id' => $this->id
+        ]);
+    } else {
+        $sql = "UPDATE ".strtolower($this->table)." SET active = 0 WHERE id = :id;";
+        $req = $this->db->prepare($sql);
+        $req->execute([
+            'id' => $this->id
+        ]);
+    }
+
+  }
+
 
   protected function saveOneToMany($columns)
   {

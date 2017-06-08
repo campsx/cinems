@@ -1,4 +1,4 @@
-<?php $config = $form->getForm(); ?>
+<?php $config = $form->getForm();?>
 <form method="<?php $this->echoHtml($config["struct"]["method"]);?>"
       action="<?php $this->echoHtml($config["struct"]["action"]);?>"
     <?php if(isset($config["struct"]["enctype"])) :?>
@@ -22,6 +22,7 @@
                 <input type="<?php $this->echoHtml($attributs["type"]);?>"
                        name="<?php $this->echoHtml($name);?>"
                        placeholder="<?php $this->echoHtml($attributs["placeholder"]);?>"
+                       value="<?php $this->echoHtml($form->getObject()->{"get".ucfirst($name)}())?>"
                     <?php $this->echoHtml($attributs["required"]?"required='required'":"");?>
                 >
             </div>
@@ -38,13 +39,19 @@
                 <textarea name="<?php $this->echoHtml($name);?>"
                     <?php $this->echoHtml($attributs["required"]?"required='required'":"");?>
                     <?php $this->echoHtml(isset($attributs["wysiwyg"]) && $attributs["wysiwyg"]?'class=wysiwyg':"");?>
-                ></textarea>
+                ><?php $this->echoHtml($form->getObject()->{"get".ucfirst($name)}())?></textarea>
             </div>
 
         <?php endif;?>
 
 
         <?php if(in_array($attributs["type"], ["file"])) :?>
+
+            <?php if($form->getObject()->{"get".ucfirst($name)}() != null): ?>
+                <div class="upload-img">
+                    <img src="<?php echo PATH_MEDIAS_UPLOAD.$form->getObject()->{"get".ucfirst($name)}()->getUrl()?>" alt="image">
+                </div>
+            <?php endif;?>
 
             <div class="label">
                 <label for="<?php $this->echoHtml($name);?>"><?php $this->echoHtml($attributs["label"]);?></label>

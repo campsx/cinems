@@ -58,6 +58,14 @@ class FormValidation{
         }
     }
 
+    /**
+     * @return object
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
     private function addErrors($string, $data = [])
     {
         $this->errors[] = vsprintf($string, $data);
@@ -197,6 +205,10 @@ class FormValidation{
             $image->setUrl($name);
 
             $image->save();
+            if (($oldImage = $this->object->{'get'.ucfirst($nameField)}()) != null){
+                unlink($dir.$oldImage->getUrl());
+                $oldImage->delete(true);
+            }
             $this->object->{'set'.ucfirst($nameField)}($image);
         }
 
@@ -380,7 +392,8 @@ class FormValidation{
         }
     }
 
-    public function checkSlug($slug){
+    public function checkSlug($nameField){
+        $slug = $this->query[$nameField];
         if(!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)){
             $this->addErrors(Errors::SLUG_NOT_VALID);
         }

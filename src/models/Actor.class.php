@@ -351,9 +351,10 @@ class Actor extends BaseSql
         return [
             "struct" => [
                 "method" => "POST",
-                "action" => "user/add",
+                "action" => URL_WEBSITE_ADMIN."actors/edit/".$this->getId(),
                 "class" => "form-group",
-                "submit" => "S'inscrire",
+                "submit" => "Editer",
+                "enctype" => "multipart/form-data"
             ],
             "data" => [
                 "firstname" => [
@@ -398,6 +399,12 @@ class Actor extends BaseSql
                     "type" => "date",
                     "placeholder" => "1990-12-14",
                     "label" => "Votre age",
+                    "required" => false
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
                     "required" => false
                 ],
                 "shortDescription" => [
