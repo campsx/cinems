@@ -2,12 +2,12 @@
 
 <div>
     <div><a href="<?php echo URL_WEBSITE_ADMIN;?>images/create">Ajouter nouvelle image</a></div>
-    <table>
+    <table border="1">
         <tbody>
         <tr>
             <th>ID</th>
             <th>Title</th>
-            <th>Name</th>
+            <th>Visuel</th>
             <th>URL</th>
             <th>Created</th>
             <th>Action</th>
@@ -20,8 +20,8 @@
                 <td>
                     <?php $this->echoHtml($image->getTitle());?>
                 </td>
-                <td>
-                    <?php $this->echoHtml($image->getName());?>
+                <td class="image-in-list">
+                    <img src="<?php echo PATH_MEDIAS_UPLOAD.$image->getUrl()?>" alt="image">
                 </td>
                 <td>
                     <?php $this->echoHtml(PATH_MEDIAS_UPLOAD.$image->getUrl());?>

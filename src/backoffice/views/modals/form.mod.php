@@ -47,7 +47,7 @@
 
         <?php if(in_array($attributs["type"], ["file"])) :?>
 
-            <?php if($form->getObject()->{"get".ucfirst($name)}() != null): ?>
+            <?php if(!$form->getObject() instanceof Image && $form->getObject()->{"get".ucfirst($name)}() != null): ?>
                 <div class="upload-img">
                     <img src="<?php echo PATH_MEDIAS_UPLOAD.$form->getObject()->{"get".ucfirst($name)}()->getUrl()?>" alt="image">
                 </div>

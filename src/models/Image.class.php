@@ -155,7 +155,41 @@ class Image extends BaseSql{
       move_uploaded_file($this->tmp, $dir . $this->url);
   }
 
-  
 
+    public function addForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."images/create",
+                "class" => "form-group",
+                "submit" => "Créer",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "image de plage",
+                    "label" => "Title",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ]
+                    ]
+                ]
+            ],
+            "initData" => [
+                "media" => 1
+            ]
+        ];
+    }
 
 }

@@ -2,7 +2,7 @@
 
 <div>
     <div><a href="<?php echo URL_WEBSITE_ADMIN;?>actors/create">Ajouter nouvelle acteur</a></div>
-    <table>
+    <table border="1">
         <tbody>
         <tr>
             <th>ID</th>
