@@ -185,12 +185,12 @@ class FormValidation{
      */
     public function setFile($nameField)
     {
-
-        $this->infoFile = $this->filesQuery[$nameField];
-        $info = new SplFileInfo($this->filesQuery[$nameField]['name']);
-        $name = md5(session_id().microtime()) . '.' . $info->getExtension();
-        $this->infoFile['urlName'] = $name;
-
+        if ($this->filesQuery[$nameField]['error'] == 0) {
+            $this->infoFile = $this->filesQuery[$nameField];
+            $info = new SplFileInfo($this->filesQuery[$nameField]['name']);
+            $name = md5(session_id().microtime()) . '.' . $info->getExtension();
+            $this->infoFile['urlName'] = $name;
+        }
     }
 
     public function getFile()

@@ -1,6 +1,6 @@
 <?php
 
-class DirectorsController{
+class DirectorsController {
 
 	public function indexAction($params)
 	{
@@ -11,19 +11,86 @@ class DirectorsController{
 
 	public function listAction($params)
 	{
-		$view = new View('directors', 'list', 'backoffice');
+        $manager = new Manager();
+        $list = $manager->listOfPagination('director', 1);
+        $view = new View('directors', 'list', 'backoffice');
+        $view->assign('list', $list);
 	}
 
 	public function createAction($params)
 	{
-		$view = new View('directors', 'create', 'backoffice');
+        $director = new Director();
+        $form = new formValidation($director, 'add');
+
+        if ($form->valid()){
+
+            if ($form->getFile() != null) {
+                $image = new Image();
+                $image->setName($form->getFile()['name']);
+                $image->setTitle($director->getSlug());
+                $image->setUrl($form->getFile()['urlName']);
+                $image->setMedia(0);
+                $image->tmp = $form->getFile()['tmp_name'];
+                $image->save();
+                $director->setImage($image);
+            }
+
+            $director->save();
+
+            $response = new Response();
+            $response->redirectionBackoffice('directors/list', 200);
+        }
+
+        $view = new View('directors', 'create', 'backoffice');
+        $view->assign("form", $form);
 	}
 
 	public function editAction($params)
 	{
-		$view = new View('directors', 'edit', 'backoffice');
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('directors/list', 200);
+        }
+
+        $director = new Director(['id' => $params[0]]);
+        $form = new formValidation($director, 'edit');
+
+        if ($form->valid()){
+
+            if ($form->getFile() != null) {
+                if (($oldImage = $director->getImage()) != null){
+                    $oldImage->delete(true);
+                }
+                $image = new Image();
+                $image->setName($form->getFile()['name']);
+                $image->setTitle($director->getSlug());
+                $image->setUrl($form->getFile()['urlName']);
+                $image->setMedia(0);
+                $image->tmp = $form->getFile()['tmp_name'];
+                $image->save();
+                $director->setImage($image);
+            }
+
+            $director->save();
+        }
+
+        $view = new View('directors', 'edit', 'backoffice');
+        $view->assign("form", $form);
 	}
 
-	// @Todo: remove par requete sur list ou sa propre url avec redirection ??
+    public function removeAction($params)
+    {
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('directors/list', 200);
+        }
+
+        $director = new Director(['id' => $params[0]]);
+        $director->delete();
+
+        $response = new Response();
+        $response->redirectionBackoffice('directors/list', 200);
+
+    }
 
 }

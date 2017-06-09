@@ -393,6 +393,7 @@ class Actor extends BaseSql
                             "max" => 100
                         ],
                         "slug",
+                        "unique"
                     ]
                 ],
                 "age" => [

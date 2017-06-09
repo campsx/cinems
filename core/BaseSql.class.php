@@ -452,7 +452,7 @@ abstract class BaseSql {
 
     public function unique($nameField, $field)
     {
-        $sql = "SELECT a.id FROM ".strtolower($this->table)." as a WHERE a.".$nameField." = :field ;";
+        $sql = "SELECT a.id FROM ".strtolower($this->table)." as a WHERE a.".$nameField." = :field AND a.id != ".$this->id;
         $query = $this->db->prepare($sql);
 
         $query->execute([

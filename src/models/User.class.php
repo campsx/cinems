@@ -472,7 +472,7 @@ class User extends BaseSql
                             "min" => 10,
                             "max" => 255
                         ],
-                        "unique" => true
+                        "unique"
                     ]
                 ],
                 "pseudo" => [
