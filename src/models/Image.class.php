@@ -23,6 +23,11 @@ class Image extends BaseSql{
   protected $url;
 
   /**
+   * @var boolean
+   */
+  protected $media;
+
+  /**
    * @var Boolean
    */
   protected $created;
@@ -31,7 +36,6 @@ class Image extends BaseSql{
    * @var DateTime
    */
   protected $updated;
-
 
 
   /**
@@ -92,6 +96,22 @@ class Image extends BaseSql{
   }
 
   /**
+   * @param bool
+   */
+  public function setMedia($media)
+  {
+      $this->media = $media;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getMedia()
+  {
+      return $this->media;
+  }
+
+  /**
    * @param $created DateTime
    */
   public function setCreated($created) {
@@ -120,6 +140,22 @@ class Image extends BaseSql{
   }
 
 
+  public function removeCallback()
+  {
+      unlink(DIR_UPLOAD.$this->url);
+  }
+
+  public function createCallback()
+  {
+      $dir = DIR_UPLOAD;
+      if(!file_exists($dir)){
+          mkdir($dir, 0700);
+      }
+
+      move_uploaded_file($this->tmp, $dir . $this->url);
+  }
+
+  
 
 
 }

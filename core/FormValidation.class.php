@@ -30,7 +30,7 @@ class FormValidation{
     /**
      * @var string
      */
-    protected $fileName = null;
+    protected $infoFile = null;
 
     /**
      * @var array
@@ -169,10 +169,6 @@ class FormValidation{
      */
     public function hydratation(){
 
-        if ($this->fileName != null){
-            $this->hydratFile($this->fileName);
-        }
-
         if (isset($this->getForm()["initData"])){
             foreach ($this->getForm()["initData"] as $name => $data){
                 $this->data[$name] = $data;
@@ -185,33 +181,21 @@ class FormValidation{
     }
 
     /**
-     * hydrate file
+     * set file
      */
-    public function hydratFile($nameField)
+    public function setFile($nameField)
     {
 
+        $this->infoFile = $this->filesQuery[$nameField];
         $info = new SplFileInfo($this->filesQuery[$nameField]['name']);
         $name = md5(session_id().microtime()) . '.' . $info->getExtension();
+        $this->infoFile['urlName'] = $name;
 
-        $dir = DIR_UPLOAD;
-        if(!file_exists($dir)){
-            mkdir($dir, 0700);
-        }
+    }
 
-        if (move_uploaded_file($this->filesQuery[$nameField]['tmp_name'], $dir . $name)){
-            $image = new Image();
-            $image->setName($this->filesQuery[$nameField]['name']);
-            $image->setTitle("title");
-            $image->setUrl($name);
-
-            $image->save();
-            if (($oldImage = $this->object->{'get'.ucfirst($nameField)}()) != null){
-                unlink($dir.$oldImage->getUrl());
-                $oldImage->delete(true);
-            }
-            $this->object->{'set'.ucfirst($nameField)}($image);
-        }
-
+    public function getFile()
+    {
+        return $this->infoFile;
     }
 
 
@@ -225,6 +209,7 @@ class FormValidation{
 
             if ($data['type'] == "file") {
                 $this->checkFile($nameField);
+                $this->setFile($nameField);
                 $this->fileName = $nameField;
                 continue;
             }

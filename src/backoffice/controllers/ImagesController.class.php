@@ -11,7 +11,10 @@ class ImagesController{
 
 	public function listAction($params)
 	{
-		$view = new View('images', 'list', 'backoffice');
+        $manager = new Manager();
+        $list = $manager->listOfPaginationImage(1);
+        $view = new View('images', 'list', 'backoffice');
+        $view->assign('list', $list);
 	}
 
 	public function createAction($params)

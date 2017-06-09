@@ -47,14 +47,14 @@
                     <span> Pages </span>
                   </a>
               </li>
-<!--  todo : for after first version of site
+
               <li>
                   <a href="<?php echo URL_WEBSITE_ADMIN ?>images/list">
                     <i class="material-icons">&#xE3B6;</i>
                     <span> Images </span>
                   </a>
               </li>
--->
+
               <li class="menu-title">Administation</li>
 
               <li>

@@ -62,6 +62,21 @@ class Manager{
         return $list;
     }
 
+    public function listOfPaginationImage($page, $criteria = [])
+    {
+        $sql = "SELECT a.id FROM image as a WHERE media = 1 LIMIT 10 OFFSET ".($page * 10 - 10);
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new Image([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
     public function countAll($tableName, $criteria = [])
     {
         $sql = "SELECT COUNT(*) FROM ".$tableName;

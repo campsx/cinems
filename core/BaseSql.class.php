@@ -8,6 +8,8 @@ abstract class BaseSql {
 
   protected $columns;
 
+  public $tmp;
+
   /**
    * [
    *    'OneToMany' => [
@@ -34,6 +36,9 @@ abstract class BaseSql {
       'ManyToOne' => [],
       'ManyToMany' => []
   ];
+
+  public function removeCallback(){}
+  public function createCallback(){}
 
   public function __construct($condition = []) {
     $this->db = new MyPDO();
@@ -85,6 +90,7 @@ abstract class BaseSql {
     $req = $this->db->prepare($sql);
     $req->execute($data);
     $this->id = $this->db->lastInsertId();
+    $this->createCallback();
   }
 
   protected function update()
@@ -139,6 +145,8 @@ abstract class BaseSql {
             'id' => $this->id
         ]);
     }
+
+    $this->removeCallback();
 
   }
 

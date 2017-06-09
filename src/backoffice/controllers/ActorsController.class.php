@@ -23,6 +23,17 @@ class ActorsController extends AbstractController {
 
         if ($form->valid()){
 
+            if ($form->getFile() != null) {
+                $image = new Image();
+                $image->setName($form->getFile()['name']);
+                $image->setTitle($actor->getSlug());
+                $image->setUrl($form->getFile()['urlName']);
+                $image->setMedia(0);
+                $image->tmp = $form->getFile()['tmp_name'];
+                $image->save();
+                $actor->setImage($image);
+            }
+
             $actor->save();
 
             $response = new Response();
@@ -45,6 +56,21 @@ class ActorsController extends AbstractController {
         $form = new formValidation($actor, 'edit');
 
         if ($form->valid()){
+
+            if ($form->getFile() != null) {
+                if (($oldImage = $actor->getImage()) != null){
+                    $oldImage->delete(true);
+                }
+                $image = new Image();
+                $image->setName($form->getFile()['name']);
+                $image->setTitle($actor->getSlug());
+                $image->setUrl($form->getFile()['urlName']);
+                $image->setMedia(0);
+                $image->tmp = $form->getFile()['tmp_name'];
+                $image->save();
+                $actor->setImage($image);
+            }
+
             $actor->save();
         }
 
