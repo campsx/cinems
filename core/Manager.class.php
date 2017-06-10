@@ -45,11 +45,13 @@ class Manager{
         return true;
     }
 
-    public function listOfPagination($tableName, $page, $criteria = [])
+
+
+    private function listOfPagination($tableName, $page, $criteria = [], $where = '')
     {
         $className = ucfirst($tableName);
 
-        $sql = "SELECT a.id FROM ".$tableName." as a WHERE active = 1 LIMIT 10 OFFSET ".($page * 10 - 10);
+        $sql = "SELECT a.id FROM ".$tableName." as a ".(empty($where) ? '' : 'WHERE '.$where)." LIMIT 10 OFFSET ".($page * 10 - 10);
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -62,19 +64,20 @@ class Manager{
         return $list;
     }
 
+
+    public function listOfPaginationActive($tableName, $page, $criteria = [])
+    {
+        return $this->listOfPagination($tableName, $page, $criteria, 'active = 1');
+    }
+
     public function listOfPaginationImage($page, $criteria = [])
     {
-        $sql = "SELECT a.id FROM image as a WHERE media = 1 LIMIT 10 OFFSET ".($page * 10 - 10);
-        $req = $this->db->prepare($sql);
-        $req->execute();
-        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
-        $list = [];
-        if ($allId){
-            foreach ($allId as $id) {
-                $list[] = new Image([ "id" => $id['id']]);
-            }
-        }
-        return $list;
+        return $this->listOfPagination('image', $page, $criteria, 'media = 1');
+    }
+
+    public function listOfPaginationAll($tableName, $page, $criteria = [])
+    {
+        return $this->listOfPagination($tableName, $page, $criteria);
     }
 
     public function countAll($tableName, $criteria = [])

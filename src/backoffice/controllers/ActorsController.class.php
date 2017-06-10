@@ -11,7 +11,7 @@ class ActorsController extends AbstractController {
 	public function listAction($params)
 	{
         $manager = new Manager();
-        $list = $manager->listOfPagination('actor', 1);
+        $list = $manager->listOfPaginationActive('actor', 1);
 		$view = new View('actors', 'list', 'backoffice');
 		$view->assign('list', $list);
 	}

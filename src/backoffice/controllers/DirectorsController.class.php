@@ -12,7 +12,7 @@ class DirectorsController {
 	public function listAction($params)
 	{
         $manager = new Manager();
-        $list = $manager->listOfPagination('director', 1);
+        $list = $manager->listOfPaginationActive('director', 1);
         $view = new View('directors', 'list', 'backoffice');
         $view->assign('list', $list);
 	}

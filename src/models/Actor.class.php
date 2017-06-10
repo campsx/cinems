@@ -331,13 +331,7 @@ class Actor extends BaseSql
                     "type" => "textarea",
                     "label" => "Description",
                     "required" => false,
-                    "wysiwyg" => true,
-                    "validation"  => [
-                        "length" => [
-                            "min" => 2,
-                            "max" => 200
-                        ]
-                    ]
+                    "wysiwyg" => true
                 ]
             ],
             "initData" => [
@@ -423,13 +417,7 @@ class Actor extends BaseSql
                     "type" => "textarea",
                     "label" => "Description",
                     "required" => false,
-                    "wysiwyg" => true,
-                    "validation"  => [
-                        "length" => [
-                            "min" => 2,
-                            "max" => 200
-                        ]
-                    ]
+                    "wysiwyg" => true
                 ]
             ]
         ];
