@@ -12,9 +12,11 @@ class EmailsController{
 	public function listAction($params)
 	{
         $manager = new Manager();
-        $list = $manager->listOfPaginationAll('email', 1);
+        $list = $manager->listOfPaginationAll('email', empty($params[0]) ? 1 : $params[0]);
         $view = new View('emails', 'list', 'backoffice');
         $view->assign('list', $list);
+        $view->assign('nbPage', ceil($manager->getTotalResult() / 10));
+        $view->assign('page', empty($params[0]) ? 1 : $params[0]);
 
 	}
 

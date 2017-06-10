@@ -12,9 +12,11 @@ class DirectorsController {
 	public function listAction($params)
 	{
         $manager = new Manager();
-        $list = $manager->listOfPaginationActive('director', 1);
+        $list = $manager->listOfPaginationActive('director', empty($params[0]) ? 1 : $params[0]);
         $view = new View('directors', 'list', 'backoffice');
         $view->assign('list', $list);
+        $view->assign('nbPage', ceil($manager->getTotalResult() / 10));
+        $view->assign('page', empty($params[0]) ? 1 : $params[0]);
 	}
 
 	public function createAction($params)

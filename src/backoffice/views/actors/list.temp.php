@@ -37,4 +37,19 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php if ($page > 1): ?>
+        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/list/<?php echo $page - 1; ?>">Page précédente</a> —
+    <?php endif; ?>
+
+
+    <?php for ($i = 1; $i <= $nbPage; $i++): ?>
+        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/list/<?php echo $i; ?>"><?php echo $i; ?></a>
+    <?php endfor; ?>
+
+
+    <?php if ($page < $nbPage): ?>
+        — <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/list/<?php echo $page + 1; ?>">Page suivante</a>
+    <?php endif; ?>
+
 </div>
