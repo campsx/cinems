@@ -146,7 +146,7 @@ class Actor extends BaseSql
      */
     public function getAge()
     {
-        return $this->age;
+        return new DateTime($this->age);
     }
 
 

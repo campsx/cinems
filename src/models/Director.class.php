@@ -125,7 +125,7 @@ class Director extends BaseSql{
    * @return $age DateTime
    */
   public function getAge() {
-    return $this->age;
+      return new DateTime($this->age);
   }
 
 

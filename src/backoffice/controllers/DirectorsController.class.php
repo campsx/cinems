@@ -4,9 +4,8 @@ class DirectorsController {
 
 	public function indexAction($params)
 	{
-		header('Status: 301 Moved Permanently', false, 301);
-		header('Location: '.URL_WEBSITE_ADMIN.'directors/list');
-		exit();
+        $response = new Response();
+        $response->redirectionBackoffice('directors/list', 301);
 	}
 
 	public function listAction($params)

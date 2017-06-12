@@ -12,7 +12,7 @@
 
     <?php foreach ($config["data"] as $name => $attributs):?>
     <div class="field <?php $this->echoHtml(isset($attributs["wysiwyg"]) && $attributs["wysiwyg"]?'has-wysiwyg':'');?>">
-        <?php if(in_array($attributs["type"], ["email", "text", "password", "date"])) :?>
+        <?php if(in_array($attributs["type"], ["email", "text", "password"])) :?>
 
             <div class="label">
                 <label for="<?php $this->echoHtml($name);?>"><?php $this->echoHtml($attributs["label"]);?></label>
@@ -23,6 +23,23 @@
                        name="<?php $this->echoHtml($name);?>"
                        placeholder="<?php $this->echoHtml($attributs["placeholder"]);?>"
                        value="<?php $this->echoHtml($form->getObject()->{"get".ucfirst($name)}())?>"
+                    <?php $this->echoHtml($attributs["required"]?"required='required'":"");?>
+                >
+            </div>
+
+        <?php endif;?>
+
+        <?php if(in_array($attributs["type"], ["date"])) :?>
+
+            <div class="label">
+                <label for="<?php $this->echoHtml($name);?>"><?php $this->echoHtml($attributs["label"]);?></label>
+            </div>
+
+            <div class="input">
+                <input type="<?php $this->echoHtml($attributs["type"]);?>"
+                       name="<?php $this->echoHtml($name);?>"
+                       placeholder="<?php $this->echoHtml($attributs["placeholder"]);?>"
+                       value="<?php $this->echoHtml($form->getObject()->{"get".ucfirst($name)}()->format('Y-m-d'))?>"
                     <?php $this->echoHtml($attributs["required"]?"required='required'":"");?>
                 >
             </div>
