@@ -1,1 +1,3 @@
-<h1> create new page </h1>
+<h1> Create une nouvelle page </h1>
+
+<?php $this->includeModal("form", $form); ?>
