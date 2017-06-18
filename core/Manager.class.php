@@ -6,6 +6,8 @@ class Manager{
 
     protected $request;
 
+    protected $totalResult;
+
     protected $errors = [];
 
     function __construct()
@@ -45,11 +47,14 @@ class Manager{
         return true;
     }
 
-    public function listOfPagination($tableName, $page, $criteria = [])
+
+
+    private function listOfPagination($tableName, $page, $criteria = [], $where = '')
     {
+        $this->countAll($tableName, $criteria, $where);
         $className = ucfirst($tableName);
 
-        $sql = "SELECT a.id FROM ".$tableName." as a LIMIT 10 OFFSET ".($page * 10 - 10);
+        $sql = "SELECT a.id FROM ".$tableName." as a ".(empty($where) ? '' : 'WHERE '.$where)." LIMIT 10 OFFSET ".($page * 10 - 10);
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -62,9 +67,33 @@ class Manager{
         return $list;
     }
 
-    public function countAll($tableName, $criteria = [])
+
+    public function listOfPaginationActive($tableName, $page = 1, $criteria = [])
     {
-        $sql = "SELECT COUNT(*) FROM ".$tableName;
+        return $this->listOfPagination($tableName, $page, $criteria, 'active = 1');
+    }
+
+    public function listOfPaginationImage($page = 1, $criteria = [])
+    {
+        return $this->listOfPagination('image', $page, $criteria, 'media = 1');
+    }
+
+    public function listOfPaginationAll($tableName, $page = 1, $criteria = [])
+    {
+        return $this->listOfPagination($tableName, $page, $criteria);
+    }
+
+    public function countAll($tableName, $criteria = [], $where = '')
+    {
+        $sql = "SELECT COUNT(*) as nb FROM ".$tableName." as a ".(empty($where) ? '' : 'WHERE '.$where);
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $this->totalResult = (int) $req->fetchAll(PDO::FETCH_ASSOC)[0]['nb'];
+    }
+
+    public function getTotalResult()
+    {
+        return $this->totalResult;
     }
 
 

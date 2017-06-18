@@ -26,20 +26,7 @@ a {
 
 /*-------------  google icon ---------------*/
 
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
-       url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
-       url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
-}
-
 .material-icons {
-  font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
   font-size: 24px;  /* Preferred icon size */
@@ -233,7 +220,6 @@ div.page {
     overflow: hidden;
     width: 100%;
     position: relative;
-    min-height: 1300px;
 }
 
 .navbar {
@@ -477,6 +463,10 @@ div.page {
 
 /* ------------------ content -----------------*/
 
+h1 {
+    text-align: center;
+}
+
 .content {
     width: auto;
     margin-bottom: 60px;
@@ -484,4 +474,83 @@ div.page {
     padding: 20px 27px 15px 95px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.view {
+    border: solid 3px #3D434A;
+    padding: 15px;
+    min-height: 1000px;
+    background: #323B43;
+    border-radius: 15px;
+}
+
+input, textarea {
+    border: solid 2px #98a6ad;
+    padding: 7px 8px;
+    border-radius: 0.370em;
+    font-size: 13px;
+}
+
+textarea {
+    width: 100%;
+    height: 110px;
+}
+
+input[type="submit"] {
+    background-color: #3BAFDA;
+    padding: 11px 33px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    font-weight: bold;
+    border: none;
+    border-bottom: solid 2px #13A4DA;
+    border-right: solid 2px #13A4DA;
+    margin-top: 40px;
+}
+
+form {
+    text-align: center;
+}
+
+form .field{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+form .label {
+    vertical-align: top;
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+
+form .input {
+    display: inline-block;
+    width: 58%;
+    text-align: left;
+}
+
+form .has-wysiwyg .label {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form .has-wysiwyg .input {
+    width: 100%;
+    text-align: center;
+}
+
+form .upload-img {
+    width: 117%;
+}
+
+form .upload-img img {
+    max-width: 200px;
+}
+
+.image-in-list img{
+    max-width: 100px;
 }

@@ -11,17 +11,32 @@ class EmailsController{
 
 	public function listAction($params)
 	{
-		$view = new View('emails', 'list', 'backoffice');
+        $manager = new Manager();
+        $list = $manager->listOfPaginationAll('email', empty($params[0]) ? 1 : $params[0]);
+        $view = new View('emails', 'list', 'backoffice');
+        $view->assign('list', $list);
+        $view->assign('nbPage', ceil($manager->getTotalResult() / 10));
+        $view->assign('page', empty($params[0]) ? 1 : $params[0]);
+
 	}
 
-	public function createAction($params)
-	{
-		$view = new View('emails', 'create', 'backoffice');
-	}
 
 	public function editAction($params)
 	{
-		$view = new View('emails', 'edit', 'backoffice');
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('emails/list', 200);
+        }
+
+        $email = new Email(['id' => $params[0]]);
+        $form = new formValidation($email, 'edit');
+
+        if ($form->valid()){
+            $email->save();
+        }
+
+        $view = new View('emails', 'edit', 'backoffice');
+        $view->assign("form", $form);
 	}
 
 

@@ -95,7 +95,7 @@ class Email extends BaseSql{
    }
 
 
-   public function setContent($content, $data) {
+   public function setContent($content, $data = []) {
        $this->content = vsprintf($content, $data);
    }
 
@@ -143,6 +143,40 @@ class Email extends BaseSql{
    public function getCreated() {
      return $this->created;
    }
+
+
+    public function editForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."emails/edit/".$this->getId(),
+                "class" => "form-group",
+                "submit" => "Editer"
+            ],
+            "data" => [
+                "subject" => [
+                    "type" => "textarea",
+                    "placeholder" => "Email pour confirmation de ...",
+                    "label" => "Subject",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "content" => [
+                    "type" => "textarea",
+                    "label" => "Content",
+                    "required" => true,
+                    "wysiwyg" => true
+                ]
+            ]
+        ];
+    }
 
 
 }

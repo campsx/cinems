@@ -62,7 +62,12 @@ class Director extends BaseSql{
    * @param $condition Array
    */
   public function __construct($condition = []) {
-          parent::__construct($condition);
+      $this->joinProperties['ManyToOne'] = [
+          'photo_id' => [
+              'table' => 'image'
+          ]
+      ];
+      parent::__construct($condition);
   }
 
 
@@ -120,7 +125,7 @@ class Director extends BaseSql{
    * @return $age DateTime
    */
   public function getAge() {
-    return $this->age;
+      return new DateTime($this->age);
   }
 
 
@@ -160,15 +165,15 @@ class Director extends BaseSql{
   }
 
 
-  public function setPhoto_id($photo_id) {
-    $this->photo_id = $photo_id;
+  public function setImage($photo_id) {
+      $this->setJoin('photo_id', $photo_id);
   }
 
   /**
    * @return $age DateTime
    */
-  public function getPhoto_id() {
-    return $this->photo_id;
+  public function getImage() {
+    return $this->getJoin('photo_id');
   }
 
 
@@ -211,7 +216,185 @@ class Director extends BaseSql{
     return $this->updated;
   }
 
+    public function addForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."directors/create",
+                "class" => "form-group",
+                "submit" => "Créer",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "slug" => [
+                    "type" => "text",
+                    "placeholder" => "jean-dupont",
+                    "label" => "slug",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "slug",
+                        "unique"
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Age",
+                    "required" => false
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "shortDescription" => [
+                    "type" => "textarea",
+                    "label" => "Short description",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ],
+                "description" => [
+                    "type" => "textarea",
+                    "label" => "Description",
+                    "required" => false,
+                    "wysiwyg" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ]
+            ],
+            "initData" => [
+                "active" => 1
+            ]
+        ];
+    }
+
+    public function editForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."directors/edit/".$this->getId(),
+                "class" => "form-group",
+                "submit" => "Créer",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "slug" => [
+                    "type" => "text",
+                    "placeholder" => "jean-dupont",
+                    "label" => "slug",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "slug",
+                        "unique"
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Age",
+                    "required" => false
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "shortDescription" => [
+                    "type" => "textarea",
+                    "label" => "Short description",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ],
+                "description" => [
+                    "type" => "textarea",
+                    "label" => "Description",
+                    "required" => false,
+                    "wysiwyg" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ]
+            ]
+        ];
+    }
+
 }
-
-
-?>

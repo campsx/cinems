@@ -77,14 +77,14 @@
                     <span> Emails </span>
                   </a>
               </li>
-
+<!--  todo : for after first version of site
               <li>
                   <a href="<?php echo URL_WEBSITE_ADMIN ?>restore/list">
                     <i class="material-icons">&#xE929;</i>
                     <span> Restore </span>
                   </a>
               </li>
-
+-->
             </ul>
             <div class="clearfix"></div>
         </div>

@@ -11,4 +11,10 @@ $(document).ready(function() {
         $('.dropdown').toggleClass('open');
     });
 
+    $('.wysiwyg').ckeditor($.noop, {
+        height: 500
+    });
+
+    $('select').MultipleSelect();
+
 });

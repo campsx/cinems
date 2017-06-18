@@ -28,6 +28,11 @@ class FormValidation{
     protected $data;
 
     /**
+     * @var string
+     */
+    protected $infoFile = null;
+
+    /**
      * @var array
      */
     protected $errors = [];
@@ -44,12 +49,21 @@ class FormValidation{
         $this->object = $object;
         $this->formName = $formName;
         $this->form = $object->{$formName."Form"}();
+        $this->filesQuery = $this->request->getFILESQuery();
 
         if ($query === null){
             $this->query = $this->request->{'get'.$this->form['struct']['method'].'Query'}();
         } else {
             $this->query = $query;
         }
+    }
+
+    /**
+     * @return object
+     */
+    public function getObject()
+    {
+        return $this->object;
     }
 
     private function addErrors($string, $data = [])
@@ -154,14 +168,34 @@ class FormValidation{
      * hydrate object with new data
      */
     public function hydratation(){
+
         if (isset($this->getForm()["initData"])){
             foreach ($this->getForm()["initData"] as $name => $data){
                 $this->data[$name] = $data;
             }
         }
+
         foreach ($this->data as $name => $data) {
             $this->object->{'set'.ucfirst($name)}($data);
         }
+    }
+
+    /**
+     * set file
+     */
+    public function setFile($nameField)
+    {
+        if ($this->filesQuery[$nameField]['error'] == 0) {
+            $this->infoFile = $this->filesQuery[$nameField];
+            $info = new SplFileInfo($this->filesQuery[$nameField]['name']);
+            $name = md5(session_id().microtime()) . '.' . $info->getExtension();
+            $this->infoFile['urlName'] = $name;
+        }
+    }
+
+    public function getFile()
+    {
+        return $this->infoFile;
     }
 
 
@@ -172,6 +206,13 @@ class FormValidation{
     public function checkInput(){
 
         foreach ($this->form['data'] as $nameField => $data) {
+
+            if ($data['type'] == "file") {
+                $this->checkFile($nameField);
+                $this->setFile($nameField);
+                $this->fileName = $nameField;
+                continue;
+            }
 
             if (!isset($this->query[$nameField])) {
                 $this->addErrors(Errors::FIELD_NO_ISSET, [$nameField]);
@@ -199,7 +240,7 @@ class FormValidation{
 
             $validation = $data['validation'];
 
-            if (!empty($validation['unique']) && $validation['unique'] === true) {
+            if (in_array('unique', $validation)) {
                 $this->checkUnique($nameField);
             }
 
@@ -209,6 +250,10 @@ class FormValidation{
 
             if (!empty($validation['interval'])) {
                 $this->checkDateInterval($nameField, $validation['interval']);
+            }
+
+            if (in_array('slug', $validation)) {
+                $this->checkSlug($nameField);
             }
 
         }
@@ -253,6 +298,22 @@ class FormValidation{
     /**
      * @return void
      */
+    public function checkTextarea($nameField)
+    {
+
+    }
+
+    /**
+     * @return void
+     */
+    public function checkFile($nameField)
+    {
+        $this->filesQuery[$nameField];
+    }
+
+    /**
+     * @return void
+     */
     public function checkDate($nameField)
     {
         $date = $this->query[$nameField];
@@ -263,6 +324,30 @@ class FormValidation{
         $dateErrors = DateTime::getLastErrors();
         if(!($dateErrors["warning_count"]+$dateErrors["error_count"]==0)){
             $this->addErrors(Errors::DATE_NOT_VALID, [$date]);
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function checkMultiple($nameField)
+    {
+        $data = $this->query[$nameField];
+        foreach ($data as $value) {
+            if (!in_array($value, $this->form['data'][$nameField]["choice"])){
+                $this->addErrors(Errors::MULTIPLE_NO_EXIST, [$value, $nameField]);
+            }
+        }
+
+    }
+
+    /**
+     * @return void
+     */
+    public function checkRadioTrueFalse($nameField)
+    {
+        if ($this->query[$nameField] != 0 && $this->query[$nameField] != 1) {
+            $this->addErrors(Errors::TRUE_FALSE, [$nameField]);
         }
     }
 
@@ -313,6 +398,13 @@ class FormValidation{
             } elseif ($age>$maxMin['max']) {
                 $this->addErrors(Errors::INTERVAL_MAX, [$nameField, $date, $maxMin['min'], $maxMin['max']]);
             }
+        }
+    }
+
+    public function checkSlug($nameField){
+        $slug = $this->query[$nameField];
+        if(!preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $slug)){
+            $this->addErrors(Errors::SLUG_NOT_VALID);
         }
     }
 

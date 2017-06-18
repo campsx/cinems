@@ -8,6 +8,8 @@ abstract class BaseSql {
 
   protected $columns;
 
+  public $tmp;
+
   /**
    * [
    *    'OneToMany' => [
@@ -34,6 +36,9 @@ abstract class BaseSql {
       'ManyToOne' => [],
       'ManyToMany' => []
   ];
+
+  public function removeCallback(){}
+  public function createCallback(){}
 
   public function __construct($condition = []) {
     $this->db = new MyPDO();
@@ -85,6 +90,7 @@ abstract class BaseSql {
     $req = $this->db->prepare($sql);
     $req->execute($data);
     $this->id = $this->db->lastInsertId();
+    $this->createCallback();
   }
 
   protected function update()
@@ -121,6 +127,26 @@ abstract class BaseSql {
     } else {
       $this->update();
     }
+
+  }
+
+  public function delete($hard = false)
+  {
+    if ($hard) {
+        $sql = "DELETE FROM ".strtolower($this->table)." WHERE id = :id;";
+        $req = $this->db->prepare($sql);
+        $req->execute([
+            'id' => $this->id
+        ]);
+    } else {
+        $sql = "UPDATE ".strtolower($this->table)." SET active = 0 WHERE id = :id;";
+        $req = $this->db->prepare($sql);
+        $req->execute([
+            'id' => $this->id
+        ]);
+    }
+
+    $this->removeCallback();
 
   }
 
@@ -426,7 +452,7 @@ abstract class BaseSql {
 
     public function unique($nameField, $field)
     {
-        $sql = "SELECT a.id FROM ".strtolower($this->table)." as a WHERE a.".$nameField." = :field ;";
+        $sql = "SELECT a.id FROM ".strtolower($this->table)." as a WHERE a.".$nameField." = :field AND a.id != ".$this->id;
         $query = $this->db->prepare($sql);
 
         $query->execute([

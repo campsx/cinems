@@ -1,29 +1,95 @@
 <?php
 
-class PagesController{
+class PagesController extends AbstractController {
 
 	public function indexAction($params)
 	{
-		header('Status: 301 Moved Permanently', false, 301);
-		header('Location: '.URL_WEBSITE_ADMIN.'pages/list');
-		exit();
+        $response = new Response();
+        $response->redirectionBackoffice('pages/list', 301);
 	}
 
 	public function listAction($params)
 	{
-		$view = new View('pages', 'list', 'backoffice');
+        $manager = new Manager();
+        $list = $manager->listOfPaginationActive('page', empty($params[0]) ? 1 : $params[0]);
+        $view = new View('pages', 'list', 'backoffice');
+        $view->assign('list', $list);
+        $view->assign('nbPage', ceil($manager->getTotalResult() / 10));
+        $view->assign('page', empty($params[0]) ? 1 : $params[0]);
 	}
 
 	public function createAction($params)
 	{
-		$view = new View('pages', 'create', 'backoffice');
+        $page = new Page();
+        $form = new formValidation($page, 'add');
+
+        if ($form->valid()){
+
+            if ($form->getFile() != null) {
+                $image = new Image();
+                $image->setName($form->getFile()['name']);
+                $image->setTitle($page->getSlug());
+                $image->setUrl($form->getFile()['urlName']);
+                $image->setMedia(0);
+                $image->tmp = $form->getFile()['tmp_name'];
+                $image->save();
+                $page->setThumbnail($image);
+            }
+
+            $page->setWinter($this->getRequest()->session()->getCurrentUser());
+            $page->save();
+
+            $response = new Response();
+            $response->redirectionBackoffice('pages/list', 200);
+        }
+
+        $view = new View('pages', 'create', 'backoffice');
+        $view->assign("form", $form);
 	}
 
 	public function editAction($params)
 	{
-		$view = new View('pages', 'edit', 'backoffice');
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('directors/list', 200);
+        }
+
+        $page = new Page(['id' => $params[0]]);
+        $form = new formValidation($page, 'edit');
+
+        if ($form->valid()){
+
+            if ($form->getFile() != null) {
+                $image = new Image();
+                $image->setName($form->getFile()['name']);
+                $image->setTitle($page->getSlug());
+                $image->setUrl($form->getFile()['urlName']);
+                $image->setMedia(0);
+                $image->tmp = $form->getFile()['tmp_name'];
+                $image->save();
+                $page->setThumbnail($image);
+            }
+
+            $page->save();
+        }
+
+        $view = new View('pages', 'edit', 'backoffice');
+        $view->assign("form", $form);
 	}
 
-	// @Todo: remove par requete sur list ou sa propre url avec redirection ??
+    public function removeAction($params)
+    {
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('pages/list', 200);
+        }
+
+        $page = new Page(['id' => $params[0]]);
+        $page->delete();
+
+        $response = new Response();
+        $response->redirectionBackoffice('pages/list', 200);
+
+    }
 
 }

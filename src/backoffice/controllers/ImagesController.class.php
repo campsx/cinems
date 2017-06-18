@@ -11,18 +11,54 @@ class ImagesController{
 
 	public function listAction($params)
 	{
-		$view = new View('images', 'list', 'backoffice');
+        $manager = new Manager();
+        $list = $manager->listOfPaginationImage(empty($params[0]) ? 1 : $params[0]);
+        $view = new View('images', 'list', 'backoffice');
+        $view->assign('list', $list);
+        $view->assign('nbPage', ceil($manager->getTotalResult() / 10));
+        $view->assign('page', empty($params[0]) ? 1 : $params[0]);
 	}
 
 	public function createAction($params)
 	{
+
+        $image = new Image();
+        $form = new formValidation($image, 'add');
+
+        if ($form->valid()){
+
+            $image->setName($form->getFile()['name']);
+            $image->setUrl($form->getFile()['urlName']);
+            $image->tmp = $form->getFile()['tmp_name'];
+            $image->save();
+
+            $response = new Response();
+            $response->redirectionBackoffice('images/list', 200);
+        }
+
+
 		$view = new View('images', 'create', 'backoffice');
+        $view->assign("form", $form);
 	}
 
 	public function editAction($params)
 	{
-		$view = new View('images', 'edit', 'backoffice');
+
 	}
+
+	public function removeAction($params)
+    {
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('images/list', 200);
+        }
+
+        $image = new Image(['id' => $params[0]]);
+        $image->delete(true);
+
+        $response = new Response();
+        $response->redirectionBackoffice('images/list', 200);
+    }
 
 
 }

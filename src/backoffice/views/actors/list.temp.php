@@ -1,7 +1,8 @@
 <h1> Liste de tous les actors </h1>
 
-<div class="w3-responsive">
-    <table class="w3-table-all notranslate">
+<div>
+    <div><a href="<?php echo URL_WEBSITE_ADMIN;?>actors/create">Ajouter nouvelle acteur</a></div>
+    <table border="1">
         <tbody>
         <tr>
             <th>ID</th>
@@ -29,11 +30,26 @@
                         <?php $this->echoHtml($actor->getUpdated());?>
                     </td>
                     <td>
-                        <input type="button" value="Voir">
-                        <input type="button" value="Supprimer">
+                        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/edit/<?php $this->echoHtml($actor->getId())?>">Modifier</a>
+                        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/remove/<?php $this->echoHtml($actor->getId())?>">Supprimer</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php if ($page > 1): ?>
+        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/list/<?php echo $page - 1; ?>">Page précédente</a> —
+    <?php endif; ?>
+
+
+    <?php for ($i = 1; $i <= $nbPage; $i++): ?>
+        <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/list/<?php echo $i; ?>"><?php echo $i; ?></a>
+    <?php endfor; ?>
+
+
+    <?php if ($page < $nbPage): ?>
+        — <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/list/<?php echo $page + 1; ?>">Page suivante</a>
+    <?php endif; ?>
+
 </div>

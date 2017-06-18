@@ -472,7 +472,7 @@ class User extends BaseSql
                             "min" => 10,
                             "max" => 255
                         ],
-                        "unique" => true
+                        "unique"
                     ]
                 ],
                 "pseudo" => [
@@ -485,7 +485,7 @@ class User extends BaseSql
                             "min" => 2,
                             "max" => 100
                         ],
-                        "unique" => true
+                        "unique"
                     ]
                 ],
                 "password" => [
@@ -542,6 +542,190 @@ class User extends BaseSql
                 "status" => 0,
                 "roles" => ["user"],
                 "active" => 1
+            ]
+        ];
+    }
+
+    public function addForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."users/create",
+                "class" => "form-group",
+                "submit" => "Créer",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "test@gmail.com",
+                    "label" => "Votre email",
+                    "required" => true,
+                    "validation" => [
+                        "length" => [
+                            "min" => 10,
+                            "max" => 255
+                        ],
+                        "unique"
+                    ]
+                ],
+                "pseudo" => [
+                    "type" => "text",
+                    "placeholder" => "jojodu77",
+                    "label" => "Votre Pseudo",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "unique"
+                    ]
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Votre nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Votre Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Votre age",
+                    "required" => false,
+                    "validation"  => [
+                        "interval" => [
+                            "min" => 10,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ]
+            ],
+            "initData" => [
+                "status" => 0,
+                "roles" => ["user"],
+                "active" => 1
+            ]
+        ];
+    }
+
+    public function editForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."users/edit/".$this->id,
+                "class" => "form-group",
+                "submit" => "Modifier",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "test@gmail.com",
+                    "label" => "Votre email",
+                    "required" => true,
+                    "validation" => [
+                        "length" => [
+                            "min" => 10,
+                            "max" => 255
+                        ],
+                        "unique"
+                    ]
+                ],
+                "pseudo" => [
+                    "type" => "text",
+                    "placeholder" => "jojodu77",
+                    "label" => "Votre Pseudo",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "unique"
+                    ]
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Votre nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Votre Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Votre age",
+                    "required" => false,
+                    "validation"  => [
+                        "interval" => [
+                            "min" => 10,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "roles" => [
+                    "type" => "multiple",
+                    "label" => "Roles",
+                    "choice" => ["admin", "user"],
+                    "required" => true
+                ],
+                "status" => [
+                    "type" => "radioTrueFalse",
+                    "label" => "Status",
+                    "required" => true
+                ]
             ]
         ];
     }

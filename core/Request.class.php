@@ -45,7 +45,16 @@ class Request{
 
         $this->getQuery = $_GET;
         $this->postQuery = $_POST;
+        $this->filesQuery = $_FILES;
         // todo: check $_SERVER['HTTP_REFERER'] avec la session
+    }
+
+    /**
+     * @return array
+     */
+    public function getFILESQuery()
+    {
+        return $this->filesQuery;
     }
 
     /**

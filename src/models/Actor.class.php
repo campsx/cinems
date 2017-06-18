@@ -51,7 +51,7 @@ class Actor extends BaseSql
     /*
      * @var array Films
      */
-    protected $films;
+    protected $films = [];
 
     /**
      * @var Boolean
@@ -146,7 +146,7 @@ class Actor extends BaseSql
      */
     public function getAge()
     {
-        return $this->age;
+        return new DateTime($this->age);
     }
 
 
@@ -254,53 +254,170 @@ class Actor extends BaseSql
     }
 
 
-    public function getFormAdd()
+    public function addForm()
     {
         return [
             "struct" => [
                 "method" => "POST",
-                "action" => "user/add",
+                "action" => URL_WEBSITE_ADMIN."actors/create",
                 "class" => "form-group",
-                "submit" => "S'inscrire",
+                "submit" => "Créer",
+                "enctype" => "multipart/form-data"
             ],
             "data" => [
-                "email" => [
-                    "type" => "email",
-                    "placeholder" => "test@gmail.com",
-                    "label" => "Votre email",
-                    "required" => true
-                ],
                 "firstname" => [
                     "type" => "text",
                     "placeholder" => "Jean",
-                    "label" => "Votre nom",
+                    "label" => "Nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "slug" => [
+                    "type" => "text",
+                    "placeholder" => "jean-dupont",
+                    "label" => "slug",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "slug",
+                        "unique"
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Age",
                     "required" => false
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "shortDescription" => [
+                    "type" => "textarea",
+                    "label" => "Short description",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ],
+                "description" => [
+                    "type" => "textarea",
+                    "label" => "Description",
+                    "required" => false,
+                    "wysiwyg" => true
                 ]
+            ],
+            "initData" => [
+                "active" => 1
             ]
         ];
     }
 
-    public function getFormEdit()
+    public function editForm()
     {
         return [
             "struct" => [
                 "method" => "POST",
-                "action" => "user/add",
+                "action" => URL_WEBSITE_ADMIN."actors/edit/".$this->getId(),
                 "class" => "form-group",
-                "submit" => "S'inscrire",
+                "submit" => "Editer",
+                "enctype" => "multipart/form-data"
             ],
             "data" => [
-                "email" => [
-                    "type" => "email",
-                    "placeholder" => "test@gmail.com",
-                    "label" => "Votre email",
-                    "required" => true
-                ],
                 "firstname" => [
                     "type" => "text",
                     "placeholder" => "Jean",
-                    "label" => "Votre nom",
+                    "label" => "Nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "slug" => [
+                    "type" => "text",
+                    "placeholder" => "jean-dupont",
+                    "label" => "slug",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "slug",
+                        "unique"
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Votre age",
                     "required" => false
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "shortDescription" => [
+                    "type" => "textarea",
+                    "label" => "Short description",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ],
+                "description" => [
+                    "type" => "textarea",
+                    "label" => "Description",
+                    "required" => false,
+                    "wysiwyg" => true
                 ]
             ]
         ];

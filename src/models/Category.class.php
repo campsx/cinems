@@ -1,4 +1,5 @@
 <?php
+
 class Category extends BaseSql{
 
   /**
@@ -6,13 +7,18 @@ class Category extends BaseSql{
    */
   protected $id;
 
-
+  /**
+   * @var String
+   */
   protected $title;
-
-
 
   /**
    * @var Boolean
+   */
+  protected $active;
+
+  /**
+   * @var DateTime
    */
   protected $created;
 
@@ -22,14 +28,12 @@ class Category extends BaseSql{
   protected $updated;
 
 
-
   /**
    * @param $condition Array
    */
   public function __construct($condition = []) {
           parent::__construct($condition);
   }
-
 
   /**
    * @param $id Int
@@ -38,30 +42,36 @@ class Category extends BaseSql{
     $this->id = $id;
   }
 
+  /**
+   * @return $id Int
+   */
+  public function getId() {
+      return $this->id;
+  }
 
+  /**
+   * @param $title
+   */
+  public function setTitle($title) {
+      $this->title = $title;
+  }
+
+  /**
+   * @return string
+   */
+  public function getTitle() {
+     return $this->title;
+  }
 
    /**
-    * @return $id Int
+    * @param $active
     */
-   public function getId() {
-     return $this->id;
-   }
-
-
-   public function getTitle() {
-     return $this->title;
-   }
-
-   public function setTitle($title) {
-     $this->title = $title;
-   }
-
    public function setActive($active) {
      $this->active = $active;
    }
 
    /**
-    * @return $age DateTime
+    * @return $active DateTime
     */
    public function getActive() {
      return $this->active;
@@ -81,7 +91,6 @@ class Category extends BaseSql{
      return $this->created;
    }
 
-
    /**
     * @param $updated DateTime
     */
@@ -96,7 +105,63 @@ class Category extends BaseSql{
      return $this->updated;
    }
 
+    public function addForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."categories/create",
+                "class" => "form-group",
+                "submit" => "Créer",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "Horreur",
+                    "label" => "Title",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ]
+            ],
+            "initData" => [
+                "active" => 1
+            ]
+        ];
+    }
+
+    public function editForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."categories/edit/".$this->id,
+                "class" => "form-group",
+                "submit" => "Modifier",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "Horreur",
+                    "label" => "Title",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ]
+            ]
+        ];
+    }
+
 }
-
-
-?>
