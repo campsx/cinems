@@ -327,6 +327,30 @@ class FormValidation{
         }
     }
 
+    /**
+     * @return void
+     */
+    public function checkMultiple($nameField)
+    {
+        $data = $this->query[$nameField];
+        foreach ($data as $value) {
+            if (!in_array($value, $this->form['data'][$nameField]["choice"])){
+                $this->addErrors(Errors::MULTIPLE_NO_EXIST, [$value, $nameField]);
+            }
+        }
+
+    }
+
+    /**
+     * @return void
+     */
+    public function checkRadioTrueFalse($nameField)
+    {
+        if ($this->query[$nameField] != 0 && $this->query[$nameField] != 1) {
+            $this->addErrors(Errors::TRUE_FALSE, [$nameField]);
+        }
+    }
+
     // Check CRITERIA --------------------------------------------------------------------------------------------------
 
     /**

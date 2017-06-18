@@ -2,7 +2,7 @@
 
 class ActorsController extends AbstractController {
 
-	public function indexAction($params)
+	public function indexAction()
 	{
 	    $response = new Response();
 	    $response->redirectionBackoffice('actors/list', 301);
@@ -18,7 +18,7 @@ class ActorsController extends AbstractController {
 		$view->assign('page', empty($params[0]) ? 1 : $params[0]);
 	}
 
-	public function createAction($params)
+	public function createAction()
 	{
         $actor = new Actor();
         $form = new formValidation($actor, 'add');

@@ -15,4 +15,6 @@ $(document).ready(function() {
         height: 500
     });
 
+    $('select').MultipleSelect();
+
 });

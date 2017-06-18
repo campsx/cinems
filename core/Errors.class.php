@@ -15,6 +15,8 @@ class Errors{
     const INTERVAL_MIN = "Le date %s et trop petite (%s), elle doit etre de plus %s ans et moin %s ans";
     const INTERVAL_MAX = "Le date %s et trop grande (%s), elle doit etre de plus %s ans et moin %s ans";
     const SLUG_NOT_VALID = "Le slug est incorrect";
+    const MULTIPLE_NO_EXIST = "La valeur %s pour le champs %s n'existe pas.";
+    const TRUE_FALSE = "Pour le champs %s vous devez choisir entre true et false";
 
     const LOGIN_ERROR = "Les identifiants sont inexacts.";
     const ROLE_ERROR = "Vous n'avez pas les droits pour acceder à cette page.";

@@ -1,8 +1,8 @@
 <?php
-class UsersController{
+class UsersController extends AbstractController {
 
 
-	public function indexAction($params)
+	public function indexAction()
 	{
         $response = new Response();
         $response->redirectionBackoffice('users/list', 301);
@@ -18,7 +18,7 @@ class UsersController{
         $view->assign('page', empty($params[0]) ? 1 : $params[0]);
 	}
 
-	public function createAction($params)
+	public function createAction()
 	{
         $user = new User();
         $form = new formValidation($user, 'add');
@@ -48,6 +48,8 @@ class UsersController{
 
 	public function editAction($params)
 	{
+
+	    dump_exit($this->getRequest()->getPOSTQuery());
         if (empty($params[0])) {
             $response = new Response();
             $response->redirectionBackoffice('actors/list', 200);

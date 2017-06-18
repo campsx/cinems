@@ -29,6 +29,41 @@
 
         <?php endif;?>
 
+        <?php if(in_array($attributs["type"], ["multiple"])) :?>
+
+            <div class="label">
+                <label for="<?php $this->echoHtml($name);?>"><?php $this->echoHtml($attributs["label"]);?></label>
+            </div>
+
+            <div class="input">
+                <select name="<?php $this->echoHtml($name);?>[]" multiple="multiple">
+                    <?php foreach ($attributs["choice"] as $value):?>
+                        <option value="<?php $this->echoHtml($value);?>"
+                            <?php $this->echoHtml(in_array($value, $form->getObject()->{"get".ucfirst($name)}())? "selected" : '')?>
+                        >
+                            <?php $this->echoHtml($value);?>
+                        </option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+
+        <?php endif;?>
+
+        <?php if(in_array($attributs["type"], ["radioTrueFalse"])) :?>
+
+            <div class="label">
+                <label for="<?php $this->echoHtml($name);?>"><?php $this->echoHtml($attributs["label"]);?></label>
+            </div>
+
+            <div class="input">
+                <input type="radio" name="<?php $this->echoHtml($name);?>" value="1"
+                    <?php $this->echoHtml($form->getObject()->{"get".ucfirst($name)}() == 1 ? 'checked': '')?>> True
+                <input type="radio" name="<?php $this->echoHtml($name);?>" value="0"
+                    <?php $this->echoHtml($form->getObject()->{"get".ucfirst($name)}() == 0 ? 'checked': '')?>> False
+            </div>
+
+        <?php endif;?>
+
         <?php if(in_array($attributs["type"], ["date"])) :?>
 
             <div class="label">

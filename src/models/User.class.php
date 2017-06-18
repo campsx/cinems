@@ -642,7 +642,7 @@ class User extends BaseSql
                 "method" => "POST",
                 "action" => URL_WEBSITE_ADMIN."users/edit/".$this->id,
                 "class" => "form-group",
-                "submit" => "Créer",
+                "submit" => "Modifier",
                 "enctype" => "multipart/form-data"
             ],
             "data" => [
@@ -714,6 +714,17 @@ class User extends BaseSql
                     "placeholder" => "Ajouter une image",
                     "label" => "Images",
                     "required" => false
+                ],
+                "roles" => [
+                    "type" => "multiple",
+                    "label" => "Roles",
+                    "choice" => ["admin", "user"],
+                    "required" => true
+                ],
+                "status" => [
+                    "type" => "radioTrueFalse",
+                    "label" => "Status",
+                    "required" => true
                 ]
             ]
         ];
