@@ -142,17 +142,18 @@ class Image extends BaseSql{
 
   public function removeCallback()
   {
-      unlink(DIR_UPLOAD.$this->url);
+      if(file_exists(DIR_UPLOAD.$this->url)){
+          unlink(DIR_UPLOAD.$this->url);
+      }
   }
 
   public function createCallback()
   {
-      $dir = DIR_UPLOAD;
-      if(!file_exists($dir)){
-          mkdir($dir, 0700);
+      if(!file_exists(DIR_UPLOAD)){
+          mkdir(DIR_UPLOAD, 0700);
       }
 
-      move_uploaded_file($this->tmp, $dir . $this->url);
+      move_uploaded_file($this->tmp, DIR_UPLOAD . $this->url);
   }
 
 

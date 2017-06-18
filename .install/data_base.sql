@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:8889
--- Généré le :  Mar 13 Juin 2017 à 10:31
+-- Généré le :  Dim 18 Juin 2017 à 13:27
 -- Version du serveur :  5.6.34
 -- Version de PHP :  7.1.0
 
@@ -37,11 +37,6 @@ CREATE TABLE `actor` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Vider la table avant d'insérer `actor`
---
-
-TRUNCATE TABLE `actor`;
---
 -- Contenu de la table `actor`
 --
 
@@ -70,11 +65,6 @@ CREATE TABLE `actor_has_film` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Vider la table avant d'insérer `actor_has_film`
---
-
-TRUNCATE TABLE `actor_has_film`;
---
 -- Contenu de la table `actor_has_film`
 --
 
@@ -96,11 +86,6 @@ CREATE TABLE `category` (
   `updated` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Vider la table avant d'insérer `category`
---
-
-TRUNCATE TABLE `category`;
 --
 -- Contenu de la table `category`
 --
@@ -128,11 +113,6 @@ CREATE TABLE `comment` (
   `updated` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Vider la table avant d'insérer `comment`
---
-
-TRUNCATE TABLE `comment`;
 --
 -- Contenu de la table `comment`
 --
@@ -162,11 +142,6 @@ CREATE TABLE `director` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Vider la table avant d'insérer `director`
---
-
-TRUNCATE TABLE `director`;
---
 -- Contenu de la table `director`
 --
 
@@ -190,11 +165,6 @@ CREATE TABLE `email` (
   `updated` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Vider la table avant d'insérer `email`
---
-
-TRUNCATE TABLE `email`;
 --
 -- Contenu de la table `email`
 --
@@ -227,11 +197,6 @@ CREATE TABLE `film` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Vider la table avant d'insérer `film`
---
-
-TRUNCATE TABLE `film`;
---
 -- Contenu de la table `film`
 --
 
@@ -249,11 +214,6 @@ CREATE TABLE `film_has_category` (
   `category_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Vider la table avant d'insérer `film_has_category`
---
-
-TRUNCATE TABLE `film_has_category`;
 -- --------------------------------------------------------
 
 --
@@ -270,11 +230,6 @@ CREATE TABLE `image` (
   `updated` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Vider la table avant d'insérer `image`
---
-
-TRUNCATE TABLE `image`;
 --
 -- Contenu de la table `image`
 --
@@ -308,16 +263,11 @@ CREATE TABLE `page` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Vider la table avant d'insérer `page`
---
-
-TRUNCATE TABLE `page`;
---
 -- Contenu de la table `page`
 --
 
 INSERT INTO `page` (`id`, `title`, `slug`, `short_description`, `content`, `thumbnail_id`, `winter_id`, `active`, `created`, `updated`) VALUES
-(1, 'la premiere page', 'la-premier-page', 'c\'est la premiere page quoi', '<p style=\"text-align:center\">La premier page</p>\\r\\n\\r\\n<p>Tout le monde sais que la premiere page est la meilleure.</p>\\r\\n', 25, 7, 1, '2017-06-13 10:16:41', '2017-06-13 10:16:41');
+(1, 'la premiere page', 'la-premier-page', 'c est la premiere page quoi', '<p style=\"text-align:center\">La premier page</p>\\r\\n\\r\\n<p>Tout le monde sais que la premiere page est la meilleure.</p>\\r\\n', 25, 7, 1, '2017-06-13 10:16:41', '2017-06-13 10:16:41');
 
 -- --------------------------------------------------------
 
@@ -345,18 +295,13 @@ CREATE TABLE `user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Vider la table avant d'insérer `user`
---
-
-TRUNCATE TABLE `user`;
---
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`id`, `email`, `pseudo`, `password`, `firstname`, `lastname`, `age`, `status`, `roles`, `active`, `image_id`, `created`, `updated`, `token_email`, `token_password`, `token_expiration`) VALUES
-(6, 'cam.laurent@outlook.com', 'camille', '$2y$10$YKu.9fuXQPoa4WURWAOmy.nSOHy.y1Bswws985fnzC0b5oxO0QsG.', 'camille', 'camille', '1990-12-12', 1, '[\"user\", \"admin\"]', 1, NULL, '2017-04-01 20:12:41', '2017-05-23 11:01:47', '0', 'e330ab3f4cf4ac9e4e2be92a287110d7', '2017-05-23 11:16:06'),
+(6, 'cam.laurent@outlook.com', 'camille', '$2y$10$YKu.9fuXQPoa4WURWAOmy.nSOHy.y1Bswws985fnzC0b5oxO0QsG.', 'camille', 'camille', '1990-12-12', 1, '[\"user\", \"admin\"]', 1, NULL, '2017-04-01 20:12:41', '2017-06-13 23:33:38', '0', 'e330ab3f4cf4ac9e4e2be92a287110d7', '2017-05-23 11:16:06'),
 (7, 'camilletest@mdpcommemail.com', 'campsx', '$2y$10$LMDExot4zDvfzAE3XyOHh.5J/BAdnGkIxVfAs2r2SWbq/5YiYlvEu', 'camille', 'laurent', '1990-12-14', 0, '[\"user\", \"admin\"]', 1, NULL, '2017-05-02 18:56:40', '2017-05-05 12:40:54', '0', 'f145a226383b50b83bf551895712cca6', '2017-05-05 12:55:52'),
-(8, 'camille1990@hotildsf.fr', 'camps', '$2y$10$P0jtGBncJN3BQ5oIscRmyOt4vl1DJGHWb1yi.iZXQHvgeKmTOLKRC', 'camille', 'laurent', '1990-12-14', 1, '[\"user\"]', 1, NULL, '2017-05-03 12:41:23', '2017-05-03 14:28:30', '9c695e30b6c8e5b03edc570affab5df7', NULL, NULL),
+(8, 'camille1990@hotildsf.fr', 'camps', '$2y$10$P0jtGBncJN3BQ5oIscRmyOt4vl1DJGHWb1yi.iZXQHvgeKmTOLKRC', 'camille', 'laurent', '1990-12-14', 1, '[\"user\"]', 1, NULL, '2017-05-03 12:41:23', '2017-06-16 20:24:57', '9c695e30b6c8e5b03edc570affab5df7', NULL, NULL),
 (10, 'camille1990@hotmail.fr', 'campsxx', '$2y$10$OF0UnxTuzi6f5dz4W2NPxOzTdR02CzhuXmj8m6L/WL4NwulXSg5T6', 'camille', 'laurent', '1990-12-14', 1, '[\"user\"]', 1, NULL, '2017-05-23 12:02:06', '2017-05-23 12:10:44', '287614affa1e6983a8922c3de54803ec', NULL, NULL);
 
 --
