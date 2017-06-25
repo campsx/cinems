@@ -33,7 +33,7 @@ class Comment extends BaseSql{
   protected $active;
 
   /**
-   * @var DateTime
+   * @var User
    */
   protected $user_id;
 
@@ -58,7 +58,15 @@ class Comment extends BaseSql{
    * @param $condition Array
    */
   public function __construct($condition = []) {
-          parent::__construct($condition);
+      $this->joinProperties['ManyToOne'] = [
+          'user_id' => [
+              'table' => 'user'
+          ],
+          'film_id' => [
+              'table' => 'film'
+          ]
+      ];
+      parent::__construct($condition);
   }
 
   /**
@@ -137,26 +145,26 @@ class Comment extends BaseSql{
 
 
   public function setUser($user_id) {
-    $this->user_id = $user_id;
+      $this->setJoin('user_id', $user_id);
   }
 
   /**
    * @return $user_id User
    */
   public function getUser() {
-    return $this->user_id;
+      return $this->getJoin('user_id');
   }
 
 
   public function setFilm($film_id) {
-    $this->film_id = $film_id;
+      $this->setJoin('film_id', $film_id);
   }
 
   /**
    * @return $film_id Film
    */
   public function getFilm() {
-    return $this->film_id;
+      return $this->getJoin('film_id');
   }
 
   /**
@@ -187,6 +195,56 @@ class Comment extends BaseSql{
     return $this->updated;
   }
 
+
+    public function editForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."comments/edit/".$this->id,
+                "class" => "form-group",
+                "submit" => "Modifier",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "Super film",
+                    "label" => "Title",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ]
+                    ]
+                ],
+                "content" => [
+                    "type" => "textarea",
+                    "label" => "Content",
+                    "required" => false,
+                    "wysiwyg" => true
+                ],
+                "note" => [
+                    "type" => "number",
+                    "placeholder" => "Exemple : 4",
+                    "label" => "Note",
+                    "required" => true,
+                    "validation"  => [
+                        "lengthNumber" => [
+                            "min" => 1,
+                            "max" => 5
+                        ],
+                    ]
+                ],
+                "valid" => [
+                    "type" => "radioTrueFalse",
+                    "label" => "Status",
+                    "required" => true
+                ]
+            ]
+        ];
+    }
 
 
 

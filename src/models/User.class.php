@@ -560,7 +560,7 @@ class User extends BaseSql
                 "email" => [
                     "type" => "email",
                     "placeholder" => "test@gmail.com",
-                    "label" => "Votre email",
+                    "label" => "L'email",
                     "required" => true,
                     "validation" => [
                         "length" => [
@@ -573,7 +573,7 @@ class User extends BaseSql
                 "pseudo" => [
                     "type" => "text",
                     "placeholder" => "jojodu77",
-                    "label" => "Votre Pseudo",
+                    "label" => "Le Pseudo",
                     "required" => true,
                     "validation"  => [
                         "length" => [
@@ -583,10 +583,22 @@ class User extends BaseSql
                         "unique"
                     ]
                 ],
+                "password" => [
+                    "type"        => "password",
+                    "placeholder" => "********",
+                    "label"       => "Le Password",
+                    "required"    => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 8,
+                            "max" => 255
+                        ]
+                    ]
+                ],
                 "firstname" => [
                     "type" => "text",
                     "placeholder" => "Jean",
-                    "label" => "Votre nom",
+                    "label" => "Le nom",
                     "required" => false,
                     "validation"  => [
                         "length" => [
@@ -599,7 +611,7 @@ class User extends BaseSql
                 "lastname" => [
                     "type" => "text",
                     "placeholder" => "Dupont",
-                    "label" => "Votre Prenom",
+                    "label" => "Le Prenom",
                     "required" => false,
                     "validation"  => [
                         "length" => [
@@ -611,7 +623,7 @@ class User extends BaseSql
                 "age" => [
                     "type" => "date",
                     "placeholder" => "1990-12-14",
-                    "label" => "Votre age",
+                    "label" => "L'age",
                     "required" => false,
                     "validation"  => [
                         "interval" => [

@@ -12,7 +12,7 @@
 
     <?php foreach ($config["data"] as $name => $attributs):?>
     <div class="field <?php $this->echoHtml(isset($attributs["wysiwyg"]) && $attributs["wysiwyg"]?'has-wysiwyg':'');?>">
-        <?php if(in_array($attributs["type"], ["email", "text", "password"])) :?>
+        <?php if(in_array($attributs["type"], ["email", "text", "password", "number"])) :?>
 
             <div class="label">
                 <label for="<?php $this->echoHtml($name);?>"><?php $this->echoHtml($attributs["label"]);?></label>

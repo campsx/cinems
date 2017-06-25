@@ -36,10 +36,29 @@ class UsersController extends AbstractController {
                 $user->setImage($image);
             }
 
+            $user->setTokenEmail(md5(uniqid(rand(), true)));
             $user->save();
 
+            // Create mail and send it
+            $email = new Email();
+            $email->setSubject(EmailService::CHECK_EMAIL_SUBJECT);
+            $email->setContent(EmailService::CHECK_EMAIL_BODY, [
+                $user->getFirstname(),
+                URL_WEBSITE."user/checkmail/".$user->getTokenEmail()
+            ]);
+            $email->setSend(0);
+            $email->setUser($user);
+            $email->save();
+
+            $emailService = new EmailService($email);
+
+            if($emailService->sendMail()){
+                $email->setSend(1);
+                $email->save();
+            }
+
             $response = new Response();
-            $response->redirectionBackoffice('actors/list', 200);
+            $response->redirectionBackoffice('users/list', 200);
         }
 
         $view = new View('users', 'create', 'backoffice');
@@ -48,11 +67,9 @@ class UsersController extends AbstractController {
 
 	public function editAction($params)
 	{
-
-	    dump_exit($this->getRequest()->getPOSTQuery());
         if (empty($params[0])) {
             $response = new Response();
-            $response->redirectionBackoffice('actors/list', 200);
+            $response->redirectionBackoffice('users/list', 200);
         }
 
 

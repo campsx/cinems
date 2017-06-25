@@ -219,7 +219,8 @@ class FormValidation{
                 continue;
             }
 
-            if (empty($this->query[$nameField])){
+            // empty('0') == true
+            if (empty($this->query[$nameField]) && $this->query[$nameField] != '0'){
                 if($data['required'] === true){
                     $this->addErrors(Errors::FIELD_EMPTY, [$nameField]);
                 }
@@ -246,6 +247,10 @@ class FormValidation{
 
             if (!empty($validation['length'])) {
                 $this->checkLength($nameField, $validation['length']);
+            }
+
+            if (!empty($validation['lengthNumber'])) {
+                $this->checkLengthNumber($nameField, $validation['lengthNumber']);
             }
 
             if (!empty($validation['interval'])) {
@@ -306,6 +311,17 @@ class FormValidation{
     /**
      * @return void
      */
+    public function checkNumber($nameField)
+    {
+        $number = $this->query[$nameField];
+        if ($number != '0' && (int) $number == 0) {
+            $this->addErrors(Errors::DATE_A_NUMBER, [$nameField]);
+        }
+    }
+
+    /**
+     * @return void
+     */
     public function checkFile($nameField)
     {
         $this->filesQuery[$nameField];
@@ -361,6 +377,20 @@ class FormValidation{
         $field = $this->query[$nameField];
         if(!$this->object->unique($nameField, $field)){
             $this->addErrors(Errors::UNIQUE, [$nameField, $field]);
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function checkLengthNumber($nameField, $maxMin)
+    {
+        $number = $this->query[$nameField];
+
+        if ((int)$number < $maxMin['min']){
+            $this->addErrors(Errors::LENGTH_NUMBER_MIN, [$nameField, $maxMin['min'], $maxMin['max']]);
+        } elseif ((int)$number > $maxMin['max']){
+            $this->addErrors(Errors::LENGTH_NUMBER_MAX, [$nameField, $maxMin['min'], $maxMin['max']]);
         }
     }
 
