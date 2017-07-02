@@ -21,7 +21,7 @@
 
             <input name="password" placeholder="" required="required" type="password"><br>
 
-            <input value="S'inscrire" type="submit">
+            <input value="Se connecter" type="submit">
 
         </form>
     </section>

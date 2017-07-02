@@ -79,6 +79,9 @@ class UsersController extends AbstractController {
         if ($form->valid()){
 
             if ($form->getFile() != null) {
+                if (($oldImage = $user->getImage()) != null){
+                    $oldImage->delete(true);
+                }
                 $image = new Image();
                 $image->setName($form->getFile()['name']);
                 $image->setTitle($user->getEmail());

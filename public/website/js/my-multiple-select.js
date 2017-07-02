@@ -5,7 +5,8 @@
 ;(function($){
     function MultipleSelect(options, content) {
         this.options = $.extend({
-            select: $(content)
+            select: $(content),
+            multiple : null
         }, options);
         this.init();
     }
@@ -22,10 +23,11 @@
             this.elem = {};
             this.options.select.hide();
 
-            this.elem.listOptions = this.options.select.find('option');
-            this.elem.ul = $(document.createElement("ul"));
-            this.elem.ul.addClass('multiple-select');
+            this.options.multiple = this.options.select.data('multiple');
 
+            this.elem.listOptions = this.options.select.find('option');
+            this.elem.ul = $('<ul></ul>');
+            this.elem.ul.addClass('multiple-select');
 
             this.elem.listOptions.each(function(index, option){
                 var isSelected = $(option).is(':selected') ? 'selected' : '';
@@ -50,6 +52,16 @@
                         }
                    });
                } else {
+
+                   if (!self.options.multiple) {
+                       self.elem.listOptions.each(function(i, option){
+                           $(option).removeAttr('selected');
+                       });
+                       self.elem.listOfLi.each(function(i, li){
+                           $(li).removeClass('selected');
+                       })
+                   }
+
                    $(this).addClass('selected');
                    self.elem.listOptions.each(function(i, option){
                        if($(option).val() == val) {
@@ -78,9 +90,8 @@
 
     // jquery plugin
     $.fn.MultipleSelect = function(opt){
-        var select = this;
         return this.each(function(){
-            $(this).data('MultipleSelect', new MultipleSelect($.extend(opt,{holder:this}), select));
+            $(this).data('MultipleSelect', new MultipleSelect($.extend(opt,{holder:this}), this));
         });
     };
 }(jQuery));

@@ -38,6 +38,11 @@ class FormValidation{
     protected $errors = [];
 
     /**
+     * @var array
+     */
+    protected $selectList = [];
+
+    /**
      * FormValidation constructor.
      * @param $object
      * @param $formName
@@ -69,6 +74,19 @@ class FormValidation{
     private function addErrors($string, $data = [])
     {
         $this->errors[] = vsprintf($string, $data);
+    }
+
+    public function addSelectList($name, $data = [])
+    {
+        $this->selectList[$name] = $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSelectList($name)
+    {
+        return $this->selectList[$name];
     }
 
     /**
@@ -176,7 +194,29 @@ class FormValidation{
         }
 
         foreach ($this->data as $name => $data) {
-            $this->object->{'set'.ucfirst($name)}($data);
+            if (isset($this->form['data'][$name]) && $this->form['data'][$name]['type'] == 'entity') {
+                if(is_array($data)){
+
+                    $oldData = $this->object->{'get'.ucfirst($name)}();
+                    // add new data
+                    foreach ($data as $entityId) {
+                        if (!$this->inArrayEntity($oldData, $entityId)) {
+                            $this->object->{'add'.ucfirst($this->form['data'][$name]['entityName'])}($entityId);
+                        }
+                    }
+                    // remove old data
+                    foreach ($oldData as $entity) {
+                        if (!$this->inArrayEntity($data, $entity->getId())) {
+                            $this->object->{'remove'.ucfirst($this->form['data'][$name]['entityName'])}($entity);
+                        }
+                    }
+
+                } else {
+                    $this->object->{'set'.ucfirst($this->form['data'][$name]['entityName'])}($data);
+                }
+            } else {
+                $this->object->{'set'.ucfirst($name)}($data);
+            }
         }
     }
 
@@ -270,6 +310,26 @@ class FormValidation{
         return true;
     }
 
+    /**
+     * @param $array
+     * @param $id
+     * @return bool
+     */
+    private function inArrayEntity($array, $id){
+        foreach ($array as $entity) {
+            if (is_object($entity)) {
+                if ($entity->getId() == $id) {
+                    return true;
+                }
+            } else {
+                if ($entity == $id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     // Check TYPE ------------------------------------------------------------------------------------------------------
 
@@ -324,7 +384,39 @@ class FormValidation{
      */
     public function checkFile($nameField)
     {
+        // @todo check file format img
         $this->filesQuery[$nameField];
+    }
+
+    /**
+     * @return void
+     */
+    public function checkEntity($nameField)
+    {
+        $data = $this->query[$nameField];
+        $entityName = $this->form['data'][$nameField]['entityName'];
+        if ($this->form['data'][$nameField]['multiple']) {
+            if (is_array($data)) {
+                foreach ($data as $entityId) {
+                    $entity = new $entityName(['id' => $entityId]);
+                    if ($entity->getId() == -1) {
+                        $this->addErrors(Errors::ENTITY_BAD, [$nameField]);
+                    }
+                }
+            } else {
+                $this->addErrors(Errors::ENTITY_MULTIPLE, [$nameField]);
+            }
+        } else {
+            if ((int)$data != 0) {
+                $entity = new $entityName(['id' => $data]);
+                if ($entity->getId() == -1) {
+                    $this->addErrors(Errors::ENTITY_BAD, [$nameField]);
+                }
+            } else {
+                $this->addErrors(Errors::ENTITY_NO_MULTIPLE, [$nameField]);
+            }
+        }
+
     }
 
     /**

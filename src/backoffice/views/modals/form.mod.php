@@ -49,6 +49,29 @@
 
         <?php endif;?>
 
+        <?php if(in_array($attributs["type"], ["entity"])) :?>
+
+            <div class="label">
+                <label for="<?php $this->echoHtml($name);?>"><?php $this->echoHtml($attributs["label"]);?></label>
+            </div>
+
+            <div class="input">
+                <select name="<?php $this->echoHtml($name . ($attributs["multiple"] ? '[]' : ''));?>"
+                    <?php echo ($attributs["multiple"] ? 'multiple="multiple"' : '');?>
+                        data-multiple="<?php echo $attributs["multiple"]?'true':'false';?>"
+                >
+                    <?php foreach ($form->getSelectList($name) as $value):?>
+                        <option value="<?php $this->echoHtml($value['id']);?>"
+                            <?php echo ($value['active']? "selected" : '')?>
+                        >
+                            <?php $this->echoHtml($value['label']);?>
+                        </option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+
+        <?php endif;?>
+
         <?php if(in_array($attributs["type"], ["radioTrueFalse"])) :?>
 
             <div class="label">

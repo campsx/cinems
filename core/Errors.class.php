@@ -20,6 +20,9 @@ class Errors{
     const MULTIPLE_NO_EXIST = "La valeur %s pour le champs %s n'existe pas.";
     const TRUE_FALSE = "Pour le champs %s vous devez choisir entre true et false";
     const DATE_A_NUMBER = "La valeur dans le champs %s n'est pas un nombre";
+    const ENTITY_MULTIPLE = "Le champs %s doit être un choix multiple";
+    const ENTITY_NO_MULTIPLE = "Le champs %s ne doit pas être un choix multiple";
+    const ENTITY_BAD = "Le champs %s à un choix inexistant";
 
     const LOGIN_ERROR = "Les identifiants sont inexacts.";
     const ROLE_ERROR = "Vous n'avez pas les droits pour acceder à cette page.";

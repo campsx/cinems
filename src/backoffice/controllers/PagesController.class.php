@@ -60,6 +60,9 @@ class PagesController extends AbstractController {
         if ($form->valid()){
 
             if ($form->getFile() != null) {
+                if (($oldImage = $page->getImage()) != null){
+                    $oldImage->delete(true);
+                }
                 $image = new Image();
                 $image->setName($form->getFile()['name']);
                 $image->setTitle($page->getSlug());

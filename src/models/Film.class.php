@@ -30,7 +30,7 @@ class Film extends BaseSql{
   /**
    * @var integer
    */
-  protected $winter_note;
+  protected $writer_note;
 
   /**
    * @var DateTime
@@ -58,9 +58,19 @@ class Film extends BaseSql{
   protected $active;
 
   /*
+   * @var array Comment
+   */
+  protected $comments;
+
+  /*
    * @var array Actors
    */
-  protected $actors;
+  protected $actors = [];
+
+  /*
+   * @var array Actors
+   */
+  protected $categories = [];
 
   /**
    * @var Boolean
@@ -124,47 +134,18 @@ class Film extends BaseSql{
 
 
   /**
-   * @param $firstname String
+   * @param $title String
    */
-  public function setFirstname($firstname) {
-    $this->firstname = trim($firstname);
+  public function setTitle($title) {
+    $this->title = trim($title);
   }
 
   /**
-   * @return $firstname String
+   * @return $title String
    */
-  public function getFirstname() {
-    return $this->firstname;
+  public function getTitle() {
+    return $this->title;
   }
-
-  /**
-   * @param $lastname String
-   */
-  public function setLastname($lastname) {
-    $this->lastname = trim($lastname);
-  }
-
-  /**
-   * @return $lastname String
-   */
-  public function getLastname() {
-    return $this->lastname;
-  }
-
-  /**
-   * @param $age DateTime
-   */
-  public function setAge($age) {
-    $this->age = $age;
-  }
-
-  /**
-   * @return $age DateTime
-   */
-  public function getAge() {
-    return $this->age;
-  }
-
 
   public function setSlug($slug) {
     $this->slug = $slug;
@@ -177,29 +158,108 @@ class Film extends BaseSql{
     return $this->slug;
   }
 
-
+    /**
+     * @param $short_description
+     */
   public function setShortDescription($short_description) {
     $this->short_description = $short_description;
   }
 
   /**
-   * @return $age DateTime
+   * @return $short_description String
    */
   public function getShortDescription() {
     return $this->short_description;
   }
 
 
-  public function setDescription($short_description) {
-    $this->description = $short_description;
+  public function setContent($content) {
+    $this->content = $content;
   }
 
   /**
-   * @return $age DateTime
+   * @return $content String
    */
-  public function getDescription() {
-    return $this->description;
+  public function getContent() {
+    return $this->content;
   }
+
+  /**
+   * @param $winter_note
+   */
+  public function setWriterNote($writer_note) {
+      $this->writer_note = $writer_note;
+  }
+
+  /**
+   * @return $content String
+   */
+  public function getWriterNote() {
+      return $this->writer_note;
+  }
+
+  /**
+   * @param $release_date
+   */
+  public function setReleaseDate($release_date) {
+      $this->release_date = $release_date;
+  }
+
+  /**
+   * @return $release_date DateTime
+   */
+  public function getReleaseDate() {
+      return new DateTime($this->release_date);
+  }
+
+    /**
+     * @param $image_id Image
+     */
+    public function setImage($image_id)
+    {
+        $this->setJoin('image_id', $image_id);
+    }
+
+    /**
+     * @return $image_id Image
+     */
+    public function getImage()
+    {
+        return $this->getJoin('image_id');
+    }
+
+    /**
+     * @param $user_id User
+     */
+    public function setUser($user_id)
+    {
+        $this->setJoin('user_id', $user_id);
+    }
+
+    /**
+     * @return $photo_id Image
+     */
+    public function getUser()
+    {
+        return $this->getJoin('user_id');
+    }
+
+    /**
+     * @param $director_id Director
+     */
+    public function setDirector($director_id)
+    {
+        $this->setJoin('director_id', $director_id);
+    }
+
+    /**
+     * @return $director_id Director
+     */
+    public function getDirector()
+    {
+        return $this->getJoin('director_id');
+    }
+
 
   /**
    * @param $actor Actor | int
@@ -221,6 +281,34 @@ class Film extends BaseSql{
   public function getActors() {
       return $this->getJoin("actors");
   }
+
+  /**
+   * @return array
+   */
+  public function getCategories() {
+      return $this->getJoin("categories");
+  }
+
+    /**
+     * @param $category Category | int
+     */
+    public function addCategory($category) {
+        $this->setJoin("categories",$category);
+    }
+
+    /**
+     * @param $category Category | int
+     */
+    public function removeCategory($category) {
+        $this->removeJoin("categories", $category);
+    }
+
+    /**
+     * @return array
+     */
+    public function getComments() {
+        return $this->getJoin("comments");
+    }
 
 
   public function setActive($active) {
@@ -262,6 +350,219 @@ class Film extends BaseSql{
     return $this->updated;
   }
 
+
+    public function addForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."films/create",
+                "class" => "form-group",
+                "submit" => "Créer",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Title",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "slug" => [
+                    "type" => "text",
+                    "placeholder" => "jean-dupont",
+                    "label" => "slug",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "slug",
+                        "unique"
+                    ]
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "shortDescription" => [
+                    "type" => "textarea",
+                    "label" => "Short description",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ],
+                "content" => [
+                    "type" => "textarea",
+                    "label" => "Description",
+                    "required" => false,
+                    "wysiwyg" => true
+                ],
+                "writerNote" => [
+                    "type" => "number",
+                    "placeholder" => "Exemple : 4",
+                    "label" => "Note",
+                    "required" => true,
+                    "validation"  => [
+                        "lengthNumber" => [
+                            "min" => 1,
+                            "max" => 5
+                        ],
+                    ]
+                ],
+                "releaseDate" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Date de sortie",
+                    "required" => true
+                ],
+                "director" => [
+                    "type" => "entity",
+                    "label" => "Director",
+                    "required" => true,
+                    "multiple" => false,
+                    "entityName" => "director"
+                ],
+                "actors" => [
+                    "type" => "entity",
+                    "label" => "Actors",
+                    "required" => true,
+                    "multiple" => true,
+                    "entityName" => "actor"
+                ],
+                "categories" => [
+                    "type" => "entity",
+                    "label" => "Categories",
+                    "required" => true,
+                    "multiple" => true,
+                    "entityName" => "category"
+                ]
+
+            ],
+            "initData" => [
+                "active" => 1
+            ]
+        ];
+    }
+
+    public function editForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE_ADMIN."films/edit/".$this->id,
+                "class" => "form-group",
+                "submit" => "Modifier",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Title",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "slug" => [
+                    "type" => "text",
+                    "placeholder" => "jean-dupont",
+                    "label" => "slug",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "slug",
+                        "unique"
+                    ]
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ],
+                "shortDescription" => [
+                    "type" => "textarea",
+                    "label" => "Short description",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 200
+                        ]
+                    ]
+                ],
+                "content" => [
+                    "type" => "textarea",
+                    "label" => "Description",
+                    "required" => false,
+                    "wysiwyg" => true
+                ],
+                "writerNote" => [
+                    "type" => "number",
+                    "placeholder" => "Exemple : 4",
+                    "label" => "Note",
+                    "required" => true,
+                    "validation"  => [
+                        "lengthNumber" => [
+                            "min" => 1,
+                            "max" => 5
+                        ],
+                    ]
+                ],
+                "releaseDate" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Date de sortie",
+                    "required" => true
+                ],
+                "director" => [
+                    "type" => "entity",
+                    "label" => "Director",
+                    "required" => true,
+                    "multiple" => false,
+                    "entityName" => "director"
+                ],
+                "actors" => [
+                    "type" => "entity",
+                    "label" => "Actors",
+                    "required" => true,
+                    "multiple" => true,
+                    "entityName" => "actor"
+                ],
+                "categories" => [
+                    "type" => "entity",
+                    "label" => "Categories",
+                    "required" => true,
+                    "multiple" => true,
+                    "entityName" => "category"
+                ]
+
+            ]
+        ];
+    }
 
 
 

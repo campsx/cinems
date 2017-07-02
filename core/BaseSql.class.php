@@ -64,6 +64,7 @@ abstract class BaseSql {
     $sqlCol = null;
     $sqlKey = null;
     $data = [];
+    $arrayJoin = [];
     foreach ($this->columns as $columns => $value) {
           $join = $this->checkJoinType($columns);
           if ($columns !== 'updated' AND $columns !== 'created' AND $columns !== 'id' AND $join === false) {
@@ -77,7 +78,8 @@ abstract class BaseSql {
                   $sqlKey .= ",:".$columns;
                   $data[$columns] = $this->$function($columns);
               } else {
-                  $this->$function($columns);
+                  // save ManyToMany and OneToMany after saved entity
+                  $arrayJoin[$columns] = $function;
               }
           }
     }
@@ -90,6 +92,11 @@ abstract class BaseSql {
     $req = $this->db->prepare($sql);
     $req->execute($data);
     $this->id = $this->db->lastInsertId();
+
+    // save multiple join
+      foreach ($arrayJoin as $columns => $function) {
+          $this->$function($columns);
+      }
     $this->createCallback();
   }
 

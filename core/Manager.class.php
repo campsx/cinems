@@ -97,4 +97,44 @@ class Manager{
     }
 
 
+    public function entityList($entityName, $display, $data = [])
+    {
+        $sql = "SELECT a.id, a.".$display." FROM ".$entityName." as a WHERE a.active = 1";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $results = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        foreach ($results as $result) {
+            $list[] = [
+                'id' => $result['id'],
+                'label' => $result[$display],
+                'active' => $this->inArrayEntity($data, $result['id'])
+                ];
+        }
+        return $list;
+    }
+
+    /**
+     * @param $data array || entity
+     * @param $id int
+     * @return boolean
+     */
+    public function inArrayEntity($data, $id)
+    {
+        if ($data == null){
+            return false;
+        } else if( is_array($data) ) {
+            foreach($data as $entity){
+                if ($entity->getId() == $id){
+                    return true;
+                }
+            }
+        } else {
+            if ($data->getId() == $id){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
