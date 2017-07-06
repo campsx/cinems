@@ -4,10 +4,9 @@ class IndexController{
 
 	public function indexAction($params)
 	{
-	    $user = new User(["id" => 8]);
-        dump($user->getRoles());
+
 		$view = new View('index', 'index');
-		$view->assign("user", $user);
+		
 	}
 
 	public function page404Action($params)

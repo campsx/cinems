@@ -2,9 +2,11 @@
 class DirectorController{
 
 
-	public function indexAction()
+	public function indexAction($param)
 	{
-        $view = new View('directors', 'index');
+		$director = new Director(['id'=>1]);
+      $view = new View('directors', 'index');
+			$view->assign("director",$director);
 	}
 
 

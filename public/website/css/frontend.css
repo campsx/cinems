@@ -1,129 +1,481 @@
-body, html{
-     height: 100%;
-  background-repeat: no-repeat;
-  background-color: #d3d3d3;
-  font-family: 'Oxygen', sans-serif;
+body{
+
+  background: #e0e0cc;
+  margin: 0;
 }
 
-.main{
-  margin-top: 70px;
+
+ul {
+    list-style-type: none;
+    float:right;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  /*  background-color: #333;  */
+
 }
 
-h1.title {
-  font-size: 50px;
-  font-family: 'Passion One', cursive;
-  font-weight: 400;
+li {
+  /*  float:right;  modif */
+    padding: 33px 25px;
+
 }
 
-hr{
-  width: 10%;
-  color: #fff;
-}
+li a {
 
-.form-group{
-  margin-bottom: 15px;
-}
-
-.form-control {
     display: block;
-    width: 100%;
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-}
-
-label{
-  margin-bottom: 15px;
-}
-
-input,
-input::-webkit-input-placeholder {
-    font-size: 11px;
-    padding-top: 3px;
-}
-
-.input-group {
-    position: relative;
-    display: table;
-    border-collapse: separate;
-}
-
-.input-group-addon {
-    display: table-cell;
-}
-.input-group-addon {
-    padding: 6px 12px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1;
-    color: #555;
-    text-align: center;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.input-group .form-control {
-    position: relative;
-    z-index: 2;
-    float: left;
-    width: 100%;
-    margin-bottom: 0;
-}
-
-.input-group-addon, .input-group-btn {
-    width: 1%;
-    white-space: nowrap;
-    vertical-align: middle;
-}
-
-
-
-.main-login{
-  background-color: #fff;
-}
-
-.main-center{
-  margin-top: 30px;
-  margin: 0 auto;
-  max-width: 330px;
-    padding: 40px 40px;
-
-}
-
-.login-button{
-  margin-top: 5px;
-}
-
-.login-register{
-  font-size: 11px;
-  text-align: center;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #428bca;
-    border-color: #357ebd;
-}
-
-.btn-lg, .btn-group-lg>.btn {
-    padding: 10px 16px;
-    font-size: 18px;
-    line-height: 1.33;
-    border-radius: 6px;
-}
-
-.btn-block {
-    display: block;
-    width: 100%;
-}
-
-a {
-    color: #428bca;
+    color: black;
     text-decoration: none;
+
 }
+
+#hamburger-content ul img {
+    float: left;
+    /*margin-right: 242px;  */
+    position: absolute;
+    left: 10px;
+}
+
+.contenu-navbar{
+    width: 100%;
+    background-color: white;
+    margin-right: auto;
+    margin-left: auto;
+    height:90px;
+
+}
+
+#menu{
+     max-width: 970px;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+#menu img{
+     max-width: 66px;
+     padding: 10px;
+
+}
+
+/* right-director     */
+.profil-directeur img {
+    width: 25%;
+    float: left;
+}
+
+.profil-directeur .info-perso {
+    width: 60%;
+    float: right;
+}
+
+.content-director p {
+    margin-top: 40%;
+}
+
+.profil-directeur span {
+    color: yellowgreen;
+}
+
+/*    End right-director              */
+
+.follow2 img {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 40%;
+}
+
+/*
+.sections-wrapper {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+*/
+.section-inner{
+    background: white;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+
+}
+
+.contenu-principale {
+     width: 62.66666667%;
+     float:left;
+     padding-right: 5px;
+     padding-left: 5px;
+
+}
+
+.container {
+  width: 96%;
+  padding-right: 2%;
+  padding-left: 2%;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  min-height: 1400px;
+
+}
+/*
+.container sections-wrapper{
+    display: table;
+}
+*/
+.left-content {
+    width: 59%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: white;
+    min-height: 200px;
+    float:left;
+
+}
+
+.right-bar {
+    width: 30%;
+    background-color: white;
+    min-height: 200px;
+    float:right;
+}
+
+.img-film{
+    width:100%;
+}
+
+section {
+    margin-bottom: 30px;
+
+}
+
+.colonne-gauche{
+
+    width: 33.33333333%;
+    float:left;
+    padding-right: 5px;
+    padding-left: 15px;
+
+}
+
+.follow img{
+     padding-left: 10px;
+     padding-right: 10px;
+     width: 10%;
+}
+
+.info-section {
+
+  background: white;
+  min-height: 1298px;
+
+}
+
+.populaire-post h2{
+     margin-top: 50px;
+     font-family: cursive;
+     padding-left: 10px;
+}
+
+
+.liste-populaire ul img {
+     width:25%;
+}
+
+.liste-populaire li p{
+     float:right;
+     width: 60%;
+     color: red;
+     padding-left: 5%;
+}
+
+.liste-populaire li span{
+     float:right;
+     color: grey;
+}
+
+.liste-populaire ul li{
+    margin-top: 30px;
+    padding: 38px 30px;
+}
+
+.section-social h2{
+    font-family: cursive;
+    padding-left: 10px;
+}
+
+.footer{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-inner .text-footer {
+     text-align: center;
+}
+
+.info-contenu ul  {
+    display: inline;
+  /*  float:left;   */
+}
+
+.info-contenu ul li {
+    /*float: left;   modif */
+    padding-top: 1px;
+    padding-right: 1px;
+}
+
+.info-contenu ul li img{
+     padding-right: 10px;
+     padding-left: 10px;
+}
+
+.titre-text h2{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-family: cursive;
+}
+
+.content p {
+     padding-top: 50px;
+     color: grey;
+}
+
+@media only screen and (max-width: 750px){
+
+  #menu ul {
+      display: none;
+  }
+
+
+.burger {
+  position: absolute;
+  width: 24px;
+  height: 4px;
+  background: blueviolet;
+}
+
+  /* L'element */
+ .burger, .burger::before, .burger::after {
+  position: absolute;
+  width: 24px;
+  height: 4px;
+  background: blueviolet;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.burger::before {
+  margin-top: -8px;
+}
+
+.burger::after {
+  margin-top: 8px;
+}
+
+
+/* L'animation */
+.burger:hover {
+  /* L'opacite se propagerait aux pseudoelements, donc
+   * on change la background-color
+   */
+  background: white;
+}
+.burger:hover::before {
+  margin-top: 0px;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.burger:hover::after {
+  margin-top: 0px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.liste-populaire ul img {
+    width: 15%;
+}
+
+.right-bar{
+     margin-bottom:5%;
+}
+
+.footer{
+    clear: both;
+}
+
+}
+
+@media only screen and (min-width: 750px){
+
+#hamburger-button{
+    display: none;
+  }
+
+.hamburger{
+      display: none;
+    }
+
+
+
+
+}
+
+@media only screen and (max-width: 750px){
+
+.contenu-navbar {
+      width: 100%;
+}
+
+.contenu-principale {
+
+      width:100%;
+  }
+
+.img-film {
+    width: 90%;
+   /*    modif          */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*    fin modif          */
+}
+
+
+.left-content{
+  width:100%;
+  padding: 0;
+  min-height: 1000px;
+}
+
+.right-bar{
+  width:100%;
+  height: 100%;  /* ne pas mettre 100% height          */
+}
+
+.content p {
+
+    width: 80%;
+/*modif  */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 16%;
+}
+/*    fin modif          */
+}
+
+/*modif  */
+.titre-text h2 {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-family: cursive;
+    padding-left: 9%;
+}
+
+.info-contenu ul li {
+
+    padding-left: 9%;
+}
+
+.populaire-post h2 {
+
+    padding-left: 9%;
+}
+
+/*    fin modif          */
+
+.section-inner{
+
+  width:100%;
+}
+
+
+/*modif  */
+.section-social h2 {
+    padding-left: 9%;
+}
+
+.follow img {
+    padding-left: 9%;
+    padding-right: 5%;
+    width: 10%;
+}
+/*    fin modif          */
+.colonne-gauche{
+     width:100%;
+}
+
+.liste-populaire ul img {
+    width: 15%;
+}
+
+
+.liste-populaire li p {
+    float: right;
+    width: 100%;
+    color: red;
+}
+
+#hamburger-content ul li {
+    float: right;
+    padding: 38px 2px;
+}
+
+/*  modif
+li {
+    float: right;
+    padding: 38px 2px;
+}
+*/
+
+
+.footer{
+
+  width:100%;
+}
+
+
+.liste-populaire li span {
+    float: left;
+    color: grey;
+}
+
+}
+
+@media all and (min-width: 757px) and (max-width: 977px){
+
+
+}
+
+/*
+@media only screen and (max-width: 750px){
+
+header .contenu-navbar .header__icon {
+    position: relative;
+    display: block;
+    float: right;
+    width: 50px;
+    height: 66px;
+    cursor: pointer;
+}
+
+.header__icon:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 1rem;
+    height: 0;
+    top: 16px;
+    left: 15px;
+}
+
+}
+*/
