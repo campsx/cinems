@@ -18,4 +18,5 @@ class MyPDO extends PDO
           Errors::error500($e->getMessage());
       }
     }
+
 }

@@ -9,9 +9,16 @@ class Redirection {
 	}
 
 	public function runDirection(){
+
+	    if (file_exists(INSTALLER_FILE)) {
+            require INSTALLER_FILE.'RoutingInstaller.class.php';
+            $routing = new RoutingInstaller($this->uriExploded);
+            exit;
+        }
+
 		if ($this->uriExploded[0] === 'admin') {
-			require 'src/backoffice/RoutingBackoffice.class.php';
-			$routing = new RoutingBackoffice($this->uriExploded);
+            require 'src/backoffice/RoutingBackoffice.class.php';
+            $routing = new RoutingBackoffice($this->uriExploded);
 		} elseif ($this->uriExploded[0] === 'api'){
             require 'src/api/RoutingApi.class.php';
             $routing = new RoutingApi($this->uriExploded);
