@@ -2,6 +2,7 @@
 include "Helpers.function.php";
 
 define("DS", DIRECTORY_SEPARATOR);
+define("INSTALLER_FILE", __DIR__.DS."..".DS."_installer".DS);
 define("VENDOR" , __DIR__.DS."..".DS."vendor".DS);
 define("VENDOR_EMAIL" , VENDOR."PHPMailer-master".DS);
 define("DIR_PUBLIC", __DIR__.DS."..".DS."public".DS);
