@@ -11,23 +11,45 @@
      <div class="profil-directeur">
 
          <h2>Profil Directeur</h2>
-         <img src="img/tomcruise.jpg">
 
-        <p class="info-perso">Nom <span><?php $this->echoHtml($director->getLastname()); ?></span></p>
-        <p class="info-perso">Prénom <span><?php $this->echoHtml($director->getFirstname()); ?></span></p>
-        <p class="info-perso">Date de naissance <span><?php $this->echoHtml($director->getAge()->format('Y-m-d')) ?></span></p>
-        <p class="info-perso">
-          Age
-          <span>
-            <?php
-            $dateBorn = $director->getAge();
-            $currentDate = new dateTime();
-            $age = $currentDate->diff($dateBorn);
-      
-              $this->echoHtml($age->y);
-            ?>
-          </span>
-        </p>
+         <div class="director-img">
+             <img src="<?php $this->echoHtml(PATH_MEDIAS_UPLOAD.$director->getImage()->getUrl());?>">
+         </div>
+
+
+         <div class="info">
+             <p class="info-perso">
+                 Nom
+                 <span>
+                <?php $this->echoHtml($director->getLastname()); ?>
+            </span>
+             </p>
+             <p class="info-perso">
+                 Prénom
+                 <span>
+                <?php $this->echoHtml($director->getFirstname()); ?>
+            </span>
+             </p>
+             <p class="info-perso">
+                 Date de naissance
+                 <span>
+                <?php $this->echoHtml($director->getAge()->format('Y-m-d')) ?>
+            </span>
+             </p>
+             <p class="info-perso">
+                 Age
+                 <span>
+                    <?php
+                    $dateBorn = $director->getAge();
+                    $currentDate = new dateTime();
+                    $age = $currentDate->diff($dateBorn);
+
+                    $this->echoHtml($age->y);
+                    ?>
+                </span>
+             </p>
+         </div>
+
 
 
      </div>
@@ -92,4 +114,4 @@
 
 
 
-<!--   fin partie container     -->
+<!--   fin partie container     -->

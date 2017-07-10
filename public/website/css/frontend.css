@@ -57,25 +57,6 @@ li a {
 
 }
 
-/* right-director     */
-.profil-directeur img {
-    width: 25%;
-    float: left;
-}
-
-.profil-directeur .info-perso {
-    width: 60%;
-    float: right;
-}
-
-.content-director p {
-    margin-top: 40%;
-}
-
-.profil-directeur span {
-    color: yellowgreen;
-}
-
 /*    End right-director              */
 
 .follow2 img {
@@ -124,22 +105,8 @@ li a {
     display: table;
 }
 */
-.left-content {
-    width: 59%;
-    padding-left: 5%;
-    padding-right: 5%;
-    background-color: white;
-    min-height: 200px;
-    float:left;
 
-}
 
-.right-bar {
-    width: 30%;
-    background-color: white;
-    min-height: 200px;
-    float:right;
-}
 
 .img-film{
     width:100%;
@@ -303,13 +270,7 @@ section {
     width: 15%;
 }
 
-.right-bar{
-     margin-bottom:5%;
-}
 
-.footer{
-    clear: both;
-}
 
 }
 
@@ -348,17 +309,6 @@ section {
     /*    fin modif          */
 }
 
-
-.left-content{
-  width:100%;
-  padding: 0;
-  min-height: 1000px;
-}
-
-.right-bar{
-  width:100%;
-  height: 100%;  /* ne pas mettre 100% height          */
-}
 
 .content p {
 
@@ -437,10 +387,6 @@ li {
 */
 
 
-.footer{
-
-  width:100%;
-}
 
 
 .liste-populaire li span {
@@ -448,12 +394,8 @@ li {
     color: grey;
 }
 
-}
-
-@media all and (min-width: 757px) and (max-width: 977px){
 
 
-}
 
 /*
 @media only screen and (max-width: 750px){
@@ -479,3 +421,71 @@ header .contenu-navbar .header__icon {
 
 }
 */
+
+
+/***************************************** good code *****************************************/
+
+
+/** global page **/
+
+.left-content {
+    width: 59%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: white;
+    min-height: 200px;
+    display: inline-block;
+}
+
+.right-bar {
+    width: 30%;
+    background-color: white;
+    min-height: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+@media screen and (max-width: 750px){
+    .left-content{
+        width: 90%;
+    }
+    .right-bar{
+        width:100%;
+    }
+}
+
+
+/** director page **/
+.profil-directeur .info {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+
+.profil-directeur h2 {
+    text-align: center;
+}
+
+.profil-directeur img {
+    max-width: 200px;
+    display: inline-block;
+}
+
+.profil-directeur span {
+    color: yellowgreen;
+}
+
+.profil-directeur .director-img {
+    display: inline-block;
+    width: 50%;
+}
+
+@media screen and (max-width: 750px){
+    .profil-directeur .info,
+    .profil-directeur .director-img {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+}
+

@@ -26,6 +26,23 @@ class InstallerService{
         return true;
     }
 
+    static function testDatabase($data = [])
+    {
+        $dsn = (isset($data['type']) ? $data['type'] : DB_TYPE ) .
+            ':host=' . (isset($data['host']) ? $data['host'] : DB_HOST ) .
+            ';port=' . (isset($data['port']) ? $data['port'] : DB_PORT ) .
+            ';dbname=' . (isset($data['dbname']) ? $data['dbname'] : DB_NAME ) ;
+
+        try {
+            $pdo = new PDO($dsn, (isset($data['user']) ? $data['user'] : DB_USER ), (isset($data['pwd']) ? $data['pwd'] : DB_PWD ));
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return true;
+    }
+
     static function testConnexionSQL($data = [])
     {
 
@@ -33,7 +50,7 @@ class InstallerService{
             ':host=' . (isset($data['host']) ? $data['host'] : DB_HOST );
 
         try{
-            $pdo = new PDO($dsn, (isset($data['user']) ? $data['user'] : DB_USER ), (isset($data['PWD']) ? $data['PWD'] : DB_PWD ));
+            $pdo = new PDO($dsn, (isset($data['user']) ? $data['user'] : DB_USER ), (isset($data['pwd']) ? $data['pwd'] : DB_PWD ));
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e){
            return $e->getMessage();
@@ -48,7 +65,7 @@ class InstallerService{
         ':host=' . (isset($data['host']) ? $data['host'] : DB_HOST );
 
         try {
-            $pdo = new PDO($dsn, (isset($data['user']) ? $data['user'] : DB_USER ), (isset($data['PWD']) ? $data['PWD'] : DB_PWD ));
+            $pdo = new PDO($dsn, (isset($data['user']) ? $data['user'] : DB_USER ), (isset($data['pwd']) ? $data['pwd'] : DB_PWD ));
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e){
             return $e->getMessage();
@@ -56,7 +73,7 @@ class InstallerService{
 
         if ($withData){
             try{
-                $sql = str_replace('databasenamehere', 'cinetest', file_get_contents(INSTALLER_FILE . "/full.sql"));
+                $sql = str_replace('databasenamehere', $data['dbname'], file_get_contents(INSTALLER_FILE . "/full.sql"));
                 $pdo->exec($sql);
             } catch(PDOException $e){
                 return $e->getMessage();
@@ -65,7 +82,7 @@ class InstallerService{
             self::imageInstall();
         } else {
             try{
-                $sql = str_replace('databasenamehere', 'cinetest', file_get_contents(INSTALLER_FILE . "/no_full.sql"));
+                $sql = str_replace('databasenamehere', $data['dbname'], file_get_contents(INSTALLER_FILE . "/no_full.sql"));
                 $pdo->exec($sql);
             } catch(PDOException $e){
                 return $e->getMessage();
@@ -78,7 +95,7 @@ class InstallerService{
 
     static function imageInstall()
     {
-        
+        rename( INSTALLER_FILE.'images', DIR_UPLOAD);
     }
 
 

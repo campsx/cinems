@@ -19,8 +19,7 @@ class IndexController extends AbstractController {
 
 
         if ($this->getRequest()->isPOSTRequest() &&
-            $manager->checkConnection($query['email'], $query['password']) &&
-            $this->getRequest()->session()->isRole(Session::ROLE_ADMIN)){
+            $manager->checkConnection($query['email'], $query['password'])){
 
             $response = new Response();
             $response->redirectionBackoffice('index/index', 200);

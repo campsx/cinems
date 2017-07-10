@@ -32,6 +32,7 @@
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>directors/edit/<?php $this->echoHtml($director->getId())?>">Modifier</a>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>directors/remove/<?php $this->echoHtml($director->getId())?>">Supprimer</a>
+                    <a target="_blank" href="<?php echo URL_WEBSITE;?>director/view/<?php $this->echoHtml($director->getSlug())?>">Voir</a>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -45,8 +45,8 @@ class FilmsController extends AbstractController {
 
         $manager = new Manager();
 
-        $form->addSelectList('director', $manager->entityList('director','lastname', $film->getDirector()));
-        $form->addSelectList('actors', $manager->entityList('actor','lastname', $film->getActors()));
+        $form->addSelectList('director', $manager->entityList('director','firstname', $film->getDirector()));
+        $form->addSelectList('actors', $manager->entityList('actor','firstname', $film->getActors()));
         $form->addSelectList('categories', $manager->entityList('category','title', $film->getCategories()));
 
 
@@ -85,8 +85,8 @@ class FilmsController extends AbstractController {
 
         $manager = new Manager();
 
-        $form->addSelectList('director', $manager->entityList('director','lastname', $film->getDirector()));
-        $form->addSelectList('actors', $manager->entityList('actor','lastname', $film->getActors()));
+        $form->addSelectList('director', $manager->entityList('director','firstname', $film->getDirector()));
+        $form->addSelectList('actors', $manager->entityList('actor','firstname', $film->getActors()));
         $form->addSelectList('categories', $manager->entityList('category','title', $film->getCategories()));
 
 
