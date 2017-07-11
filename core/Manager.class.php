@@ -26,6 +26,27 @@ class Manager{
         $this->errors[] = vsprintf($string, $data);
     }
 
+    /**
+     * @return bool|string
+     * Check good connexion
+     */
+    static function testConnexion()
+    {
+        $dns = DB_TYPE .
+            ':host=' . DB_HOST .
+            ';port=' . DB_PORT .
+            ';dbname=' . DB_NAME;
+
+        try {
+            $pdo = new PDO($dns, DB_USER, DB_PWD);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return true;
+    }
+
 
     /**
      * @return boolean

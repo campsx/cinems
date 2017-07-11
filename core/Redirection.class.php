@@ -10,11 +10,18 @@ class Redirection {
 
 	public function runDirection(){
 
-	    /*if (file_exists(INSTALLER_FILE)) {
-            require INSTALLER_FILE.'RoutingInstaller.class.php';
-            $routing = new RoutingInstaller($this->uriExploded);
-            exit;
-        }*/
+	    if (file_exists(INSTALLER_FILE)) {
+
+            require INSTALLER_FILE.'InstallerService.class.php';
+
+	        if (InstallerService::testConnexion() && InstallerService::testFirstAdmin()) {
+                unlink(INSTALLER_FILE);
+            } else {
+                require INSTALLER_FILE.'RoutingInstaller.class.php';
+                $routing = new RoutingInstaller($this->uriExploded);
+                exit;
+            }
+        }
 
 		if ($this->uriExploded[0] === 'admin') {
             require 'src/backoffice/RoutingBackoffice.class.php';

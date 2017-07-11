@@ -2,9 +2,9 @@
     Step 1
 </div>
 <div>
-    <?php if (isset($error)):?>
+    <?php foreach ($errors as $error):?>
         <p style="color: red;"><?php echo $error ?></p>
-    <?php endif; ?>
+    <?php endforeach;?>
 
     <form method="POST" action="<?php echo URL_WEBSITE ?>installer/step3">
         <h2>Compte Admin</h2>
@@ -39,6 +39,7 @@
             <input name="age" placeholder="1990-12-14" type="date"><br>
         </div>
 
+        <input type="hidden" name="token_firstAdmin" value="<?php $this->echoHtml($token); ?>">
         <input value="Créer compte" type="submit">
 
     </form>

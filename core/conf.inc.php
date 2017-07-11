@@ -24,15 +24,15 @@ if (file_exists(__DIR__.DS."config.ini")) {
     $config = parse_ini_file(__DIR__.DS."config.ini");
 }
 
-define("DB_USER", $config['DB_USER']?:"root");
-define("DB_PWD", $config['DB_PWD']?:""); // wamp empty
-define("DB_NAME", $config['DB_NAME']?:"cinems");
-define("DB_HOST", $config['DB_HOST']?:"localhost");
-define("DB_PORT", $config['DB_PORT']?:"8889"); // wamp 3306
-define("DB_TYPE", $config['DB_TYPE']?:"mysql");
+define("DB_USER", isset($config['DB_USER'])? $config['DB_USER'] :"root");
+define("DB_PWD", isset($config['DB_PWD']) ? $config['DB_PWD'] :""); // wamp empty
+define("DB_NAME", isset($config['DB_NAME']) ? $config['DB_NAME']:"cinems");
+define("DB_HOST", isset($config['DB_HOST']) ? $config['DB_HOST']:"localhost");
+define("DB_PORT", isset($config['DB_PORT']) ? $config['DB_PORT']:"8889"); // wamp 3306
+define("DB_TYPE", isset($config['DB_TYPE']) ? $config['DB_TYPE']:"mysql");
 
-define("EMAIL_USERNAME", $config['EMAIL_USERNAME']?:"");
-define("EMAIL_PASSWORD", $config['EMAIL_PASSWORD']?:"");
+define("EMAIL_USERNAME", isset($config['EMAIL_USERNAME'])? $config['EMAIL_USERNAME'] :"");
+define("EMAIL_PASSWORD", isset($config['EMAIL_PASSWORD'])? $config['EMAIL_PASSWORD'] :"");
 
 define("ENV_TYPE", $config['ENV_TYPE']?:"prod"); // prod | dev
 define("ENV_IS_DEV", ENV_TYPE === "dev");

@@ -742,6 +742,101 @@ class User extends BaseSql
         ];
     }
 
+    public function firstAdminForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE."installer/step3",
+                "class" => "form-group",
+                "submit" => "S'inscrire"
+            ],
+            "data" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "test@gmail.com",
+                    "label" => "Votre email",
+                    "required" => true,
+                    "validation" => [
+                        "length" => [
+                            "min" => 10,
+                            "max" => 255
+                        ],
+                        "unique"
+                    ]
+                ],
+                "pseudo" => [
+                    "type" => "text",
+                    "placeholder" => "jojodu77",
+                    "label" => "Votre Pseudo",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "unique"
+                    ]
+                ],
+                "password" => [
+                    "type"        => "password",
+                    "placeholder" => "********",
+                    "label"       => "Votre Password",
+                    "required"    => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 8,
+                            "max" => 255
+                        ]
+                    ]
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Votre nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Votre Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Votre age",
+                    "required" => false,
+                    "validation"  => [
+                        "interval" => [
+                            "min" => 10,
+                            "max" => 100
+                        ],
+                    ]
+                ]
+            ],
+            "initData" => [
+                "status" => 1,
+                "roles" => ["user", "admin"],
+                "active" => 1
+            ]
+        ];
+    }
+
+
     public function changePasswordForm()
     {
         return [

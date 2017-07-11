@@ -92,6 +92,15 @@ class InstallerService{
         return true;
     }
 
+    /**
+     * @return bool
+     */
+    static function testFirstAdmin()
+    {
+        $user = new User(['id' => 1]);
+        return $user->getId() !== null;
+    }
+
 
     static function imageInstall()
     {

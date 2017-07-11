@@ -1,5 +1,5 @@
 <div>
-    Step 1
+    Step 2
 </div>
 <div>
     <?php if (isset($error)):?>
@@ -15,7 +15,7 @@
         </div>
         <div>
             <label for="pwd">Mots de pass :</label>
-            <input type="text" id="pwd" name="pwd" />
+            <input type="password" id="pwd" name="pwd" />
         </div>
 
         <div class="button">

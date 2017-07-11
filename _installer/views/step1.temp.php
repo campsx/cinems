@@ -15,7 +15,7 @@
         </div>
         <div>
             <label for="pwd">Mots de pass :</label>
-            <input type="text" id="pwd" name="pwd" />
+            <input type="password" id="pwd" name="pwd" />
         </div>
 
         <h2> Info Data base</h2>

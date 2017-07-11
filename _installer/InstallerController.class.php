@@ -1,7 +1,6 @@
 <?php
 
 require INSTALLER_FILE.'ViewInstaller.class.php';
-require INSTALLER_FILE.'InstallerService.class.php';
 
 class InstallerController extends AbstractController {
 
@@ -50,9 +49,10 @@ class InstallerController extends AbstractController {
                             'ENV_TYPE' => 'prod'
                         ]
                     ];
-                    $conf = fopen(__DIR__.DS."..".DS."core".DS."testconfig.ini", "w");
+                    $conf = fopen(__DIR__.DS."..".DS."core".DS."config.ini", "w");
                     fwrite($conf, arr2ini($confData));
                     fclose($conf);
+
                     $response = new Response();
                     $response->redirectionFrontend('installer/step2', 200);
                 }
@@ -66,16 +66,51 @@ class InstallerController extends AbstractController {
 	// active email service
     public function step2Action($params)
     {
-        if (InstallerService::testConnexion()){
+        if (InstallerService::testConnexion() !== true){
             $response = new Response();
-            $response->redirectionFrontend('installer/step1', 301);
+            $response->redirectionFrontend('installer/step1', 302);
         }
-        $view = new ViewInstaller('installer', 'step2');
+
+        if($this->getRequest()->isPOSTRequest()){
+            $query = $this->getRequest()->getPOSTQuery();
+            $config = parse_ini_file(__DIR__.DS."..".DS."core".DS."config.ini", true);
+            $config['email'] = [
+                'EMAIL_USERNAME' => $query['email'],
+                'EMAIL_PASSWORD' => $query['pwd']
+            ];
+            $conf = fopen(__DIR__.DS."..".DS."core".DS."config.ini", "w");
+            fwrite($conf, arr2ini($config));
+            fclose($conf);
+
+            $response = new Response();
+            $response->redirectionFrontend('installer/step3', 200);
+        } else {
+            $view = new ViewInstaller('step2');
+        }
     }
 
     // create first admin user
     public function step3Action($params)
     {
-        $view = new ViewInstaller('installer', 'step3');
+        if (InstallerService::testConnexion() !== true){
+            $response = new Response();
+            $response->redirectionFrontend('installer/step1', 302);
+        }
+
+        $user = new User();
+        $form = new formValidation($user, 'firstAdmin');
+
+        if ($form->valid()){
+            $user->setTokenEmail(md5(uniqid(rand(), true)));
+            $user->save();
+
+            $response = new Response();
+            $response->redirectionFrontend('index/index', 200);
+        }
+
+
+        $view = new ViewInstaller('step3');
+        $view->assign('errors', $form->getErrors());
+        $view->assign('token', $form->generateNewToken());
     }
 }
