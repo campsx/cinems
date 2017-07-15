@@ -13,14 +13,14 @@
 </head>
 <body>
 <div class="page close">
-    <?php include "src/backoffice/views/layouts/header.temp.php" ?>
-    <?php include "src/backoffice/views/layouts/sidebar.temp.php" ?>
+    <?php include ROOT_DIR."src/backoffice/views/layouts/header.temp.php" ?>
+    <?php include ROOT_DIR."src/backoffice/views/layouts/sidebar.temp.php" ?>
     <section class="content">
         <div class="view">
             <?php include $this->view; ?>
         </div>
     </section>
-    <?php include "src/backoffice/views/layouts/footer.temp.php" ?>
+    <?php include ROOT_DIR."src/backoffice/views/layouts/footer.temp.php" ?>
 </div>
 
 <!-- jquery-2.2.4 -->

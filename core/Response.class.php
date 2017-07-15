@@ -8,6 +8,15 @@ class Response
 
     }
 
+    public function status($httpCode = 200)
+    {
+        header('Status: '.$httpCode.' '.$this->httpCode($httpCode), false, $httpCode);
+    }
+
+    public function location ($url){
+        header('Location: '.$url);
+    }
+
     public function redirectionFrontend($uri, $httpCode = 200)
     {
         $this->redirection(URL_WEBSITE.$uri, $httpCode);
@@ -20,8 +29,8 @@ class Response
 
     private function redirection($url, $httpCode = 200)
     {
-        header('Status: '.$httpCode.' '.$this->httpCode($httpCode), false, $httpCode);
-        header('Location: '.$url);
+        $this->status($httpCode);
+        $this->location($url);
         exit();
     }
 
@@ -62,6 +71,8 @@ class Response
                 return 'Moved Temporarily';
             case 401:
                 return 'Unauthorized';
+            case 404:
+                return 'Not Found';
 
         }
         return '';

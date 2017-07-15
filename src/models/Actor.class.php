@@ -207,6 +207,14 @@ class Actor extends BaseSql
         return $this->getJoin('photo_id');
     }
 
+    /**
+     * return array
+     */
+    public function getFilms()
+    {
+        return $this->getJoin('films');
+    }
+
 
     public function setActive($active)
     {

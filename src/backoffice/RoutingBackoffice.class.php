@@ -11,7 +11,7 @@ class RoutingBackoffice extends AbstractRouting {
             $response = new Response();
             $response->redirectionbackoffice('index/login', 401);
         }
-		$this->basePathController = 'src/backoffice/controllers/';
+		$this->basePathController = ROOT_DIR.'src/backoffice/controllers/';
 
 		$this->setController(1);
 		$this->setAction(2);

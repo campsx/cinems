@@ -6,7 +6,7 @@ class RoutingInstaller extends AbstractRouting {
 	    $uriExploded[0] = 'installer';
         parent::__construct($uriExploded);
 
-        $this->basePathController = '_installer/';
+        $this->basePathController = ROOT_DIR.'_installer/';
 
         $this->setController(0);
         $this->setAction(1);

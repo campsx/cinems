@@ -9,9 +9,15 @@
     <meta name="description" content="description de mon site">
   </head>
   <body>
-    <?php include "src/frontend/views/layouts/header.temp.php" ?>
-    <?php include $this->view; ?>
-    <?php include "src/frontend/views/layouts/footer.temp.php" ?>
+  <div id="main">
+      <div class="container">
+        <?php include ROOT_DIR."src/frontend/views/layouts/header.temp.php" ?>
+        <div class="content">
+            <?php include $this->view; ?>
+        </div>
+        <?php include ROOT_DIR."src/frontend/views/layouts/footer.temp.php" ?>
+      </div>
+  </div>
 
     <!-- jquery-2.2.4 -->
     <script

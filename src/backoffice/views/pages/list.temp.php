@@ -35,7 +35,8 @@
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>pages/edit/<?php $this->echoHtml($pageModel->getId())?>">Modifier</a>
-                    <a href="<?php echo URL_WEBSITE_ADMIN;?>pages/remove/<?php $this->echoHtml($pageModel->getId())?>">Supprimer</a>
+                    <a class="remove" href="<?php echo URL_WEBSITE_ADMIN;?>pages/remove/<?php $this->echoHtml($pageModel->getId())?>">Supprimer</a>
+                    <a target="_blank" href="<?php echo URL_WEBSITE;?>page/view/<?php $this->echoHtml($pageModel->getSlug())?>">Voir</a>
                 </td>
             </tr>
         <?php endforeach; ?>

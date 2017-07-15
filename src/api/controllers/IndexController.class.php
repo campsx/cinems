@@ -7,4 +7,10 @@ class IndexController extends AbstractController {
 	    return null;
 	}
 
+    public function page404Action($params)
+    {
+        $response = new Response();
+        $response->status(404);
+        return null;
+    }
 }

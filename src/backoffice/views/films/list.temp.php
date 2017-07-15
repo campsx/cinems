@@ -36,7 +36,8 @@
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>films/edit/<?php $this->echoHtml($film->getId())?>">Modifier</a>
-                    <a href="<?php echo URL_WEBSITE_ADMIN;?>films/remove/<?php $this->echoHtml($film->getId())?>">Supprimer</a>
+                    <a class="remove" href="<?php echo URL_WEBSITE_ADMIN;?>films/remove/<?php $this->echoHtml($film->getId())?>">Supprimer</a>
+                    <a target="_blank" href="<?php echo URL_WEBSITE;?>film/view/<?php $this->echoHtml($film->getSlug())?>">Voir</a>
                 </td>
             </tr>
         <?php endforeach; ?>

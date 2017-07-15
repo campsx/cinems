@@ -17,4 +17,10 @@ $(document).ready(function() {
 
     $('select').MultipleSelect();
 
+    $('.remove').click(function(e){
+        if (!confirm("Voulez vous vraiment supprimer cette donnée ?")){
+            e.preventDefault();
+        }
+    });
+
 });

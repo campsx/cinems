@@ -34,7 +34,7 @@
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>comments/edit/<?php $this->echoHtml($comment->getId())?>">Modifier</a>
-                    <a href="<?php echo URL_WEBSITE_ADMIN;?>comments/remove/<?php $this->echoHtml($comment->getId())?>">Supprimer</a>
+                    <a class="remove" href="<?php echo URL_WEBSITE_ADMIN;?>comments/remove/<?php $this->echoHtml($comment->getId())?>">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -41,6 +41,11 @@ class Director extends BaseSql{
    */
   protected $photo_id;
 
+  /*
+   * @var array Films
+   */
+  protected $films = [];
+
   /**
    * @var Json
    */
@@ -65,6 +70,12 @@ class Director extends BaseSql{
       $this->joinProperties['ManyToOne'] = [
           'photo_id' => [
               'table' => 'image'
+          ]
+      ];
+
+      $this->joinProperties['OneToMany'] = [
+          'films' => [
+              'table' => 'film'
           ]
       ];
       parent::__construct($condition);
@@ -128,6 +139,14 @@ class Director extends BaseSql{
       return new DateTime($this->age);
   }
 
+
+  /**
+   * return array
+   */
+  public function getFilms()
+  {
+      return $this->getJoin('films');
+  }
 
   public function setSlug($slug) {
     $this->slug = $slug;

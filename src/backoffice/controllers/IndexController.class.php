@@ -9,6 +9,8 @@ class IndexController extends AbstractController {
 
 	public function page404Action($params)
 	{
+        $response = new Response();
+        $response->status(404);
 		$view = new View('errors', 'page404', 'backoffice');
 	}
 

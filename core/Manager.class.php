@@ -158,4 +158,77 @@ class Manager{
         return false;
     }
 
+
+    /* list */
+
+    public function topActors($nb = 5){
+        $sql = "SELECT a.id FROM actor as a  LIMIT ".$nb." OFFSET 0";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new Actor([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
+    public function topFilms($nb = 5){
+        $sql = "SELECT a.id FROM film as a  LIMIT ".$nb." OFFSET 0";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new Film([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
+    public function lastFilms($nb = 5){
+        $sql = "SELECT a.id FROM film as a ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new Film([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
+    public function lastActors($nb = 5){
+        $sql = "SELECT a.id FROM actor as a ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new Actor([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
+    public function lastDirectors($nb = 5){
+        $sql = "SELECT a.id FROM director as a ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new Director([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
 }

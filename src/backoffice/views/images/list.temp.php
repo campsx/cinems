@@ -30,7 +30,7 @@
                     <?php $this->echoHtml($image->getCreated());?>
                 </td>
                 <td>
-                    <a href="<?php echo URL_WEBSITE_ADMIN;?>images/remove/<?php $this->echoHtml($image->getId())?>">Supprimer</a>
+                    <a class="remove" href="<?php echo URL_WEBSITE_ADMIN;?>images/remove/<?php $this->echoHtml($image->getId())?>">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>

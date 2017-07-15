@@ -1,8 +1,4 @@
-<!--   debut partie container     -->
 
-
-
-<div class="container">
 
 <div class="left-content">
 
@@ -13,7 +9,8 @@
          <h2>Profil Directeur</h2>
 
          <div class="director-img">
-             <img src="<?php $this->echoHtml(PATH_MEDIAS_UPLOAD.$director->getImage()->getUrl());?>">
+             <div style="background-image:url(<?php $this->echoHtml(PATH_MEDIAS_UPLOAD.$director->getImage()->getUrl());?>);background-position:50% 50%;background-size:cover;">
+             </div>
          </div>
 
 
@@ -74,44 +71,18 @@
 
 <div class="right-bar">
 
-  <aside class="info-section">
-
-  <div class="section-inner">
-
-    <div class="section-social">
-    <h2>Filmographie</h2>
-    </div>
-
-    <div class="follow2">
-      <img src="img/alpacino.jpg">
-      <img src="img/assassins-creed.jpg">
-      <img src="img/fantastisque.jpg">
-      <img src="img/batmanVsuperman.jpg">
-      <img src="img/alpacino.jpg">
-      <img src="img/assassins-creed.jpg">
-    </div>
-
-    <div class="populaire-post">
-      <h2>Popular posts</h2>
-    </div>
-
-    <div class="liste-populaire">
-      <ul>
-          <li><img src="img/assassins-creed.jpg"><p>Comment repérer un bon film ? Nos astuces et techniques</p><span>07 april 2015</span></li>
-          <li><img src="img/fantastisque.jpg"><p>Film les plus vu de la semaine, les box-offices</p><span>05 july 2015</span></li>
-      </ul>
-    </div>
-
-  </div>
-
-  </aside>
+    <aside>
+        <h3>Ses films</h3>
+        <ul>
+            <?php foreach ( $director->getFilms() as $film ):?>
+                <li>
+                    <a href="<?php echo URL_WEBSITE;?>film/view/<?php $this->echoHtml($film->getSlug())?>">
+                        <img src="<?php $this->echoHtml(PATH_MEDIAS_UPLOAD.$film->getImage()->getUrl());?>" alt="">
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </aside>
 
 </div>
 
-
-
-</div>
-
-
-
-<!--   fin partie container     -->

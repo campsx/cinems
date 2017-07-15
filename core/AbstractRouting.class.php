@@ -7,7 +7,7 @@ abstract class AbstractRouting {
 	protected $action;
 	protected $actionName;
 	protected $params;
-	protected $basePathController = 'src/frontend/controllers/';
+	protected $basePathController = ROOT_DIR.'src/frontend/controllers/';
 
 	protected $request;
 
@@ -70,7 +70,7 @@ abstract class AbstractRouting {
 
 	public function page404()
 	{
-		require $this->basePathController."IndexController.class.php";
+		require_once $this->basePathController."IndexController.class.php";
 		$controller = new IndexController();
 		$controller->page404Action($this->params);
 	}

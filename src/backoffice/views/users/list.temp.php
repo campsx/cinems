@@ -35,7 +35,7 @@
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>users/edit/<?php $this->echoHtml($user->getId())?>">Modifier</a>
-                    <a href="<?php echo URL_WEBSITE_ADMIN;?>users/remove/<?php $this->echoHtml($user->getId())?>">Supprimer</a>
+                    <a class="remove" href="<?php echo URL_WEBSITE_ADMIN;?>users/remove/<?php $this->echoHtml($user->getId())?>">Supprimer</a>
                 </td>
             </tr>
         <?php endforeach; ?>

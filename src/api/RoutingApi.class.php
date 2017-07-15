@@ -5,7 +5,7 @@ class RoutingApi extends AbstractRouting {
 	public function __construct($uriExploded){
         parent::__construct($uriExploded);
 
-		$this->basePathController = 'src/api/controllers/';
+		$this->basePathController = ROOT_DIR.'src/api/controllers/';
 
 		$this->setController(1);
 		$this->setAction(2);
