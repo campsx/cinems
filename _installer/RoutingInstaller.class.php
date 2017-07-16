@@ -3,6 +3,7 @@
 class RoutingInstaller extends AbstractRouting {
 
 	public function __construct($uriExploded){
+        dump_exit($uriExploded);
 	    $uriExploded[0] = 'installer';
         parent::__construct($uriExploded);
 
