@@ -34,6 +34,7 @@
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>emails/edit/<?php $this->echoHtml($email->getId())?>">Modifier</a>
+                    <a href="<?php echo URL_WEBSITE_ADMIN;?>emails/send/<?php $this->echoHtml($email->getId())?>">Send</a>
                 </td>
             </tr>
         <?php endforeach; ?>

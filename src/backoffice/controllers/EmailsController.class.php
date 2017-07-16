@@ -4,9 +4,8 @@ class EmailsController{
 
 	public function indexAction($params)
 	{
-		header('Status: 301 Moved Permanently', false, 301);
-		header('Location: '.URL_WEBSITE_ADMIN.'emails/list');
-		exit();
+        $response = new Response();
+        $response->redirectionBackoffice('emails/list', 301);
 	}
 
 	public function listAction($params)
@@ -38,6 +37,31 @@ class EmailsController{
         $view = new View('emails', 'edit', 'backoffice');
         $view->assign("form", $form);
 	}
+
+	public function sendAction($params) {
+
+        if (empty($params[0])) {
+            $response = new Response();
+            $response->redirectionBackoffice('emails/list', 200);
+        }
+
+        $email = new Email(['id' => $params[0]]);
+
+        if ($email->getId() === null) {
+            $response = new Response();
+            $response->redirectionBackoffice('emails/list', 200);
+        }
+
+        $emailService = new EmailService($email);
+
+        if($emailService->sendMail()){
+            $email->setSend(1);
+            $email->save();
+        }
+
+        $response = new Response();
+        $response->redirectionBackoffice('emails/list', 301);
+    }
 
 
 }
