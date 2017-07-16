@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Titre de mon site</title>
+    <title>CineMS</title>
       <link rel="stylesheet" href="<?php echo PATH_MEDIAS_CSS ?>frontend.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet">
-    <meta name="description" content="description de mon site">
+    <meta name="description" content="CineMS est un CMS sur le cinema">
   </head>
   <body>
   <div id="main">

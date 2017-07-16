@@ -10,7 +10,7 @@ class Redirection {
 
 	public function runDirection(){
 
-	    if (file_exists(INSTALLER_FILE)) {
+	    /*if (file_exists(INSTALLER_FILE)) {
 
             require INSTALLER_FILE.'InstallerService.class.php';
 
@@ -21,7 +21,7 @@ class Redirection {
                 $routing = new RoutingInstaller($this->uriExploded);
                 exit;
             }
-        }
+        }*/
 
 		if ($this->uriExploded[0] === 'admin') {
             require ROOT_DIR.'src/backoffice/RoutingBackoffice.class.php';
