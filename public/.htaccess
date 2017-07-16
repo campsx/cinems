@@ -9,3 +9,9 @@
     #
     RewriteRule . /app.php [L]
 </IfModule>
+
+<IfModule mod_dir.c>
+
+   DirectoryIndex app.php
+   
+</IfModule>
