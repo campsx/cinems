@@ -1,4 +1,4 @@
-<div class="container">
+<div class="one-block vertical-center">
     <div class="row main">
         <div class="panel-heading">
             <div class="panel-title text-center">

@@ -74,6 +74,13 @@ class UsersController extends AbstractController {
 
 
         $user = new User(['id' => $params[0]]);
+        //user don't edit himself
+        if ($this->getRequest()->session()->getCurrentUser()->getId() === $user->getId()){
+            $response = new Response();
+            $response->redirectionBackoffice('users/list', 200);
+        }
+
+
         $form = new formValidation($user, 'edit');
 
         if ($form->valid()){

@@ -43,10 +43,13 @@
                 <li class="nav-choice">
                     <a href="javascript:void(0)">Top films<span class="arrow-down"></span></a>
                     <ul class="dropdown">
-                        <li><a href="">HTML</a></li>
-                        <li><a href="">CSS</a></li>
-                        <li><a href="">Javascript</a></li>
-                        <li><a href="">JQuery</a></li>
+                        <?php foreach ( $this->getTopFilms() as $topFilm ):?>
+                            <li>
+                                <a href="<?php echo URL_WEBSITE;?>film/view/<?php $this->echoHtml($topFilm->getSlug())?>">
+                                    <?php $this->echoHtml($topFilm->getTitle()); ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
                 <li class="nav-choice">
@@ -56,8 +59,8 @@
                     <ul class="dropdown">
                         <?php foreach ( $this->getTopActors() as $topActor ):?>
                         <li>
-                            <a href="<?php echo URL_WEBSITE;?>actor/view/<?php $this->echoHtml($topActor->getSlug())?>">
-                                <?php $this->echoHtml($topActor->getFirstname().' '.$topActor->getLastname()) ?>
+                            <a href="<?php echo URL_WEBSITE;?>actor/view/<?php $this->echoHtml($topActor->getSlug());?>">
+                                <?php $this->echoHtml($topActor->getFirstname().' '.$topActor->getLastname()); ?>
                             </a>
                         </li>
                         <?php endforeach; ?>
@@ -66,8 +69,13 @@
                 <li class="nav-choice">
                     <a href="javascript:void(0)">Pages<span class="arrow-down"></span></a>
                     <ul class="dropdown">
-                        <li><a href="">Widget</a></li>
-                        <li><a href="">Tips</a></li>
+                        <?php foreach ( $this->getPages() as $headerpage ):?>
+                            <li>
+                                <a href="<?php echo URL_WEBSITE;?>page/view/<?php $this->echoHtml($headerpage->getSlug());?>">
+                                    <?php $this->echoHtml($headerpage->getTitle()); ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
 
@@ -81,7 +89,7 @@
                     </li>
                 <?php else: ?>
                     <li class="nav-choice">
-                        <a href=""><?php $this->echoHtml($this->getRequest()->session()->getCurrentUser()->getPseudo()); ?></a>
+                        <a href="<?php echo URL_WEBSITE ?>user/profil"><?php $this->echoHtml($this->getRequest()->session()->getCurrentUser()->getPseudo()); ?></a>
                     </li>
 
                     <li class="nav-choice">
@@ -89,7 +97,7 @@
                     </li>
                     <?php if($this->getRequest()->session()->isRole(Session::ROLE_ADMIN)) :?>
                         <li class="nav-choice">
-                            <a href="">Admin</a>
+                            <a href="<?php echo URL_WEBSITE_ADMIN ?>index/index">Admin</a>
                         </li>
                     <?php endif; ?>
 

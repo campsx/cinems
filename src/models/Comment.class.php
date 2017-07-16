@@ -246,6 +246,55 @@ class Comment extends BaseSql{
         ];
     }
 
+    public function addForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE."film/view/".$this->id,
+                "class" => "form-group",
+                "submit" => "Modifier",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "title" => [
+                    "type" => "text",
+                    "placeholder" => "Super film",
+                    "label" => "Title",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ]
+                    ]
+                ],
+                "content" => [
+                    "type" => "textarea",
+                    "label" => "Content",
+                    "required" => false,
+                    "wysiwyg" => true
+                ],
+                "note" => [
+                    "type" => "number",
+                    "placeholder" => "Exemple : 4",
+                    "label" => "Note",
+                    "required" => true,
+                    "validation"  => [
+                        "lengthNumber" => [
+                            "min" => 1,
+                            "max" => 5
+                        ],
+                    ]
+                ]
+            ],
+            "initData" => [
+                "valid" => 0,
+                "active" => 1
+            ]
+        ];
+    }
+
 
 
 }

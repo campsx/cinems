@@ -158,11 +158,19 @@ class Manager{
         return false;
     }
 
+    public function commentAverage($id){
+        $sql = "SELECT Avg(c.note) as note FROM film as f INNER JOIN comment as c ON f.id = c.film_id  WHERE c.active = 1 AND f.id =".$id;
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $average = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $average[0]['note'];
+    }
+
 
     /* list */
 
     public function topActors($nb = 5){
-        $sql = "SELECT a.id FROM actor as a  LIMIT ".$nb." OFFSET 0";
+        $sql = "SELECT a.id FROM actor as a WHERE a.active = 1  LIMIT ".$nb." OFFSET 0";
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -176,7 +184,7 @@ class Manager{
     }
 
     public function topFilms($nb = 5){
-        $sql = "SELECT a.id FROM film as a  LIMIT ".$nb." OFFSET 0";
+        $sql = "SELECT a.id FROM film as a WHERE a.active = 1  LIMIT ".$nb." OFFSET 0";
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -190,7 +198,7 @@ class Manager{
     }
 
     public function lastFilms($nb = 5){
-        $sql = "SELECT a.id FROM film as a ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
+        $sql = "SELECT a.id FROM film as a WHERE a.active = 1 ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -204,7 +212,7 @@ class Manager{
     }
 
     public function lastActors($nb = 5){
-        $sql = "SELECT a.id FROM actor as a ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
+        $sql = "SELECT a.id FROM actor as a WHERE a.active = 1 ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -218,7 +226,7 @@ class Manager{
     }
 
     public function lastDirectors($nb = 5){
-        $sql = "SELECT a.id FROM director as a ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
+        $sql = "SELECT a.id FROM director as a WHERE a.active = 1 ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
         $req = $this->db->prepare($sql);
         $req->execute();
         $allId = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -226,6 +234,20 @@ class Manager{
         if ($allId){
             foreach ($allId as $id) {
                 $list[] = new Director([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
+    public function pageList($nb = 5){
+        $sql = "SELECT a.id FROM page as a WHERE a.active = 1 ORDER BY a.created DESC LIMIT ".$nb." OFFSET 0";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new Page([ "id" => $id['id']]);
             }
         }
         return $list;

@@ -91,4 +91,17 @@ class View {
       return $this->manager->topActors();
  }
 
+ public function getTopFilms(){
+     return $this->manager->topFilms();
+ }
+
+ public function getPages(){
+     return $this->manager->pageList(20);
+ }
+
+ public function commentAverage($id){
+     return $this->manager->commentAverage($id);
+ }
+
+
 }

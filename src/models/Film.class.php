@@ -60,7 +60,7 @@ class Film extends BaseSql{
   /*
    * @var array Comment
    */
-  protected $comments;
+  protected $comments = [];
 
   /*
    * @var array Actors

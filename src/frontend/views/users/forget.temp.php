@@ -1,4 +1,4 @@
-<section class="content">
+<section class="one-block vertical-center">
     <h1>Mots de pass oublier</h1>
 
     <?php if ( $send === true ):?>

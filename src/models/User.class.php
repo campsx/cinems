@@ -742,6 +742,90 @@ class User extends BaseSql
         ];
     }
 
+    public function profilForm()
+    {
+        return [
+            "struct" => [
+                "method" => "POST",
+                "action" => URL_WEBSITE."user/profil",
+                "class" => "form-group",
+                "submit" => "Modifier",
+                "enctype" => "multipart/form-data"
+            ],
+            "data" => [
+                "email" => [
+                    "type" => "email",
+                    "placeholder" => "test@gmail.com",
+                    "label" => "Votre email",
+                    "required" => true,
+                    "validation" => [
+                        "length" => [
+                            "min" => 10,
+                            "max" => 255
+                        ],
+                        "unique"
+                    ]
+                ],
+                "pseudo" => [
+                    "type" => "text",
+                    "placeholder" => "jojodu77",
+                    "label" => "Votre Pseudo",
+                    "required" => true,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                        "unique"
+                    ]
+                ],
+                "firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Jean",
+                    "label" => "Votre nom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+
+                    ]
+                ],
+                "lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Dupont",
+                    "label" => "Votre Prenom",
+                    "required" => false,
+                    "validation"  => [
+                        "length" => [
+                            "min" => 2,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "age" => [
+                    "type" => "date",
+                    "placeholder" => "1990-12-14",
+                    "label" => "Votre age",
+                    "required" => false,
+                    "validation"  => [
+                        "interval" => [
+                            "min" => 10,
+                            "max" => 100
+                        ],
+                    ]
+                ],
+                "image" => [
+                    "type" => "file",
+                    "placeholder" => "Ajouter une image",
+                    "label" => "Images",
+                    "required" => false
+                ]
+            ]
+        ];
+    }
+
     public function firstAdminForm()
     {
         return [

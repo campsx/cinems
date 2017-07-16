@@ -1,4 +1,4 @@
-<section class="content">
+<section class="one-block vertical-center">
     <h1>Change password</h1>
 
     <?php if (isset($expirate)):?>
