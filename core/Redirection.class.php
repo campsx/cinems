@@ -17,9 +17,7 @@ class Redirection {
 	        if (InstallerService::testConnexion() === true && InstallerService::testFirstAdmin()) {
                 //rrmdir(INSTALLER_FILE); @Todo uncomment this line in the end of the project
             } else {
-                dump(INSTALLER_FILE.'RoutingInstaller.class.php');
                 require INSTALLER_FILE.'RoutingInstaller.class.php';
-                dump('test');
                 $routing = new RoutingInstaller($this->uriExploded);
                 exit;
             }
