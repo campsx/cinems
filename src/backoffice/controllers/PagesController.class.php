@@ -21,7 +21,7 @@ class PagesController extends AbstractController {
 	public function createAction($params)
 	{
         $page = new Page();
-        $form = new formValidation($page, 'add');
+        $form = new FormValidation($page, 'add');
 
         if ($form->valid()){
 
@@ -55,7 +55,7 @@ class PagesController extends AbstractController {
         }
 
         $page = new Page(['id' => $params[0]]);
-        $form = new formValidation($page, 'edit');
+        $form = new FormValidation($page, 'edit');
 
         if ($form->valid()){
 

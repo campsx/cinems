@@ -21,7 +21,7 @@ class CategoriesController{
 	public function createAction($params)
 	{
         $category = new Category();
-        $form = new formValidation($category, 'add');
+        $form = new FormValidation($category, 'add');
 
         if ($form->valid()){
 
@@ -43,7 +43,7 @@ class CategoriesController{
         }
 
         $category = new Category(['id' => $params[0]]);
-        $form = new formValidation($category, 'edit');
+        $form = new FormValidation($category, 'edit');
 
         if ($form->valid()){
 

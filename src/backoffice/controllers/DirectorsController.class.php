@@ -21,7 +21,7 @@ class DirectorsController {
 	public function createAction($params)
 	{
         $director = new Director();
-        $form = new formValidation($director, 'add');
+        $form = new FormValidation($director, 'add');
 
         if ($form->valid()){
 
@@ -54,7 +54,7 @@ class DirectorsController {
         }
 
         $director = new Director(['id' => $params[0]]);
-        $form = new formValidation($director, 'edit');
+        $form = new FormValidation($director, 'edit');
 
         if ($form->valid()){
 

@@ -18,7 +18,7 @@ class UserController extends AbstractController{
 	public function profilAction()
 	{
         $user = $this->getRequest()->session()->getCurrentUser();
-        $form = new formValidation($user, 'profil');
+        $form = new FormValidation($user, 'profil');
 
         if ($form->valid()){
 
@@ -50,7 +50,7 @@ class UserController extends AbstractController{
 	public function inscriptionAction($params)
 	{
 	    $user = new User();
-	    $form = new formValidation($user, 'inscription');
+	    $form = new FormValidation($user, 'inscription');
 
 	    if ($form->valid()){
 	        $user->setTokenEmail(md5(uniqid(rand(), true)));
@@ -197,7 +197,7 @@ class UserController extends AbstractController{
             $response->redirectionFrontend('index/index', 401);
         }
 
-        $form = new formValidation($user, 'changePassword');
+        $form = new FormValidation($user, 'changePassword');
 
         if ($form->tokenNotExpirate($user->getTokenExpiration()) && $form->valid()) {
             $user->save();

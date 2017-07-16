@@ -23,7 +23,7 @@ class ImagesController{
 	{
 
         $image = new Image();
-        $form = new formValidation($image, 'add');
+        $form = new FormValidation($image, 'add');
 
         if ($form->valid()){
 

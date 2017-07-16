@@ -44,7 +44,7 @@ class IndexController extends AbstractController {
     public function profilAction()
     {
         $user = $this->getRequest()->session()->getCurrentUser();
-        $form = new formValidation($user, 'profil');
+        $form = new FormValidation($user, 'profil');
 
         if ($form->valid()){
 

@@ -29,7 +29,7 @@ class EmailsController{
         }
 
         $email = new Email(['id' => $params[0]]);
-        $form = new formValidation($email, 'edit');
+        $form = new FormValidation($email, 'edit');
 
         if ($form->valid()){
             $email->save();

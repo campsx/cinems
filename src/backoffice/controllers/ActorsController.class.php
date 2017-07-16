@@ -21,7 +21,7 @@ class ActorsController extends AbstractController {
 	public function createAction()
 	{
         $actor = new Actor();
-        $form = new formValidation($actor, 'add');
+        $form = new FormValidation($actor, 'add');
 
         if ($form->valid()){
 
@@ -55,7 +55,7 @@ class ActorsController extends AbstractController {
 
 
         $actor = new Actor(['id' => $params[0]]);
-        $form = new formValidation($actor, 'edit');
+        $form = new FormValidation($actor, 'edit');
 
         if ($form->valid()){
 

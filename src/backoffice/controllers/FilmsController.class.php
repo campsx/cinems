@@ -21,7 +21,7 @@ class FilmsController extends AbstractController {
 	public function createAction($params)
 	{
         $film = new Film();
-        $form = new formValidation($film, 'add');
+        $form = new FormValidation($film, 'add');
 
         if ($form->valid()){
 
@@ -62,7 +62,7 @@ class FilmsController extends AbstractController {
         }
 
         $film = new Film(['id' => $params[0]]);
-        $form = new formValidation($film, 'edit');
+        $form = new FormValidation($film, 'edit');
 
         if ($form->valid()){
 

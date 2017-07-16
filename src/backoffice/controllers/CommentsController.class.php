@@ -31,7 +31,7 @@ class CommentsController{
         }
 
         $comment = new Comment(['id' => $params[0]]);
-        $form = new formValidation($comment, 'edit');
+        $form = new FormValidation($comment, 'edit');
 
         if ($form->valid()){
 

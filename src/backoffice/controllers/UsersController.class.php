@@ -21,7 +21,7 @@ class UsersController extends AbstractController {
 	public function createAction()
 	{
         $user = new User();
-        $form = new formValidation($user, 'add');
+        $form = new FormValidation($user, 'add');
 
         if ($form->valid()){
 
@@ -81,7 +81,7 @@ class UsersController extends AbstractController {
         }
 
 
-        $form = new formValidation($user, 'edit');
+        $form = new FormValidation($user, 'edit');
 
         if ($form->valid()){
 
