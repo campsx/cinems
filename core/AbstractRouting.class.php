@@ -7,12 +7,13 @@ abstract class AbstractRouting {
 	protected $action;
 	protected $actionName;
 	protected $params;
-	protected $basePathController = ROOT_DIR."src/frontend/controllers/";
+	protected $basePathController;
 
 	protected $request;
 
 	public function __construct($uriExploded)
 	{
+        $this->basePathController = ROOT_DIR."src/frontend/controllers/";
 		$this->uriExploded = $uriExploded;
         $this->request = Request::getInstance();
 	}
