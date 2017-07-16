@@ -12,15 +12,15 @@ class Redirection {
 
 	    if (file_exists(INSTALLER_FILE)) {
 
-            //require INSTALLER_FILE.'InstallerService.class.php';
+            require INSTALLER_FILE.'InstallerService.class.php';
 
-	        /*if (InstallerService::testConnexion() && InstallerService::testFirstAdmin()) {
+	        if (InstallerService::testConnexion() && InstallerService::testFirstAdmin()) {
                 //rrmdir(INSTALLER_FILE); @Todo uncomment this line in the end of the project
             } else {
                 require INSTALLER_FILE.'RoutingInstaller.class.php';
                 $routing = new RoutingInstaller($this->uriExploded);
                 exit;
-            }*/
+            }
         }
 
 		if ($this->uriExploded[0] === 'admin') {

@@ -161,10 +161,10 @@ class FormValidation{
         }
 
         // check if a good captcha if capcha
-        /*if (isset($this->form['struct']['capcha']) && $this->form['struct']['capcha'] && !$this->validCaptcha()){
+        if (isset($this->form['struct']['capcha']) && $this->form['struct']['capcha'] && !$this->validCaptcha()){
             $this->addErrors(Errors::BAD_CAPCHA);
             return false;
-        }*/
+        }
 
 
         if (!$this->checkInput()) {
