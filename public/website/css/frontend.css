@@ -70,6 +70,15 @@ ul { list-style-type: none;}
     text-align: center;
 }
 
+.page-view {
+    width: 100%;
+    background-color: white;
+    min-height: 900px;
+    padding-top: 30px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
 .vertical-center {
     padding-top: 100px;
 }

@@ -1,4 +1,4 @@
-<div class="one-block">
+<div class="page-view">
 
     <section class="text">
 
