@@ -15,11 +15,12 @@ class InstallerService{
             ':host=' . DB_HOST .
             ';port=' . DB_PORT .
             ';dbname=' . DB_NAME;
-        dump(DB_NAME);
+        
         try {
             $pdo = new PDO($dns, DB_USER, DB_PWD);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $e) {
+            dump($e->getMessage());
             return $e->getMessage();
         }
 
