@@ -98,7 +98,7 @@ class InstallerController extends AbstractController {
         }
 
         $user = new User();
-        $form = new formValidation($user, 'firstAdmin');
+        $form = new FormValidation($user, 'firstAdmin');
 
         if ($form->valid()){
             $user->setTokenEmail(md5(uniqid(rand(), true)));
