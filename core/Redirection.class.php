@@ -14,7 +14,7 @@ class Redirection {
 
             require INSTALLER_FILE.'InstallerService.class.php';
 
-	        if (InstallerService::testConnexion() && InstallerService::testFirstAdmin()) {
+	        if (InstallerService::testConnexion() === true && InstallerService::testFirstAdmin()) {
                 //rrmdir(INSTALLER_FILE); @Todo uncomment this line in the end of the project
             } else {
                 require INSTALLER_FILE.'RoutingInstaller.class.php';
