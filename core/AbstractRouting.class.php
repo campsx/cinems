@@ -7,7 +7,7 @@ abstract class AbstractRouting {
 	protected $action;
 	protected $actionName;
 	protected $params;
-	protected $basePathController = ROOT_DIR.'src/frontend/controllers/';
+	protected $basePathController = ROOT_DIR."src/frontend/controllers/";
 
 	protected $request;
 
