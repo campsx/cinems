@@ -10,6 +10,7 @@ class Redirection {
 
 	public function runDirection(){
 
+	    dump_exit('test');
 	    if (file_exists(INSTALLER_FILE)) {
 
             require INSTALLER_FILE.'InstallerService.class.php';
