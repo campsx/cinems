@@ -394,7 +394,7 @@ class FormValidation{
     public function checkEntity($nameField)
     {
         $data = $this->query[$nameField];
-        $entityName = $this->form['data'][$nameField]['entityName'];
+        $entityName = ucfirst($this->form['data'][$nameField]['entityName']);
         if ($this->form['data'][$nameField]['multiple']) {
             if (is_array($data)) {
                 foreach ($data as $entityId) {
@@ -513,7 +513,7 @@ class FormValidation{
         $dateTest = DateTime::createFromFormat($pattern, $date);
         $dateErrors = DateTime::getLastErrors();
         if($dateErrors["warning_count"]+$dateErrors["error_count"]==0){
-            $dateToday = new dateTime();
+            $dateToday = new DateTime();
             $age = $dateTest->diff($dateToday)->format("%y");
             if($age<$maxMin['min']){
                 $this->addErrors(Errors::INTERVAL_MIN, [$nameField, $date, $maxMin['min'], $maxMin['max']]);
