@@ -3,7 +3,7 @@
 
     <?php if (isset($userActivate)):?>
         <?php if ( $userActivate === true ):?>
-            <p style="color: green;">Compte activer</p>
+            <p style="color: green;">Compte activé</p>
         <?php endif; ?>
         <?php if ( $userActivate === false ):?>
             <p style="color: red;">Probleme d'activation de compte</p>
@@ -33,7 +33,7 @@
 
         <div>
             <a href="<?php echo URL_WEBSITE;?>user/forget">
-                Mots de pass oublier ?
+                Mot de passe oublié ?
             </a>
         </div>
 
