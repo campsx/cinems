@@ -63,6 +63,11 @@ class Actor extends BaseSql
      */
     protected $updated;
 
+    /**
+     * @var Int
+     */
+    protected $view;
+
 
     /**
      * @param $condition Array
@@ -261,6 +266,28 @@ class Actor extends BaseSql
         return $this->updated;
     }
 
+    /**
+     * @param $view
+     */
+    public function setView($view)
+    {
+        $this->view = $view;
+    }
+
+    /**
+     * @return Int
+     */
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function increaseView()
+    {
+        $this->view++;
+        $this->save();
+    }
+
 
     public function addForm()
     {
@@ -343,7 +370,8 @@ class Actor extends BaseSql
                 ]
             ],
             "initData" => [
-                "active" => 1
+                "active" => 1,
+                "view" => 0
             ]
         ];
     }

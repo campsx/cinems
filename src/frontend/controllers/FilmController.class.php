@@ -24,6 +24,7 @@ class FilmController extends AbstractController {
 
         $film = new Film(['slug' => $params[0]]);
         $comment = new Comment();
+
         $form = new FormValidation($comment, 'add');
 
         if ($form->valid()){

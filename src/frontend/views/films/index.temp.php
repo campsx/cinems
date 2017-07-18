@@ -35,14 +35,31 @@
         <div class="note">
             <h3>Note :</h3>
             <div>
-                Notre note : <?php $this->echoHtml($film->getWriterNote());  ?>
+                Notre note :
+                <div class="stars">
+                    <label class="star-1" for="star-1"></label>
+                    <label class="star-2" for="star-2"></label>
+                    <label class="star-3" for="star-3"></label>
+                    <label class="star-4" for="star-4"></label>
+                    <label class="star-5" for="star-5"></label>
+                    <span style="width:<?php echo $film->getWriterNote() * 100 / 5 ?>%;"></span>
+                </div>
+                <?php $this->echoHtml($film->getWriterNote());?> / 5
             </div>
             <div>
                 Votre note :
                 <?php if (count($film->getComments()) === 0):?>
                     Pas encore de note
                 <?php else: ?>
-                   <?php $this->echoHtml((int)$this->commentAverage($film->getId())); ?> (<?php $this->echoHtml(count($film->getComments()));?>)
+                    <div class="stars">
+                        <label class="star-1" for="star-1"></label>
+                        <label class="star-2" for="star-2"></label>
+                        <label class="star-3" for="star-3"></label>
+                        <label class="star-4" for="star-4"></label>
+                        <label class="star-5" for="star-5"></label>
+                        <span style="width:<?php echo (int)$this->commentAverage($film->getId()) * 100 / 5 ?>%;"></span>
+                    </div>
+                   <?php $this->echoHtml((int)$this->commentAverage($film->getId())); ?> / 5 (<?php $this->echoHtml(count($film->getComments()));?>)
                 <?php endif;?>
             </div>
         </div>
@@ -79,13 +96,19 @@
                                 <input placeholder="Title" required type="text" name="title">
                                 <textarea required name="content" cols="30" rows="3" placeholder="Add comment..."></textarea>
                                 Note :
-                                <select required name="note">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                                <div class="stars">
+                                    <input type="radio" value="1" name="note" class="star-1" id="star-1" />
+                                    <label class="star-1" for="star-1">1</label>
+                                    <input type="radio" value="2" name="note" class="star-2" id="star-2" />
+                                    <label class="star-2" for="star-2">2</label>
+                                    <input type="radio" value="3" name="note" class="star-3" id="star-3" />
+                                    <label class="star-3" for="star-3">3</label>
+                                    <input type="radio" value="4" name="note" class="star-4" id="star-4" />
+                                    <label class="star-4" for="star-4">4</label>
+                                    <input type="radio" value="5" name="note" class="star-5" id="star-5" />
+                                    <label class="star-5" for="star-5">5</label>
+                                    <span></span>
+                                </div>
                                 <input type="hidden" name="token_add" value="<?php $this->echoHtml($token); ?>">
                                 <input value="Valider" type="submit">
                             </form>
@@ -119,7 +142,14 @@
                                 <?php echo $comment->getCreated(); ?>
                             </div>
                             <div class="comment-note">
-                                <?php echo $comment->getNote(); ?>/5
+                                <div class="stars">
+                                    <label class="star-1" for="star-1"></label>
+                                    <label class="star-2" for="star-2"></label>
+                                    <label class="star-3" for="star-3"></label>
+                                    <label class="star-4" for="star-4"></label>
+                                    <label class="star-5" for="star-5"></label>
+                                    <span style="width:<?php echo $comment->getNote() * 100 / 5 ?>%;"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
