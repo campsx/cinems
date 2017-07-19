@@ -10,6 +10,7 @@
             <th>Lastname</th>
             <th>Updated</th>
             <th>Created</th>
+            <th>View</th>
             <th>Action</th>
         </tr>
         <?php foreach ( $list as $director ):?>
@@ -28,6 +29,9 @@
                 </td>
                 <td>
                     <?php $this->echoHtml($director->getUpdated());?>
+                </td>
+                <td>
+                    <?php $this->echoHtml($director->getView());?>
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>directors/edit/<?php $this->echoHtml($director->getId())?>">Modifier</a>

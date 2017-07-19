@@ -11,6 +11,7 @@
             <th>Ecrit par</th>
             <th>Updated</th>
             <th>Created</th>
+            <th>View</th>
             <th>Action</th>
         </tr>
         <?php foreach ( $list as $pageModel ):?>
@@ -32,6 +33,9 @@
                 </td>
                 <td>
                     <?php $this->echoHtml($pageModel->getUpdated());?>
+                </td>
+                <td>
+                    <?php $this->echoHtml($pageModel->getView());?>
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>pages/edit/<?php $this->echoHtml($pageModel->getId())?>">Modifier</a>

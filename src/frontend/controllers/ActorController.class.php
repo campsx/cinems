@@ -24,7 +24,7 @@ class ActorController{
 
         $actor = new Actor(['slug' => $params[0]]);
 
-        if ($actor->getId() === null) {
+        if ($actor->getId() === null || $actor->getActive() === 0) {
             $response = new Response();
             $response->redirectionFrontend('index/page404', 404);
         }

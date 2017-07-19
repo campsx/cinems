@@ -10,6 +10,7 @@
             <th>Lastname</th>
             <th>Updated</th>
             <th>Created</th>
+            <th>View</th>
             <th>Action</th>
         </tr>
             <?php foreach ( $list as $actor ):?>
@@ -28,6 +29,9 @@
                     </td>
                     <td>
                         <?php $this->echoHtml($actor->getUpdated());?>
+                    </td>
+                    <td>
+                        <?php $this->echoHtml($actor->getView());?>
                     </td>
                     <td>
                         <a href="<?php echo URL_WEBSITE_ADMIN;?>actors/edit/<?php $this->echoHtml($actor->getId())?>">Modifier</a>

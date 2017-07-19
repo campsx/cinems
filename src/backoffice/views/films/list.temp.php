@@ -12,6 +12,7 @@
             <th>Intergrateur</th>
             <th>Updated</th>
             <th>Created</th>
+            <th>View</th>
             <th>Action</th>
         </tr>
         <?php foreach ( $list as $film ):?>
@@ -33,6 +34,9 @@
                 </td>
                 <td>
                     <?php $this->echoHtml($film->getUpdated());?>
+                </td>
+                <td>
+                    <?php $this->echoHtml($film->getView());?>
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>films/edit/<?php $this->echoHtml($film->getId())?>">Modifier</a>

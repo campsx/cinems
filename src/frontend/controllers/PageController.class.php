@@ -24,11 +24,12 @@ class PageController{
 
         $page = new Page(['slug' => $params[0]]);
 
-        if ($page->getId() === null) {
+        if ($page->getId() === null || $page->getActive() === 0) {
             $response = new Response();
             $response->redirectionFrontend('index/page404', 404);
         }
 
+        $page->increaseView();
         $view = new View('pages', 'index');
         $view->assign("page", $page);
     }

@@ -24,7 +24,7 @@ class DirectorController{
 
         $director = new Director(['slug' => $params[0]]);
 
-        if ($director->getId() === null) {
+        if ($director->getId() === null || $director->getActive() === 0) {
             $response = new Response();
             $response->redirectionFrontend('index/page404', 404);
         }

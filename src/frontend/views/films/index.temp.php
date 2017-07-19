@@ -15,6 +15,16 @@
     </section>
 
     <section>
+        <div class="categories">
+            <h3>Category :</h3>
+            <ul>
+                <?php foreach ( $film->getCategories() as $category ):?>
+                    <li>
+                        <?php $this->echoHtml($category->getTitle())?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
         <div class="film-actors">
            <h3>Liste des acteurs :</h3>
             <ul>

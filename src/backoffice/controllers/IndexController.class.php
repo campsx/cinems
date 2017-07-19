@@ -8,6 +8,7 @@ class IndexController extends AbstractController {
 
 		$view = new View('index', 'index', 'backoffice');
 
+        $view->assign("pages", $manager->moreView('page', 5));
 		$view->assign("films", $manager->moreView('film', 5));
         $view->assign("actors", $manager->moreView('actor', 5));
         $view->assign("directors", $manager->moreView('director', 5));

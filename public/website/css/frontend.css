@@ -381,6 +381,10 @@ aside img {
     margin: auto;
 }
 
+.categories li, .categories ul, .categories h3 {
+    display: inline-block;
+}
+
 
 
 /** comment **/
