@@ -51,6 +51,11 @@ class Page extends BaseSql{
      */
     protected $updated;
 
+    /**
+     * @var Int
+     */
+    protected $view;
+
 
 
     /**
@@ -209,6 +214,29 @@ class Page extends BaseSql{
         return $this->updated;
     }
 
+
+    /**
+     * @param $view
+     */
+    public function setView($view)
+    {
+        $this->view = $view;
+    }
+
+    /**
+     * @return Int
+     */
+    public function getView()
+    {
+        return $this->view;
+    }
+
+    public function increaseView()
+    {
+        $this->view++;
+        $this->save();
+    }
+
     public function addForm()
     {
         return [
@@ -272,7 +300,8 @@ class Page extends BaseSql{
                 ]
             ],
             "initData" => [
-                "active" => 1
+                "active" => 1,
+                "view" => 0
             ]
         ];
     }

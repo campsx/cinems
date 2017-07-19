@@ -220,7 +220,8 @@ CREATE TABLE `page` (
   `winter_id` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL,
   `created` datetime NOT NULL,
-  `updated` datetime NOT NULL
+  `updated` datetime NOT NULL,
+  `view` INT NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

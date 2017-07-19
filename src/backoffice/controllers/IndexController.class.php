@@ -5,7 +5,7 @@ class IndexController extends AbstractController {
 	public function indexAction($params)
 	{
         $manager = new Manager();
-        
+
 		$view = new View('index', 'index', 'backoffice');
 
 		$view->assign("films", $manager->moreView('film', 5));
