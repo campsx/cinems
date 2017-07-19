@@ -253,4 +253,20 @@ class Manager{
         return $list;
     }
 
+    public function moreView($table, $nb = 5)
+    {
+        $modelName = ucfirst($table);
+        $sql = "SELECT a.id FROM ".$table." as a WHERE a.active = 1 ORDER BY a.view DESC LIMIT ".$nb." OFFSET 0";
+        $req = $this->db->prepare($sql);
+        $req->execute();
+        $allId = $req->fetchAll(PDO::FETCH_ASSOC);
+        $list = [];
+        if ($allId){
+            foreach ($allId as $id) {
+                $list[] = new $modelName([ "id" => $id['id']]);
+            }
+        }
+        return $list;
+    }
+
 }

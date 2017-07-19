@@ -40,6 +40,7 @@ class FilmController extends AbstractController {
             $response->redirectionFrontend('index/page404', 404);
         }
 
+        $film->increaseView();
         $view = new View('films', 'index');
         $view->assign("film", $film);
         $view->assign('token', $form->generateNewToken());

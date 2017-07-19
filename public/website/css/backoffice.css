@@ -566,7 +566,26 @@ form .upload-img img {
     margin-right: 1%;
     display: inline-block;
     margin-bottom: 20px;
+    vertical-align: top;
 }
 .dashboard-block h2 {
     text-align: center;
+}
+
+.dashboard-block ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-block li div {
+    display: inline-block;
+}
+
+.dashboard-block li div:first-child {
+    width: 30%;
+    text-align: center;
+}
+
+.dashboard-block li div:last-child {
+    width: 68%;
 }

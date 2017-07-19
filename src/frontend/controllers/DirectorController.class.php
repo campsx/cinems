@@ -29,6 +29,7 @@ class DirectorController{
             $response->redirectionFrontend('index/page404', 404);
         }
 
+        $director->increaseView();
         $view = new View('directors', 'index');
         $view->assign("director",$director);
     }

@@ -29,6 +29,7 @@ class ActorController{
             $response->redirectionFrontend('index/page404', 404);
         }
 
+        $actor->increaseView();
         $view = new View('actors', 'index');
         $view->assign("actor", $actor);
     }
