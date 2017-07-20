@@ -46,6 +46,27 @@
                     </ul>
                 </li>
 
+                <li class="nav-choice">
+                    <a href="javascript:void(0)">Listes<span class="arrow-down"></span></a>
+                    <ul class="dropdown">
+                        <li>
+                            <a href="<?php echo URL_WEBSITE;?>film/page/1">
+                                Film
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL_WEBSITE;?>actor/page/1">
+                                Actor
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL_WEBSITE;?>director/page/1">
+                                Director
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <?php if($this->getRequest()->session()->getCurrentUser() === null) :?>
                     <li class="nav-choice">
                         <a href="<?php echo URL_WEBSITE ?>user/login">Connexion</a>

@@ -4,7 +4,7 @@
 
         <div class="profil-film">
 
-            <h1><?php $this->echoRaw($film->getTitle());  ?> </h1>
+            <h1><?php $this->echoHtml($film->getTitle());  ?> </h1>
 
             <div class="film-img">
                 <div style="background-image:url(<?php $this->echoHtml(PATH_MEDIAS_UPLOAD.$film->getImage()->getUrl());?>);background-position:50% 50%;background-size:cover;">
