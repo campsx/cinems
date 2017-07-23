@@ -27,10 +27,10 @@
                     <?php $this->echoHtml($email->getUser()->getEmail());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($email->getCreated());?>
+                    <?php $this->echoHtml($email->getUpdated());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($email->getUpdated());?>
+                    <?php $this->echoHtml($email->getCreated());?>
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>emails/edit/<?php $this->echoHtml($email->getId())?>">Modifier</a>

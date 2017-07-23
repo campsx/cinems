@@ -4,6 +4,8 @@
     des petits total avec top comment sur les films.
     formulaire require pour eviter bug sql
     injection sql dans le fichier model
+    le readme
+    power point projet annuel / c / reseau
     <div class="dashboard-block">
         <h2>Top view film</h2>
         <ul>

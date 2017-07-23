@@ -20,10 +20,10 @@
                     <?php $this->echoHtml($category->getTitle());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($category->getCreated());?>
+                    <?php $this->echoHtml($category->getUpdated());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($category->getUpdated());?>
+                    <?php $this->echoHtml($category->getCreated());?>
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>categories/edit/<?php $this->echoHtml($category->getId())?>">Modifier</a>

@@ -25,10 +25,10 @@
                         <?php $this->echoHtml($actor->getLastname());?>
                     </td>
                     <td>
-                        <?php $this->echoHtml($actor->getCreated());?>
+                        <?php $this->echoHtml($actor->getUpdated());?>
                     </td>
                     <td>
-                        <?php $this->echoHtml($actor->getUpdated());?>
+                        <?php $this->echoHtml($actor->getCreated());?>
                     </td>
                     <td>
                         <?php $this->echoHtml($actor->getView());?>

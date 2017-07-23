@@ -25,10 +25,10 @@
                     <?php $this->echoHtml($director->getLastname());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($director->getCreated());?>
+                    <?php $this->echoHtml($director->getUpdated());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($director->getUpdated());?>
+                    <?php $this->echoHtml($director->getCreated());?>
                 </td>
                 <td>
                     <?php $this->echoHtml($director->getView());?>

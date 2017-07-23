@@ -30,10 +30,10 @@
                     <?php $this->echoHtml($film->getUser()->getEmail());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($film->getCreated());?>
+                    <?php $this->echoHtml($film->getUpdated());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($film->getUpdated());?>
+                    <?php $this->echoHtml($film->getCreated());?>
                 </td>
                 <td>
                     <?php $this->echoHtml($film->getView());?>

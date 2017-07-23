@@ -29,10 +29,10 @@
                     <?php $this->echoHtml($pageModel->getWinter()->getEmail());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($pageModel->getCreated());?>
+                    <?php $this->echoHtml($pageModel->getUpdated());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($pageModel->getUpdated());?>
+                    <?php $this->echoHtml($pageModel->getCreated());?>
                 </td>
                 <td>
                     <?php $this->echoHtml($pageModel->getView());?>

@@ -28,10 +28,10 @@
                     <?php $this->echoHtml($user->getLastname());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($user->getCreated());?>
+                    <?php $this->echoHtml($user->getUpdated());?>
                 </td>
                 <td>
-                    <?php $this->echoHtml($user->getUpdated());?>
+                    <?php $this->echoHtml($user->getCreated());?>
                 </td>
                 <td>
                     <a href="<?php echo URL_WEBSITE_ADMIN;?>users/edit/<?php $this->echoHtml($user->getId())?>">Modifier</a>
