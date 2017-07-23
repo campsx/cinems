@@ -1,11 +1,11 @@
 <h1>Welcome dashboard backoffice</h1>
 <div>
-    Total page vue sur site, total comment,
+    <!--Total page vue sur site, total comment,
     des petits total avec top comment sur les films.
     formulaire require pour eviter bug sql
     injection sql dans le fichier model
     le readme
-    power point projet annuel / c / reseau
+    power point projet annuel / c / reseau -->
     <div class="dashboard-block">
         <h2>Top view film</h2>
         <ul>
