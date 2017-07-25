@@ -40,6 +40,10 @@ ul { list-style-type: none;}
     width: 100%;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .left-content {
     width: 64%;
     padding-left: 5%;

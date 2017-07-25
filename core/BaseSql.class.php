@@ -164,9 +164,11 @@ abstract class BaseSql {
           return null;
       }
       $tableName = $this->joinProperties['OneToMany'][$columns]['table'];
-      $sql = "SELECT a.id FROM ".$tableName." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
+      $sql = "SELECT a.id FROM ".$tableName." as a WHERE a.".strtolower($this->table)."_id = :id ;";
       $query = $this->db->prepare($sql);
-      $query->execute();
+      $query->execute([
+              'id' => $this->id,
+      ]);
       $allId = $query->fetchAll(PDO::FETCH_ASSOC);
       $idAlreadyPersiste = [];
       foreach ($this->$columns as $model) {
@@ -181,9 +183,12 @@ abstract class BaseSql {
               if($model->id == -1){
                   $model->save();
               }
-              $sql = "UPDATE ".$tableName." SET ".strtolower($this->table)."_id = ".$this->id."  WHERE id = ".$model->id." ;";
+              $sql = "UPDATE ".$tableName." SET ".strtolower($this->table)."_id = :id  WHERE id = :idmodel ;";
               $query = $this->db->prepare($sql);
-              $query->execute();
+              $query->execute([
+                  'id' => $this->id,
+                  'idmodel' => $model->id
+              ]);
           }
       }
       foreach ($idAlreadyPersiste as $i) {
@@ -212,9 +217,11 @@ abstract class BaseSql {
       $this->getJoin($columns);
       $tableName = $this->joinProperties['ManyToMany'][$columns]['table'];
       $joinTableName = $this->joinProperties['ManyToMany'][$columns]['joinTable'];
-      $sql = "SELECT a.".$tableName."_id FROM ".$joinTableName." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
+      $sql = "SELECT a.".$tableName."_id FROM ".$joinTableName." as a WHERE a.".strtolower($this->table)."_id = :id ;";
       $query = $this->db->prepare($sql);
-      $query->execute();
+      $query->execute([
+          'id' => $this->id,
+      ]);
       $allId = $query->fetchAll(PDO::FETCH_ASSOC);
       $idAlreadyPersiste = [];
       foreach ($this->$columns as $model) {
@@ -406,9 +413,11 @@ abstract class BaseSql {
 
         $joinClassName = $options['table'];
         $className = ucfirst($joinClassName);
-        $sql = "SELECT a.id FROM ".$joinClassName." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
+        $sql = "SELECT a.id FROM ".$joinClassName." as a WHERE a.".strtolower($this->table)."_id = :id ;";
         $query = $this->db->prepare($sql);
-        $query->execute();
+        $query->execute([
+            'id' => $this->id,
+        ]);
         $allId = $query->fetchAll(PDO::FETCH_ASSOC);
         if ($allId){
             foreach ($allId as $id) {
@@ -445,9 +454,11 @@ abstract class BaseSql {
         }
 
         $className = ucfirst($options['table']);
-        $sql = "SELECT a.".$options['table']."_id FROM ".$options['joinTable']." as a WHERE a.".strtolower($this->table)."_id = ".$this->id." ;";
+        $sql = "SELECT a.".$options['table']."_id FROM ".$options['joinTable']." as a WHERE a.".strtolower($this->table)."_id = :id ;";
         $query = $this->db->prepare($sql);
-        $query->execute();
+        $query->execute([
+            'id' => $this->id,
+        ]);
         $allId = $query->fetchAll(PDO::FETCH_ASSOC);
         if ($allId){
             foreach ($allId as $id) {
@@ -459,11 +470,12 @@ abstract class BaseSql {
 
     public function unique($nameField, $field)
     {
-        $sql = "SELECT a.id FROM ".strtolower($this->table)." as a WHERE a.".$nameField." = :field AND a.id != ".$this->id;
+        $sql = "SELECT a.id FROM ".strtolower($this->table)." as a WHERE a.".$nameField." = :field AND a.id != :id";
         $query = $this->db->prepare($sql);
 
         $query->execute([
-                'field' => $field
+                'field' => $field,
+                'id' => $this->id
             ]);
 
         return $query->fetch(PDO::FETCH_ASSOC) === false;

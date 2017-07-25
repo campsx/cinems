@@ -4,7 +4,12 @@ class IndexController extends AbstractController {
 
 	public function indexAction($params)
 	{
-		$view = new View('index', 'index');
+        $manager = new Manager();
+        $films = $manager->lastFilms(10);
+        $actors = $manager->lastActors(10);
+        $view = new View('index', 'index');
+        $view->assign('listOfFilms', $films);
+        $view->assign('listOfActors', $actors);
 	}
 
 	public function page404Action($params)
