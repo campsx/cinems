@@ -145,11 +145,11 @@
                     </div>
                     <div class="comment-block">
                         <p class="comment-text">
-                            <?php echo $comment->getContent(); ?>
+                            <?php $this->echoHtml($comment->getContent()); ?>
                         </p>
                         <div class="bottom-comment">
                             <div class="comment-date">
-                                <?php echo $comment->getCreated(); ?>
+                                <?php echo $this->echoHtml($comment->getCreated()); ?>
                             </div>
                             <div class="comment-note">
                                 <div class="stars">
