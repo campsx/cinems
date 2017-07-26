@@ -222,8 +222,7 @@ class Comment extends BaseSql{
                 "content" => [
                     "type" => "textarea",
                     "label" => "Content",
-                    "required" => false,
-                    "wysiwyg" => true
+                    "required" => false
                 ],
                 "note" => [
                     "type" => "number",
@@ -272,8 +271,7 @@ class Comment extends BaseSql{
                 "content" => [
                     "type" => "textarea",
                     "label" => "Content",
-                    "required" => true,
-                    "wysiwyg" => true
+                    "required" => true
                 ],
                 "note" => [
                     "type" => "number",
