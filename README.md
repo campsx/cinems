@@ -1,5 +1,5 @@
 # Le CMS **CineMS**
-Pour la fin de mon année chez ESGI j'ai dù faire un "CMS like", la consigne était de le faire en PHP from scratch (sans framework), mais je me suis beaucoup inspiré de Symfony pour la sctructure (framework que j'utilisais professionnellement à ce moment là).
+Pour la fin de mon année chez ESGI j'ai dù faire un "CMS like", la consigne était de le faire en PHP from scratch (sans framework), mais je me suis beaucoup inspiré de Symfony pour la sctructure (framework que j'utilisais professionnellement à ce moment là). Le theme du CMS porte sur le cinema.
 
 ## Installation
 
@@ -17,4 +17,3 @@ DB_TYPE = mysql
 [mod]
 ENV_TYPE = dev
 ```
-test
